@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Admin {%block title%}{%endblock%}</title>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+
+        {% javascripts '@GLZeistProgrammaBundle/Resources/public/admin/js/*' %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        {% stylesheets '@GLZeistProgrammaBundle/Resources/public/admin/css/*' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+    </head>
+    <body>
+        <header id="header" class="clearfix">
+            <nav>
+                {%include 'GLZeistProgrammaBundle:Admin:menu.html.twig' %}
+            </nav>
+        </header>
+        <div id="container" class="clearfix">
+            {%block content%}{%endblock%}
+        </div>
+        <footer id="footer" class="clearfix">
+        </footer>
+    </body>
+</html>

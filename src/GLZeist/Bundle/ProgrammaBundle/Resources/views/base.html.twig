@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--[if lt IE 7]> <html class="lt-ie7" lang="{{app.request.locale}}"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7" lang="{{app.request.locale}}"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8" lang="{{app.request.locale}}"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="{{app.request.locale}}"> <!--<![endif]-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{%block title%}{%endblock%}</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+        {% javascripts '@GLZeistProgrammaBundle/Resources/public/js/*' %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        {% stylesheets '@GLZeistProgrammaBundle/Resources/public/css/*' %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        
+    </head>
+    <body>
+        <header>
+            <div id="logo">
+            </div>
+            <div id="search">
+                <form action="{{path('glzeist_programma_app_item_search')}}" method="POST">
+                    <input name="search" value="{%if search is defined%}{{search}}{%endif%}" type="text" />
+                    <input type="submit" value="Zoek"/>
+                </form>
+            </div>
+        </header>
+        <div id="container">
+            
+            {%block content%}{%endblock%}
+        </div>
+        <footer>
+        </footer>
+    </body>
+</html>

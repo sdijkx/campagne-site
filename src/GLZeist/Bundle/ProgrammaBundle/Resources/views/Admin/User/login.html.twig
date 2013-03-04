@@ -1,0 +1,23 @@
+{% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
+{%block content%}
+    {% if error %}
+        <div class="error">{{ error.message|trans }}</div>
+    {% endif %}
+    <div id="login">
+        <form name="login" class="default-enter-key" action="{{ path('admin_login_check') }}" method="post">
+            <div>
+                <div>
+                    <label>{% trans %}Username{% endtrans %}</label>
+                    <input type="text" class="input_tekst" id="username" name="_username" value="{{ last_username }}" maxlength="100" />
+                </div>
+                <div>
+                    <label>{% trans %}Password{% endtrans %}</label>
+                    <input type="password" class="input_tekst" id="password" name="_password" maxlength="100"/>
+                </div>
+                <div>
+                    <input type="submit" name="submit" value="{% trans %}Login{% endtrans %}" />
+                </div>
+            </div>
+        </form>
+    </div>
+{%endblock%}

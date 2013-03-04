@@ -1,0 +1,40 @@
+{% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
+{%block content%}
+
+<h1>Hoofdstukken</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td>{{ entity.titel }}</td>
+            <td>
+                <ul class="actions">
+                    <li>
+                        <a href="{{ path('hoofdstuk_show', { 'id': entity.id }) }}">Bekijk</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('hoofdstuk_edit', { 'id': entity.id }) }}">Bewerk</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul class="actions">
+    <li>
+        <a href="{{ path('hoofdstuk_new') }}">
+            Toevoegen
+        </a>
+    </li>
+</ul>
+
+{%endblock%}

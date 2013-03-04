@@ -1,0 +1,19 @@
+{% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block content%}
+
+<article class="item">
+    <header>
+        <h1>{{item.titel}}</h1>
+        <div class="basistekst">{{item.basistekst}}</div>
+        <div class="trefwoorden">
+            {%for trefwoord in item.trefwoorden%}
+                <span class="trefwoord">{{trefwoord}}</span>
+            {%endfor%}
+        </div>
+    </header>
+    <div class="hoofdtekst">
+        {{item.hoofdtekst}}
+    </div>
+</article>
+
+{%endblock%}

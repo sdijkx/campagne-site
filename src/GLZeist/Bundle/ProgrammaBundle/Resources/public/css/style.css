@@ -1,0 +1,66 @@
+* {
+    margin:0;
+    padding:0;
+    font-family: Georgia,"Times New Roman",Times,serif; 
+}
+body {
+    background-color: #F0F0F0;
+    color: #303030;
+    font-size:12pt;
+    margin:0;
+}
+h1 {}
+h2 {}
+ul { margin-left:20px;list-style: none;}
+
+
+.clearfix {}
+.clearfix:after {clear:both;content:"\0000a0"}
+
+/*
+    HEADER
+*/
+header { background-color: #2F2F2F;color:#EFEFEF;padding: 0 10px; font-size: 10pt; }
+nav:after { clear:both;content:"\0000a0"}
+nav a { color: #FAFAFA; text-decoration: none;}
+nav a:visited { color: #FFF }
+nav ul {list-style: none;}
+nav ul.right {float:right}
+nav ul.left {float:left}
+nav li { display:inline-block; padding:8px 2px;margin:0; }
+nav li:before {content:"\0000a0"}
+nav li:hover {background-color: #5F5F5F; }
+
+
+/*
+    FOOTER
+*/
+#footer { background-color: #555;color:#FFF;padding: 8px 10px; height:10%; }
+
+
+/*
+    CONTAINER
+*/
+#container { background-color: #FFF; margin: 0 10%; padding:15px;height: 90%;}
+
+ul[class*="actions"] li {
+    display: inline-block;
+}
+*[type=submit],ul[class*="actions"] a { 
+    text-decoration: none; display: inline-block; padding:3px 10px;border-radius:4px;margin:3px;border:none;
+    font-size: 12pt;
+    color:#EFEFEF;
+    cursor:pointer;
+    background: #006e2e; /* Old browsers */
+    background: -moz-linear-gradient(top,  #006e2e 0%, #00ad42 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#006e2e), color-stop(100%,#00ad42)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #006e2e 0%,#00ad42 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #006e2e 0%,#00ad42 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #006e2e 0%,#00ad42 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #006e2e 0%,#00ad42 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006e2e', endColorstr='#00ad42',GradientType=0 ); /* IE6-9 */
+}
+*[type=submit]:hover,ul[class*="actions"] a:hover
+{
+    
+}
