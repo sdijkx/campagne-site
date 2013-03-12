@@ -1,0 +1,19 @@
+{% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
+{%block content%}
+<h1>Thema toevoegen</h1>
+
+<form action="{{ path('thema_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Toevoegen</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_thema') }}">
+            Terug naar het overzicht
+        </a>
+    </li>
+</ul>
+{%endblock%}

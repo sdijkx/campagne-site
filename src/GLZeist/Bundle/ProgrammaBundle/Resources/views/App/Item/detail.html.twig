@@ -1,19 +1,94 @@
 {% extends "GLZeistProgrammaBundle::base.html.twig" %} 
 {%block content%}
 
-<article class="item">
+<article id="binnenvak" class="item">
     <header>
         <h1>{{item.titel}}</h1>
-        <div class="basistekst">{{item.basistekst}}</div>
-        <div class="trefwoorden">
-            {%for trefwoord in item.trefwoorden%}
-                <span class="trefwoord">{{trefwoord}}</span>
-            {%endfor%}
-        </div>
+        {%if item.tweet %}
+            {{glzeist.tweet(item.tweet)}}
+        {%endif%}
     </header>
-    <div class="hoofdtekst">
-        {{item.hoofdtekst}}
+    <h2>
+        Kernboodschap
+    </h2>
+    <div>
+        {{item.kernboodschap|raw}}
     </div>
+    {%if item.voorstellen %}
+        <h2>
+            Wat stellen we voor?
+        </h2>
+        <div>
+            {{item.voorstellen|raw}}
+        </div>
+    {%endif%}
+    {%if item.voorstellen %}
+        <h2>
+            Wat hebben we er de afgelopen vier jaar aan gedaan?
+        </h2>
+        <div>
+            {{item.verantwoording|raw}}
+        </div>
+    {%endif%}
+    {%if item.hoofdtekst %}
+        <h2>
+            Achtergrond
+        </h2>
+        <div>
+            {{item.hoofdtekst}}
+        </div>
+    {%endif%}
+    {%if item.links %}
+        <h2>
+            Links
+        </h2>
+        <div>
+        {#
+            {%for link in item.links %}
+                <a href={{link.url}} title="{{link.titel}}">{{link.titel}}</a>
+            {%endfor%}
+        #}
+        </div>
+    {%endif%}
+
 </article>
 
+{%endblock%}
+
+{%block rightcolumn%}
+
+    {%if item.video %}
+        <div id="video">
+            <iframe width="298" height="180" src="http://www.youtube.com/embed/{{item.video}}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    {%endif%}
+    {%if item.relaties|length>0 %}
+        <div id="relaties">
+            <h2>Samenhangende items</h2>
+            <h3>
+            {%for relatie in item.relaties %}
+                &gt; {{relatie.titel}}
+               <br>
+            {%endfor%}
+            </h3>
+        </div>
+    {%endif%}
+    {%if item.trefwoorden|length>0 %}
+        <div id="trefwoorden">
+            <h2>Trefwoorden</h2>
+            <h3>
+            {%for trefwoord in item.trefwoorden %}
+                &gt; <a href="{{path('trefwoord',{slug:trefwoord.slug})}}" title="{{trefwoord.trefwoord}}">{{trefwoord.trefwoord}}</a>
+                <br>
+            {%endfor%}
+            </h3>
+        </div>
+    {%endif%}
+    {%if item.imagefile %}
+        <div id="afbeelding">
+            <div class="image">
+                <img src="{{path('file',{filename:item.imagefile})}}" />
+            </div>
+        </div>
+    {%endif%}
 {%endblock%}

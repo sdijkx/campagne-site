@@ -1,0 +1,11 @@
+
+{%set active = app.request.baseUrl ~ app.request.pathInfo %}
+
+<ul>
+    {%set url = path('home') %}
+    <li><a class="{%if active==url %}menurood{%else%}menugroen{%endif%}" href="{{url}}">Home</a> | </li>
+    {%for thema in themas()%}
+        {%set url = path('thema',{slug:thema.slug}) %}
+        <li><a class="{%if active==url %}menurood{%else%}menugroen{%endif%}" href="{{url}}">{{thema.titel}}</a> {%if not loop.last%} | {%endif%} </li>
+    {%endfor%}
+</ul>

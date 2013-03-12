@@ -9,6 +9,7 @@
         "symfony/symfony": "2.1.*",
         "doctrine/orm": ">=2.2.3,<2.5-dev",
         "doctrine/doctrine-bundle": "1.1.*",
+        "doctrine/doctrine-fixtures-bundle": "master",
         "twig/extensions": "1.0.*@dev",
         "symfony/assetic-bundle": "2.1.*",
         "symfony/swiftmailer-bundle": "2.1.*",
@@ -41,5 +42,6 @@
         "branch-alias": {
             "dev-master": "2.1-dev"
         }
-    }
+    },
+    "minimum-stability" : "dev"
 }

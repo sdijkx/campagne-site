@@ -1,3 +1,4 @@
+{% import "GLZeistProgrammaBundle::macros.html.twig" as glzeist %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--[if lt IE 7]> <html class="lt-ie7" lang="{{app.request.locale}}"> <![endif]-->
 <!--[if IE 7]>    <html class="ie7" lang="{{app.request.locale}}"> <![endif]-->
@@ -5,7 +6,15 @@
 <!--[if gt IE 8]><!--> <html lang="{{app.request.locale}}"> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="GroenLinks, Zeist, verkiezingsprogramma">
+        <meta name="owner" content="GroenLinks Zeist">
+        <meta name="author" content="Ronald Camstra en Steven Dijkxhoorn">
+        <meta name="robots" content="index,follow">
+        <meta name="description" content="GroenLinks Zeist - Verkiezingsprogramma 2014">
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
         <title>{%block title%}{%endblock%}</title>
+        
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
         {% javascripts '@GLZeistProgrammaBundle/Resources/public/js/*' %}
@@ -18,21 +27,31 @@
         
     </head>
     <body>
-        <header>
-            <div id="logo">
+        <div id="container" class="clearfix">
+            <header>
+                <div id="logo">
+                    <img src="{{ asset('bundles/glzeistprogramma/images/logo.png') }}" />
+                </div>
+                <div id="search">
+                    <form action="{{path('glzeist_programma_app_item_search')}}" method="POST">
+                        <input name="search" value="{%if search is defined%}{{search}}{%endif%}" type="text" />
+                        <input type="submit" value="Zoek"/>
+                    </form>
+                </div>
+                <div id="banner">
+                </div>
+            </header>
+            <nav>
+                {%include 'GLZeistProgrammaBundle:App:menu.html.twig'%}
+            </nav>
+            <div id="content">
+                {%block content%}{%endblock%}
             </div>
-            <div id="search">
-                <form action="{{path('glzeist_programma_app_item_search')}}" method="POST">
-                    <input name="search" value="{%if search is defined%}{{search}}{%endif%}" type="text" />
-                    <input type="submit" value="Zoek"/>
-                </form>
+            <div id="rightcolumn">
+                {%block rightcolumn%}{%endblock%}
             </div>
-        </header>
-        <div id="container">
-            
-            {%block content%}{%endblock%}
         </div>
-        <footer>
+        <footer class="clearfix">
         </footer>
     </body>
 </html>

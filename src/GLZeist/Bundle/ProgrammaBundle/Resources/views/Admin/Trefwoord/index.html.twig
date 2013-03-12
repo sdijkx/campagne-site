@@ -3,25 +3,18 @@
 <table class="records_list">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Trefwoord</th>
-            <th>Actions</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('trefwoord_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.trefwoord }}</td>
+            <td class="left">{{ entity.trefwoord }}</td>
             <td>
-                <ul  class="actions">
-                    <li>
-                        <a href="{{ path('trefwoord_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('trefwoord_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                <form action="{{ path('trefwoord_delete', { 'id': entity.id }) }}" method="post">
+                    <button type="submit">Verwijderen</button>
+                </form>
             </td>
         </tr>
     {% endfor %}
@@ -31,7 +24,7 @@
 <ul class="actions">
     <li>
         <a href="{{ path('trefwoord_new') }}">
-            Create a new entry
+            Nieuw trefwoord toevoegen
         </a>
     </li>
 </ul>

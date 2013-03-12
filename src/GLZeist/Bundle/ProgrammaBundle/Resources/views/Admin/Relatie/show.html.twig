@@ -16,7 +16,7 @@
 <ul class="record_actions">
     <li>
         <a href="{{ path('relatie') }}">
-            Back to the list
+            Terug naar het overzicht
         </a>
     </li>
     <li>
@@ -27,7 +27,7 @@
     <li>
         <form action="{{ path('relatie_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
+            <button type="submit">Verwijderen</button>
         </form>
     </li>
 </ul>

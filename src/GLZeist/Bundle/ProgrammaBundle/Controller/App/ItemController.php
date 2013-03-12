@@ -8,14 +8,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class ItemController extends Controller
 {
-    /**
-     * @Route("/")
-     * @Template()
-     */
-    public function indexAction()
+    
+    private function moreitems($results,$limit)
     {
-        $items = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findAllForHomePage();
-        return array('items' => $items);
+        if(!is_null($results) && count($results)>$limit)
+        {
+            array_pop($results);
+            return true;
+        }
+         else 
+        {
+             return false;
+        }        
     }
     
     /**
@@ -25,8 +29,9 @@ class ItemController extends Controller
     public function searchAction()
     {
         $search=$this->getRequest()->get('search');
-        $results = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findAllForSearch($search);        
-        return array('results'=>$results,'search'=>$search);
+        $limit=$this->getRequest()->get('limit',10);
+        $results = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findAllForSearch($search,$limit+1);
+        return array('results'=>$results,'search'=>$search,'limit'=>$limit,'moreitems'=>$this->moreitems($results,$limit));
     }
     
     
@@ -44,5 +49,55 @@ class ItemController extends Controller
         $related=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findAllRelated($item->getId());
         return array('item'=>$item,'related'=>$related);
     }
+    
+    /**
+     * @Route("/thema/{slug}", name="thema")
+     * @Template()
+     */
+    public function themaAction($slug)
+    {
+        $thema = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Thema')->findOneBySlug($slug);
+        if (!$thema) 
+        {
+            throw $this->createNotFoundException();        
+        }
+        $limit=$this->getRequest()->get('limit',10);
+        $items=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findByThema($thema,array('datumtijd'=>'DESC'),$limit+1);
+        return array('thema'=>$thema,'items'=>$items,'limit'=>$limit,'moreitems'=>$this->moreitems($items,$limit));
+    }
+    
+    /**
+     * @Route("/trefwoord/{slug}", name="trefwoord")
+     * @Template()
+     */
+    public function trefwoordAction($slug)
+    {
+        $trefwoord = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Trefwoord')->findOneBySlug($slug);
+        if (!$trefwoord) 
+        {
+            throw $this->createNotFoundException();        
+        }
+        $limit=$this->getRequest()->get('limit',10);
+        $items=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findAllForTrefwoord($trefwoord,array('datumtijd'=>'DESC'),$limit+1);
+        return array('trefwoord'=>$trefwoord,'items'=>$items, 'limit'=>$limit,'moreitems'=>$this->moreitems($items,$limit));
+    }
+    
+    /**
+     * @Route("/file/{filename}",name="file") 
+     * @Template()
+     */
+    public function fileAction($filename)
+    {
+        $dir=$this->container->getParameter('upload_dir');
+        $path=$dir.DIRECTORY_SEPARATOR.$filename;
+        $guesser=  \Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser::getInstance();
+        $mimeType=$guesser->guess($path);
+        ob_clean();
+        header('Content-type: '.$mimeType);
+        header('Content-Disposition: attachment; filename="'.$filename.'"');
+        readfile($path);
+        
+    }
+    
     
 }

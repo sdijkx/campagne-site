@@ -4,9 +4,12 @@
         {%set item=result[0] %}
         {%set relevance=result.relevance %}
         <div class="search-result">
-            <span class="titel"><a title="{{item.titel}}" href="{{path('glzeist_programma_app_item_detail',{slug:item.slug})}}">{{item.titel}}</a></span>
-            <span class="titel">{{item.basistekst}}</span>
-            <span class="relevance">{{(relevance*100)|number_format(0)}}</span>
+            {%for result in results %}
+                {%include 'GLZeistProgrammaBundle:App/Item:includes/item-list-entry.html.twig' with {item:result[0]}%}
+            {%endfor%}
         </div>
 {%endfor%}
+{%if moreitems %}
+    {{ glzeist.meer_items('search',{search:search},results|length,limit) }}
+{%endif%}
 {%endblock%}

@@ -4,17 +4,41 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="gl_zeist_programma.example.class">GLZeist\Bundle\ProgrammaBundle\Example</parameter>
+        <parameter key="gl_zeist_programma.upload_listener.class">GLZeist\Bundle\ProgrammaBundle\Listener\UploadListener</parameter>
+        <parameter key="gl_zeist_programma.search_fields_listener.class">GLZeist\Bundle\ProgrammaBundle\Listener\SearchFieldsListener</parameter>
+        <parameter key="upload_dir">%kernel.root_dir%/uploads</parameter>
     </parameters>
 
     <services>
-        <service id="gl_zeist_programma.example" class="%gl_zeist_programma.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="gl_zeist_programma.upload_listener" class="%gl_zeist_programma.upload_listener.class%">
+            <argument>%upload_dir%</argument>
+            <tag name="doctrine.event_listener" event="preUpdate" method="preUpdate" />
+            <tag name="doctrine.event_listener" event="prePersist" method="prePersist" />
+            <tag name="doctrine.event_listener" event="postUpdate" method="postUpdate" />
+            <tag name="doctrine.event_listener" event="postPersist" method="postPersist" />
+            <tag name="doctrine.event_listener" event="postRemove" method="postRemove" />
         </service>
+
+         
+        
+        <service id="gl_zeist_programma.search_fields_listener" class="%gl_zeist_programma.search_fields_listener.class%">
+            <tag name="doctrine.event_listener" event="preUpdate" method="shorten" />
+            <tag name="doctrine.event_listener" event="prePersist" method="shorten" />
+        </service>
+        
+        
+        
+        <service id="gl_zeist_app_extension" class="GLZeist\Bundle\ProgrammaBundle\Twig\AppExtension">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <tag name="twig.extension" />
+        </service>
+        
+        <service id="gl_zeist_url_shortner" class="GLZeist\Bundle\ProgrammaBundle\Listener\URLShortener">
+        </service>
+        
+        
     </services>
-    -->
+    
+    
 </container>

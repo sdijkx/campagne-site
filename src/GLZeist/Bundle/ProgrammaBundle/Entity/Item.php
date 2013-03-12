@@ -4,12 +4,14 @@ namespace GLZeist\Bundle\ProgrammaBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Item
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="GLZeist\Bundle\ProgrammaBundle\Repository\ItemRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Item
 {
@@ -32,37 +34,89 @@ class Item
     /**
      * @var string
      *
-     * @ORM\Column(name="basistekst", type="text")
+     * @ORM\Column(name="kernboodschap", type="text",nullable=true)
      */
-    private $basistekst;
+    private $kernboodschap;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="hoofdtekst", type="text")
+     * @ORM\Column(name="hoofdtekst", type="text",nullable=true)
      */
     private $hoofdtekst;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="tweet", type="string", length=140)
+     * @Assert\Length(max=100)
+     * @ORM\Column(name="tweet", type="string", length=100,nullable=true)
      */
     private $tweet;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="short_url", type="string", length=30,nullable=true)
+     */
+    private $shortURL;
+    
 
     /**
      * @var string
      *
-     * @ORM\Column(name="verantwoording", type="text")
+     * @ORM\Column(name="verantwoording", type="text",nullable=true)
      */
     private $verantwoording;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="voorstellen", type="text")
+     * @ORM\Column(name="voorstellen", type="text",nullable=true)
      */
     private $voorstellen;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="datumtijd", type="datetime",nullable=true)
+     */
+    private $datumtijd;
+    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="links", type="text",nullable=true)
+     */
+    private $links;    
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="video", type="string",nullable=true)
+     */
+    private $video;
+        
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="imagefile", type="string",nullable=true)
+     */
+    private $imagefile;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="thumbfile", type="string",nullable=true)
+     */
+    private $thumbfile;
+    
+    
+    /**
+     * @Assert\File(maxSize="6000000",mimeTypes={"image/gif","image/png","image/jpg","image/jpeg"})
+     */
+    public $file;
+    
     
     /**
      * @var boolean
@@ -81,9 +135,9 @@ class Item
     
     /**
      * @ORM\ManyToMany(targetEntity="Trefwoord")
+     * @ORM\OrderBy({"trefwoord"="ASC"})
      */
     private $trefwoorden;
-    
     
     /**
      * @ORM\OneToMany(targetEntity="Media",mappedBy="item",cascade={"all"})
@@ -91,9 +145,35 @@ class Item
     private $media;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Paragraaf",inversedBy="paragraaf",cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Paragraaf",inversedBy="paragraaf")
      */
     private $paragraaf;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Thema")
+     * @ORM\OrderBy({"thema"="ASC"})
+     */
+    private $thema;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Item")
+     * @ORM\JoinTable(name="item_relatie",
+     *      joinColumns={@ORM\JoinColumn(name="item_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="reference_id", referencedColumnName="id")}
+     *      )
+     */
+    private $relaties;
+    
+    /**
+     * @ORM\Column(name="zoek_tekst",type="text",nullable=true)
+     */
+    private $zoektekst;
+    
+    /**
+     * @ORM\Column(name="zoek_trefwoorden",type="text",nullable=true)
+     */    
+    private $zoektrefwoorden;
+    
     
     
     
@@ -101,11 +181,11 @@ class Item
     {
         $this->trefwoorden=new \Doctrine\Common\Collections\ArrayCollection();
         $this->media=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->relaties=new \Doctrine\Common\Collections\ArrayCollection();
         $this->homepage=false;
     }
     
-
-
+    
     /**
      * Get id
      *
@@ -139,29 +219,18 @@ class Item
         return $this->titel;
     }
 
-    /**
-     * Set basistekst
-     *
-     * @param string $basistekst
-     * @return Item
-     */
-    public function setBasistekst($basistekst)
+   
+    public function setKernboodschap($kernboodschap)
     {
-        $this->basistekst = $basistekst;
+        $this->kernboodschap=$kernboodschap;
+    }
     
-        return $this;
-    }
-
-    /**
-     * Get basistekst
-     *
-     * @return string 
-     */
-    public function getBasistekst()
+    public function getKernboodschap()
     {
-        return $this->basistekst;
+        return $this->kernboodschap;
     }
-
+    
+    
     /**
      * Set hoofdtekst
      *
@@ -208,7 +277,15 @@ class Item
         return $this->tweet;
     }
 
-    /**
+    public function getShortURL() {
+        return $this->shortURL;
+    }
+
+    public function setShortURL($shortURL) {
+        $this->shortURL = $shortURL;
+    }
+
+        /**
      * Set verantwoording
      *
      * @param string $verantwoording
@@ -254,6 +331,58 @@ class Item
         return $this->voorstellen;
     }
     
+    public function getDatumtijd() {
+        return $this->datumtijd;
+    }
+
+    public function setDatumtijd($datumtijd) {
+        $this->datumtijd = $datumtijd;
+    }
+
+        
+    public function getLinks() {
+        return $this->links;
+    }
+
+    public function setLinks($links) {
+        $this->links = $links;
+    }
+
+        
+    public function getVideo() {
+        return $this->video;
+    }
+
+    public function setVideo($video) {
+        $this->video = $video;
+    }
+
+    public function getImagefile() {
+        return $this->imagefile;
+    }
+
+    public function setImagefile($imagefile) {
+        $this->imagefile = $imagefile;
+    }
+
+    public function getThumbfile() {
+        return $this->thumbfile;
+    }
+
+    public function setThumbfile($thumbfile) {
+        $this->thumbfile = $thumbfile;
+    }
+
+    
+    public function getFile() {
+        return $this->file;
+    }
+
+    public function setFile($file) {
+        $this->file = $file;
+    }
+
+            
     public function getSlug() {
         return $this->slug;
     }
@@ -303,8 +432,31 @@ class Item
         $this->paragraaf = $paragraaf;
     }
 
-    
-            
+    public function getThema() {
+        return $this->thema;
+    }
+
+    public function setThema($thema) {
+        $this->thema = $thema;
+    }
+
+    public function getZoektekst() {
+        return $this->zoektekst;
+    }
+
+    public function setZoektekst($zoektekst) {
+        $this->zoektekst = $zoektekst;
+    }
+
+    public function getZoektrefwoorden() {
+        return $this->zoektrefwoorden;
+    }
+
+    public function setZoektrefwoorden($zoektrefwoorden) {
+        $this->zoektrefwoorden = $zoektrefwoorden;
+    }
+
+                
     public function __toString()
     {
         return $this->titel;

@@ -26,11 +26,68 @@ class ItemController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        
+        $orderBy=$this->getRequest()->get('orderby','i.datumtijd');
+        $sortOrder=$this->getRequest()->get('sortorder','DESC');
+        $search=$this->getRequest()->get('search',null);
+        $page=$this->getRequest()->get('page',1);
+        
+        
+        $fields=array('i.titel' => 'Titel','i.kernboodschap' => 'Kernboodschap','i.tweet' => 'Tweet','i.datumtijd' => 'Datum');
 
-        $entities = $em->getRepository('GLZeistProgrammaBundle:Item')->findAll();
+        $qb=$em->createQueryBuilder();
+        $qb
+            ->select('COUNT(i)')
+            ->from('GLZeistProgrammaBundle:Item','i');
+        if(!empty($search))
+        {
+            $qb->andWhere('i.zoektekst LIKE :search OR i.zoektrefwoorden LIKE :search');
+            $qb->setParameter('search',$search);
+        }
+        $query=$qb->getQuery();
+        $count=$query->getSingleScalarResult();
+        
+        $limit=10;
+        $pageCount=($count-1)/$limit+1;
+        $offset=($page-1)*$limit;
+        
+        $pages=array();
+        for($i=1;$i<=$pageCount;$i++)
+        {
+            $pages[$i]=$i;
+        }
+
+
+        $qb=$em->createQueryBuilder();
+        $qb
+            ->select('i')
+            ->from('GLZeistProgrammaBundle:Item','i')
+            ->orderBy($orderBy,$sortOrder);
+        if(!empty($search))
+        {
+            $qb->andWhere('i.zoektekst LIKE :search OR i.zoektrefwoorden LIKE :search');
+            $qb->setParameter('search',$search);
+        }
+        $qb->setFirstResult( $offset );
+        $qb->setMaxResults( $limit );
+        
+        $query=$qb->getQuery();
+        $entities=$query->getResult();
+        
+        
+                
+        //$entities = $em->getRepository('GLZeistProgrammaBundle:Item')->findAll(array($orderBy => $sortOrder));
 
         return array(
             'entities' => $entities,
+            'fields' => $fields,
+            'search' => $search,
+            'orderBy'=>$orderBy,
+            'sortOrder' => $sortOrder,
+            'pageCount' => $pageCount,
+            'page' => $page,
+            'pages' => $pages
+            
         );
     }
 
@@ -133,14 +190,14 @@ class ItemController extends Controller
      *
      * @Route("/{id}/update", name="item_update")
      * @Method("POST")
-     * @Template("GLZeistProgrammaBundle:Item:edit.html.twig")
+     * @Template("GLZeistProgrammaBundle:Admin/Item:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->find($id);
-
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
@@ -150,6 +207,11 @@ class ItemController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
+            if($entity->getFile()!==null)
+            {
+                $entity->setImagefile(rand());
+                $entity->setThumbfile(rand());
+            }
             $em->persist($entity);
             $em->flush();
 

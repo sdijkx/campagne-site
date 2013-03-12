@@ -2,6 +2,7 @@
 
 namespace GLZeist\Bundle\ProgrammaBundle\Entity;
 
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,6 +28,12 @@ class Trefwoord
      * @ORM\Column(name="trefwoord", type="string", length=255)
      */
     private $trefwoord;
+    
+    /**
+     * @Gedmo\Slug(fields={"trefwoord"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;    
 
 
     /**
@@ -62,6 +69,20 @@ class Trefwoord
         return $this->trefwoord;
     }
     
+    public function getZoekterm()
+    {
+        return strtolower($this->trefwoord);
+    }
+    
+    public function getSlug() {
+        return $this->slug;
+    }
+
+    public function setSlug($slug) {
+        $this->slug = $slug;
+    }
+
+        
     public function __toString()
     {
         return $this->trefwoord;

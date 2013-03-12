@@ -8,6 +8,14 @@ class ItemRepository extends \Doctrine\ORM\EntityRepository
         return $this->getEntityManager()->createQuery("SELECT i FROM GLZeistProgrammaBundle:Item i WHERE i.homepage=true")->getResult();
     }
     
+    public function findAllForTrefwoord($trefwoord)
+    {
+        return $this->getEntityManager()->createQuery("SELECT i FROM GLZeistProgrammaBundle:Item i JOIN i.trefwoorden t  WHERE t=:trefwoord ORDER BY i.datumtijd DESC")
+                ->setParameter('trefwoord',$trefwoord)
+                ->getResult();
+    }
+    
+    
     public function findAllForSearch($search,$limit=0)
     {
             $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
@@ -15,7 +23,8 @@ class ItemRepository extends \Doctrine\ORM\EntityRepository
             $rsm->addFieldResult('i', 'id', 'id');
             $rsm->addFieldResult('i', 'titel', 'titel');
             $rsm->addFieldResult('i', 'tweet', 'tweet');
-            $rsm->addFieldResult('i', 'basistekst', 'basistekst');
+            $rsm->addFieldResult('i', 'kernboodschap', 'kernboodschap');
+            $rsm->addFieldResult('i', 'thumbfile', 'thumbfile');
             $rsm->addFieldResult('i', 'slug', 'slug');
             $rsm->addScalarResult('relevance', 'relevance','float');
             
@@ -27,18 +36,20 @@ class ItemRepository extends \Doctrine\ORM\EntityRepository
                     i.id,
                     i.titel,
                     i.tweet,
-                    i.basistekst, 
+                    i.kernboodschap, 
+                    i.thumbfile,
                     i.slug,
-                    MATCH(s.search_text) AGAINST('{$search}') AS relevance 
+                    MATCH(s.keywords) AGAINST('{$search}' IN BOOLEAN MODE) +
+                    MATCH(s.search_text) AGAINST('{$search}') 
+                    AS relevance 
                  FROM 
                     item_search AS s JOIN Item AS i ON s.item_id = i.id  
-                 WHERE MATCH(s.search_text) AGAINST('{$search}' IN BOOLEAN MODE)".
-                 ($limit>0?" LIMIT {$limit} ":" ").
-                 "HAVING relevance>0
-                 ORDER BY relevance DESC";
-
+                 WHERE MATCH(s.search_text) AGAINST('{$search}' IN BOOLEAN MODE) OR MATCH(s.keywords) AGAINST('{$search}' IN BOOLEAN MODE)".
+                 "ORDER BY relevance DESC, datumtijd DESC ".
+                ($limit>0?" LIMIT {$limit} ":" ");
+                
             $query = $this->_em->createNativeQuery($sql, $rsm);
-
+            
             $results = $query->getResult();
 
             return $results;

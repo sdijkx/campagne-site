@@ -6,6 +6,7 @@
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="{{asset('lib/ckeditor/ckeditor.js')}}"></script>
 
         {% javascripts '@GLZeistProgrammaBundle/Resources/public/admin/js/*' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -14,6 +15,10 @@
         {% stylesheets '@GLZeistProgrammaBundle/Resources/public/admin/css/*' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+
+        <script>
+        $()
+        </script>
     </head>
     <body>
         <header id="header" class="clearfix">
@@ -26,5 +31,19 @@
         </div>
         <footer id="footer" class="clearfix">
         </footer>
+        <script>
+            $(function(){
+                $('div.form_textarea').on('click','a.edit,a.close',function(){
+                    parent=$(this).parent();
+                    $('div.value',parent).toggle();
+                    $('div.input',parent).toggle();
+                    $('a.edit',parent).toggle();
+                    $('a.close',parent).toggle();
+                    return false;
+                });
+
+
+            });
+        </script>
     </body>
 </html>

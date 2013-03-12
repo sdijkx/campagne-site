@@ -3,19 +3,20 @@ jms_security_extra:
     expressions: true
 
 security:
+        
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
+        GLZeist\Bundle\ProgrammaBundle\Entity\User:
+            algorithm:        sha1
+            encode_as_base64: false
+            iterations:       1        
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
-                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+        editors:
+            entity: { class: GLZeistProgrammaBundle:User, property: username }
 
     firewalls:
       
@@ -30,7 +31,7 @@ security:
             form_login:
                 check_path: /admin/login_check
                 login_path: /admin/login
-                default_target_path: /admin/hoofdstuk
+                default_target_path: /admin/item
             logout:
                 path:   /admin/logout
                 target: /admin/login

@@ -1,0 +1,15 @@
+{% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block content%}
+<h1>{{trefwoord.trefwoord}}</h1>
+<div class="trefwoord">
+    {%for item in items%}
+        {%include 'GLZeistProgrammaBundle:App/Item:includes/item-list-entry.html.twig' %}
+    {%endfor%}
+</div>
+
+
+{%endblock%}
+
+{%block rightcontent%}
+
+{%endblock%}

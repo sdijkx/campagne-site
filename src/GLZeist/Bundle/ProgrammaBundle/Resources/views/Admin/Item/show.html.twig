@@ -11,8 +11,8 @@
             <td>{{ entity.titel }}</td>
         </tr>
         <tr>
-            <th>Basistekst</th>
-            <td>{{ entity.basistekst }}</td>
+            <th>kernboodschap</th>
+            <td>{{ entity.kernboodschap }}</td>
         </tr>
         <tr>
             <th>Hoofdtekst</th>
@@ -40,7 +40,7 @@
 <ul class="record_actions">
     <li>
         <a href="{{ path('item') }}">
-            Back to the list
+            Terug naar het overzicht
         </a>
     </li>
     <li>
@@ -51,7 +51,7 @@
     <li>
         <form action="{{ path('item_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
-            <button type="submit">Delete</button>
+            <button type="submit">Verwijderen</button>
         </form>
     </li>
 </ul>

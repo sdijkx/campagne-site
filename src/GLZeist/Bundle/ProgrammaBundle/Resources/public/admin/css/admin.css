@@ -6,7 +6,7 @@
 body {
     background-color: #F0F0F0;
     color: #303030;
-    font-size:12pt;
+    font-size:10pt;
     margin:0;
 }
 h1 {}
@@ -15,7 +15,7 @@ ul { margin-left:20px;list-style: none;}
 
 
 .clearfix {}
-.clearfix:after {clear:both;content:"\0000a0"}
+.clearfix:after {clear:both;content:"\0000a0";display:block;height:0;}
 
 /*
     HEADER
@@ -35,13 +35,13 @@ nav li:hover {background-color: #5F5F5F; }
 /*
     FOOTER
 */
-#footer { background-color: #555;color:#FFF;padding: 8px 10px; height:10%; }
+#footer { background-color: #AAA;color:#FFF;padding: 8px 10px; height:10%; }
 
 
 /*
     CONTAINER
 */
-#container { background-color: #FFF; margin: 0 10%; padding:15px;height: 90%;}
+#container { background-color: #FFF; margin: 0 10%; padding:15px;min-height: 800px;}
 
 ul[class*="actions"] li {
     display: inline-block;
@@ -82,20 +82,60 @@ table.records_list {width:100%;}
 table.records_list thead { background-color:#4F4F4F;color:#EFEFEF;}
 table.records_list thead th {font-weight: normal;padding:5px;}
 table.records_list td {text-align:center;}
+table.records_list td.left {text-align:left;}
+table.records_list td.right {text-align:right;}
+
+/*RECORD LISTS*/
+div.entry {border: 1px solid #DDD;padding:10px; margin-bottom:5px;}
+div.entry h2 {line-height: 16pt; padding-bottom: 3px;}
+div.entry h3 {line-height: 16pt; padding-bottom: 3px;}
+div.entry div.info { float:left; width:65%;margin-left:10px;}
+div.entry div.actions { float:left;}
+div.results {margin-top:20px;padding: 10px;}
+ul.actions {margin-top:20px;margin-left:0}
 
 
 /*
 FORM
 */
 
-#container > form > div div {padding:10px;border-bottom: #AAA solid thin;}
-#container > form div { margin-top:20px;}
+div.form_row {padding:10px;border-bottom: #AAA solid thin;}
+#container > form > div { margin-top:20px;}
 
-label { width:20%;display: inline-block;}
+div.form_row {}
+
+div.form_row label { width:20%;display: inline-block;vertical-align: top;}
 input[type="text"] { display: inline-block;width:70%;font-size: 120%;}
 input[type="password"] {font-size:120%;}
+
 textarea { width:70%;height:60px;}
+textarea.medium { height:160px;}
+textarea.large { height:360px;}
+
 input[type=checkbox],input[type=radio] {margin-right:5px;}
+
+div.choice.expanded { display:inline-block;border:none!important;line-height: 14pt; margin-right: 3px;width:20%;}
+div.choice.expanded label {width:auto;}
+
+div.form_textarea {border:none!important;margin:0!important;display:inline-block;width:70%;}
+div.form_textarea div.input{display:none;}
+div.form_textarea a.close{display:none;}
+div.form_row input[type=submit]{display:block;}
+
+form.new div.form_textarea div.input{display:block;}
+form.new div.form_textarea a.close{display:none;}
+form.new div.form_textarea div.value{display:none;}
+form.new div.form_textarea a.edit{display:none;}
+
+div.form_row div.upload_image {display: inline-block; width:70%;}
+div.form_row div.upload_image input[type=file]{display:block;}
+
+div.form_row div.video {display: inline-block; width:70%;}
+div.form_row div.video input[type=file]{display:block;}
+
+
+ul.errors { color:red; }
+
 
 /*
 LOGIN
@@ -103,3 +143,8 @@ LOGIN
 
 #username { width:200px;margin: 10px}
 #password { width:200px;margin: 10px}
+
+
+/* ITEM */
+
+div.item.entry div.thumb { float:left;width:120px;}

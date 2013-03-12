@@ -12,14 +12,17 @@ class ItemType extends AbstractType
     {
         $builder
             ->add('titel')
-            ->add('basistekst')
-            ->add('hoofdtekst')
-            ->add('tweet','textarea')
-            ->add('verantwoording')
-            ->add('voorstellen')
-            ->add('paragraaf','entity',array('expanded'=>true,'class'=>'GLZeistProgrammaBundle:Paragraaf'))
+            ->add('kernboodschap', 'textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
+            ->add('tweet','textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
+            ->add('shortURL')
+            ->add('voorstellen','textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
+            ->add('verantwoording','textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
+            ->add('hoofdtekst','textarea',array('required'=>false,'attr'=>array('class'=>'large')))
+            ->add('file')
+            ->add('video')
+            ->add('relaties','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Item'))
             ->add('trefwoorden','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Trefwoord'))
-            ->add('media','collection',array('type'=>'entity','options'=> array('class' => 'GLZeistProgrammaBundle:Media')))
+            ->add('thema','entity',array('expanded'=>true,'class' => 'GLZeistProgrammaBundle:Thema'))
         ;
     }
 

@@ -1,5 +1,6 @@
 {% extends "GLZeistProgrammaBundle::base.html.twig" %} 
 {%block content%}
     {%for item in items%}
+        {%include 'GLZeistProgrammaBundle:App/Item:includes/item-list-entry.html.twig' %}
     {%endfor%}
 {%endblock%}
