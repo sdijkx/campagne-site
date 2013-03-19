@@ -204,6 +204,8 @@ div.lees-meer{ margin-top:10px;}
 .item .tweet-button { float:right;}
 .item div { line-height: 14pt;font-family:Arial, Verdana, Tahoma, Helvetica, sans-serif;font-style:normal;text-align:left; }
 
+.item ul.links {list-style: none;} 
+
 #video, #relaties, #trefwoorden, #afbeelding { margin-top: 10px;}
 
 /*ITEM LIST ENTRY*/

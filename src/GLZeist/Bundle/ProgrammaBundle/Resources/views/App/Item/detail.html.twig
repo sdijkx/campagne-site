@@ -43,11 +43,11 @@
             Links
         </h2>
         <div>
-        {#
+            <ul class="links">
             {%for link in item.links %}
-                <a href={{link.url}} title="{{link.titel}}">{{link.titel}}</a>
+                <li>&gt;&nbsp;<a href={{link.url}} title="{{link.titel}}">{{link.titel}}</a></li>
             {%endfor%}
-        #}
+            </ul>
         </div>
     {%endif%}
 
