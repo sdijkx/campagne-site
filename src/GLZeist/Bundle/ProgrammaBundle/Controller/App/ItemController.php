@@ -80,7 +80,7 @@ class ItemController extends Controller
             'moreitems'=>$this->moreitems($items,$limit),
             'breadcrumb'=>array(
                 array(
-                    'name' => $trefwoord->getTitel()
+                    'name' => $trefwoord->getTrefwoord()
                 )
             )
         );

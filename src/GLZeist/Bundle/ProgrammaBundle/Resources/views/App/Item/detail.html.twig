@@ -38,7 +38,7 @@
             {{item.hoofdtekst|raw}}
         </div>
     {%endif%}
-    {%if item.links %}
+    {%if item.links|length>0 %}
         <h2>
             Links
         </h2>

@@ -9,6 +9,7 @@ class BreadcrumbListener
     {
         if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) 
         {
+            
         }
     }
 }

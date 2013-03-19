@@ -31,7 +31,7 @@ class ItemRepository extends \Doctrine\ORM\EntityRepository
             $rsm->addFieldResult('t', 'thema_slug', 'slug');
             $rsm->addScalarResult('relevance', 'relevance','float');
             
-            $search=mysql_real_escape_string($search);
+            $search=addslashes($search);
             $limit=intval($limit);
 
             $sql = 
