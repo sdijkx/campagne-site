@@ -20,7 +20,7 @@ class ItemController extends Controller
     /**
      * Lists all Item entities.
      *
-     * @Route("/", name="item")
+     * @Route("/", name="admin_item")
      * @Template()
      */
     public function indexAction()
@@ -201,6 +201,12 @@ class ItemController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
+        
+        $links=array();
+        foreach($entity->getLinks() as $link)
+        {
+            $links[]=$link;
+        }
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new ItemType(), $entity);
@@ -212,6 +218,21 @@ class ItemController extends Controller
                 $entity->setImagefile(rand());
                 $entity->setThumbfile(rand());
             }
+            
+            foreach($entity->getLinks() as $link)
+            {
+                foreach ($links as $key => $toDel) {
+                    if ($toDel->getId() === $link->getId()) {
+                        unset($links[$key]);
+                    }
+                }                
+            }
+            foreach($links as $link)
+            {
+                $link->setItem(null);
+                $em->remove($link);
+            }
+            
             $em->persist($entity);
             $em->flush();
 

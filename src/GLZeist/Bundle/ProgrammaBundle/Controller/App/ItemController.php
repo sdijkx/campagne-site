@@ -23,7 +23,7 @@ class ItemController extends Controller
     }
     
     /**
-     * @Route("/search")
+     * @Route("/zoeken", name="glzeist_programma_app_item_search")
      * @Template()
      */
     public function searchAction()
@@ -31,27 +31,19 @@ class ItemController extends Controller
         $search=$this->getRequest()->get('search');
         $limit=$this->getRequest()->get('limit',10);
         $results = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findAllForSearch($search,$limit+1);
-        return array('results'=>$results,'search'=>$search,'limit'=>$limit,'moreitems'=>$this->moreitems($results,$limit));
+        return array('results'=>$results,'search'=>$search,'limit'=>$limit,'moreitems'=>$this->moreitems($results,$limit),
+            'breadcrumb'=>array(
+                array(
+                    'name' => 'Zoeken'
+                )
+            )
+            
+            );
     }
     
-    
+
     /**
-     * @Route("/item/{slug}")
-     * @Template()
-     */
-    public function detailAction($slug)
-    {
-        $item = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findOneBySlug($slug);
-        if (!$item) 
-        {
-            throw $this->createNotFoundException();        
-        }
-        $related=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findAllRelated($item->getId());
-        return array('item'=>$item,'related'=>$related);
-    }
-    
-    /**
-     * @Route("/thema/{slug}", name="thema")
+     * @Route("/{slug}", name="thema")
      * @Template()
      */
     public function themaAction($slug)
@@ -63,10 +55,12 @@ class ItemController extends Controller
         }
         $limit=$this->getRequest()->get('limit',10);
         $items=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findByThema($thema,array('datumtijd'=>'DESC'),$limit+1);
-        return array('thema'=>$thema,'items'=>$items,'limit'=>$limit,'moreitems'=>$this->moreitems($items,$limit));
+        return array('thema'=>$thema,'items'=>$items,'limit'=>$limit,'moreitems'=>$this->moreitems($items,$limit)
+            
+            );
     }
     
-    /**
+/**
      * @Route("/trefwoord/{slug}", name="trefwoord")
      * @Template()
      */
@@ -79,7 +73,17 @@ class ItemController extends Controller
         }
         $limit=$this->getRequest()->get('limit',10);
         $items=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findAllForTrefwoord($trefwoord,array('datumtijd'=>'DESC'),$limit+1);
-        return array('trefwoord'=>$trefwoord,'items'=>$items, 'limit'=>$limit,'moreitems'=>$this->moreitems($items,$limit));
+        return array(
+            'trefwoord'=>$trefwoord,
+            'items'=>$items, 
+            'limit'=>$limit,
+            'moreitems'=>$this->moreitems($items,$limit),
+            'breadcrumb'=>array(
+                array(
+                    'name' => $trefwoord->getTitel()
+                )
+            )
+        );
     }
     
     /**
@@ -98,6 +102,34 @@ class ItemController extends Controller
         readfile($path);
         
     }
+        
+    
+    /**
+     * @Route("/{thema}/{slug}",name="item")
+     * @Template()
+     */
+    public function detailAction($thema,$slug)
+    {
+        $item = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findOneBySlug($slug);
+        if (!$item) 
+        {
+            throw $this->createNotFoundException();        
+        }
+        $related=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findAllRelated($item->getId());
+        return array('item'=>$item,'related'=>$related,
+            'breadcrumb'=>array(
+                array(
+                    'url' => $this->generateUrl('thema',array('slug'=>$thema)),
+                    'name' => $item->getThema()->getTitel()
+                ),
+                array(
+                    'name' => $item->getTitel()
+                )
+            )
+        );
+    }
+    
+    
     
     
 }

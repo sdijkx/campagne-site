@@ -46,6 +46,9 @@ nav li:hover {background-color: #5F5F5F; }
 ul[class*="actions"] li {
     display: inline-block;
 }
+
+/* BUTOONS */
+
 *[type=submit],ul[class*="actions"] a { 
     text-decoration: none; display: inline-block; padding:3px 10px;border-radius:4px;margin:3px;border:none;
     font-size: 12pt;
@@ -64,8 +67,6 @@ ul[class*="actions"] li {
 {
     
 }
-
-
 ul.actions a:visisted { 
 }
 
@@ -73,7 +74,19 @@ ul.record_actions {
     float:right;
 }
 
-
+/* PAGING */
+.paging .inactive {color:#9A9A9A;}
+.paging .page {}
+.paging .page:hover {background-color: #00A841;color:EFEFEF;}
+.paging .page.current {color:#484848;}
+.paging > span {
+    line-height: 20px;
+    height:20px;
+    width:25px;
+    display: inline-block;
+    padding:3px;
+    text-align: center;
+} 
 /*
 RECORDS
 */
@@ -119,6 +132,8 @@ div.choice.expanded label {width:auto;}
 
 div.form_textarea {border:none!important;margin:0!important;display:inline-block;width:70%;}
 div.form_textarea div.input{display:none;}
+div.form_textarea a.close,
+div.form_textarea a.edit {text-decoration: none;}
 div.form_textarea a.close{display:none;}
 div.form_row input[type=submit]{display:block;}
 

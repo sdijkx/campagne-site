@@ -14,3 +14,21 @@
         </div>
     {%endif%}
 {%endmacro%}
+
+{%macro paging(page,pages,pageCount) %}
+{%endmacro%}
+
+{%macro kruimelpad(breadcrumb) %}
+    
+    {%if breadcrumb is defined%}
+        <div class="kruimelpad">
+            {%for crumb in breadcrumb%}
+                {%if not loop.last%}
+                    <a href="{{crumb.url}}">{{crumb.name}}</a>&nbsp;&raquo;&nbsp;
+                {%else%}
+                    {{crumb.name}}
+                {%endif%}
+            {%endfor%}
+        </div>
+    {%endif%}
+{%endmacro%}

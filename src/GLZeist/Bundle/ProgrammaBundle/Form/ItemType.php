@@ -23,6 +23,11 @@ class ItemType extends AbstractType
             ->add('relaties','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Item'))
             ->add('trefwoorden','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Trefwoord'))
             ->add('thema','entity',array('expanded'=>true,'class' => 'GLZeistProgrammaBundle:Thema'))
+            ->add('links','collection',array('type'=> new LinkType(),
+                'prototype'=>true,
+                'allow_add'=>true,
+                'allow_delete'=>true,
+                'by_reference'=>false))
         ;
     }
 

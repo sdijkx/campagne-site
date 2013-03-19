@@ -82,14 +82,7 @@ class Item
      */
     private $datumtijd;
     
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="links", type="text",nullable=true)
-     */
-    private $links;    
-    
+        
     /**
      * @var string
      *
@@ -165,6 +158,12 @@ class Item
     private $relaties;
     
     /**
+     * @ORM\OneToMany(targetEntity="Link",mappedBy="item",cascade={"all"})
+     */
+    private $links;
+    
+    
+    /**
      * @ORM\Column(name="zoek_tekst",type="text",nullable=true)
      */
     private $zoektekst;
@@ -182,6 +181,7 @@ class Item
         $this->trefwoorden=new \Doctrine\Common\Collections\ArrayCollection();
         $this->media=new \Doctrine\Common\Collections\ArrayCollection();
         $this->relaties=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->links=new \Doctrine\Common\Collections\ArrayCollection();
         $this->homepage=false;
     }
     
@@ -345,6 +345,11 @@ class Item
     }
 
     public function setLinks($links) {
+        
+        foreach($links as $link)
+        {
+            $link->setItem($this);
+        }
         $this->links = $links;
     }
 
@@ -439,6 +444,8 @@ class Item
     public function setThema($thema) {
         $this->thema = $thema;
     }
+    
+    
 
     public function getZoektekst() {
         return $this->zoektekst;

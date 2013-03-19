@@ -1,3 +1,4 @@
+{% import "GLZeistProgrammaBundle::admin_macros.html.twig" as macros %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -8,6 +9,11 @@
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
         <script type="text/javascript" src="{{asset('lib/ckeditor/ckeditor.js')}}"></script>
 
+        <link rel="stylesheet" href="{{asset('fontello/css/fontello.css')}}">
+        <!--[if IE 7]>
+            <link rel="stylesheet" href="{{asset('fontello/css/fontello-ie7.css')}}">
+        <![endif]-->
+
         {% javascripts '@GLZeistProgrammaBundle/Resources/public/admin/js/*' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
@@ -16,9 +22,6 @@
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
 
-        <script>
-        $()
-        </script>
     </head>
     <body>
         <header id="header" class="clearfix">

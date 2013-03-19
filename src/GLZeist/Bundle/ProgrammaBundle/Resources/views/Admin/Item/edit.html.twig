@@ -4,7 +4,11 @@
     
     {{ form_row(edit_form.titel) }}
     {{ form_row(edit_form.kernboodschap) }}
-    {{ form_row(edit_form.tweet) }}
+    <div class="form_row">
+        <label>Tweet</label>
+        {{ form_widget(edit_form.tweet) }}
+        <div id="wordcount">{{entity.tweet|length}}</div>
+    </div>
     {{ form_row(edit_form.voorstellen) }}
     {{ form_row(edit_form.verantwoording) }}
     {{ form_row(edit_form.hoofdtekst) }}
@@ -37,6 +41,13 @@
 
     {{ form_row(edit_form.trefwoorden) }}
     {{ form_row(edit_form.thema) }}
+    {{ form_row(edit_form.relaties) }}
+    <div class="form_row">
+        {{ form_label(edit_form.links) }}
+        {{ form_widget(edit_form.links) }}
+        <a href="#" id="add-link">Link toevoegen</a>
+    </div>
+
     {{ form_row(edit_form._token) }}
 
     <p>
@@ -46,7 +57,7 @@
 
 <ul class="record_actions">
     <li>
-        <a href="{{ path('item') }}">
+        <a href="{{ path('admin_item') }}">
             Terug naar het overzicht
         </a>
     </li>
@@ -62,5 +73,62 @@
     CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_hoofdtekst');
     CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_voorstellen');
     CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_verantwoording');
+
+    $("#glzeist_bundle_programmabundle_itemtype_tweet").keyup(function(){
+        var max=100;
+        
+        var len= $(this).val().length;
+        
+        $("#wordcount").html(len);
+
+        if(len>max)
+        {
+            if(!$('#wordcount').hasClass('error'))
+            {
+                $('#wordcount').addClass('error');
+            }
+        }
+        else
+        {
+            $('#wordcount').removeClass('error');
+        }
+    }).keyup();
+
+    var linkCount = '{{ edit_form.links | length }}';
+
+
+    function appendRemoveLink(n)
+    {
+        $(n).append('<a href="#" class="button remove-link">Verwijderen</a>');
+    }
+
+    $('#add-link').click(function() {
+        var list = jQuery('#glzeist_bundle_programmabundle_itemtype_links');
+
+        var newWidget = list.attr('data-prototype');
+
+        newWidget = newWidget.replace(/__name__label__/g, '');
+        newWidget = newWidget.replace(/__name__/g, linkCount);
+        linkCount++;
+
+        var newDiv = jQuery(newWidget);
+        appendRemoveLink(newDiv);
+        newDiv.appendTo(list);
+    
+
+        return false;
+    });
+
+    $('#glzeist_bundle_programmabundle_itemtype_links > div.form_row').each(function(i,n)
+    {
+        appendRemoveLink(n);
+    });
+
+    $('#glzeist_bundle_programmabundle_itemtype_links').on('click','a.remove-link', function(){
+        $(this).parent().remove();
+        return false;
+    });
+
+
 </script>
 {%endblock%}

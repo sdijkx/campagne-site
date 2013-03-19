@@ -30,6 +30,14 @@ class Thema
     private $titel;
     
     /**
+     * @var string
+     *
+     * @ORM\Column(name="tekst", type="text", length=255)
+     */
+    private $tekst;
+    
+    
+    /**
      * @Gedmo\Slug(fields={"titel"})
      * @ORM\Column(length=128, unique=true)
      */
@@ -76,6 +84,15 @@ class Thema
         return $this->titel;
     }
     
+    public function getTekst() {
+        return $this->tekst;
+    }
+
+    public function setTekst($tekst) {
+        $this->tekst = $tekst;
+    }
+
+        
     public function getSlug() {
         return $this->slug;
     }

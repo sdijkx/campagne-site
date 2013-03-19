@@ -1,0 +1,57 @@
+{%macro paging(page,pageCount,path,params) %}
+<p class="paging">
+<span class="first">
+    {%if page>1 %}
+        {%set params=params|merge({page:1})%}
+        <a href="{{path(path,params)}}"><i class="icon-first">&nbsp;</i></a>
+    {%else%}
+        <span class="inactive"><i class="icon-first">&nbsp;</i></span>
+    {%endif%}
+</span>
+
+<span class="prev">
+    {%if page>1 %}
+        {%set params=params|merge({page:(page-1)})%}
+        <a href="{{page-1}}"><i class="icon-prev">&nbsp;</i></a>
+    {%else%}
+        <span class="inactive"><i class="icon-prev">&nbsp;</i></span>
+    {%endif%}
+</span>
+
+{%for i in 1..5 if i <= pageCount %}
+    
+    {%if page==i%}
+        <span class="page current">{{page}}</span>
+    {%else%}
+        {%set params=params|merge({page:i})%}
+        <span class="page"><a href="{{path(path,params)}}">{{page}}</a></span>
+    {%endif%}
+    {%if i<5 and i<pageCount %}
+        &nbsp;
+    {%endif%}
+{%endfor%}
+{%if pageCount> 5 %}
+    <span class="inactive">...</span>
+    {%set params=params|merge({page:pageCount})%}
+    <span class="page"><a href="{{path(path,params)}}">{{pageCount}}</a></span>
+{%endif%}
+<span class="next">
+    {%if page<pageCount %}
+        {%set params=params|merge({page:(page+1)})%}
+        <a href="{{path(path,params)}}"><i class="icon-next">&nbsp;</i></a>
+    {%else%}
+        <span class="inactive"><i class="icon-next">&nbsp;</i></span>
+    {%endif%}
+</span>
+
+<span class="last">
+    {%if page<pageCount %}
+        {%set params=params|merge({page:pageCount})%}
+        <a href="{{path(path,params)}}"><i class="icon-last">&nbsp;</i></a>
+    {%else%}
+        <span class="inactive"><i class="icon-last">&nbsp;</i></span>
+    {%endif%}
+</span>
+
+</p>
+{%endmacro%}

@@ -20,19 +20,7 @@
         <label>Aflopend</label>
     </form>
 </p>
-<p>
-{%for i in pages%}
-    {%if page==i%}
-        {{page}}
-    {%else%}
-        <a href="{{path('item',{search:search,orderby:orderBy,sortorder:sortOrder,page:page})}}">{{page}}</a>
-    {%endif%}
-    {%if not loop.last%}
-        &nbsp;
-    {%endif%}
-{%endfor%}
-</p>
-
+{{macros.paging(page,pageCount,'item',{search:search,orderby:orderBy,page:page})}}
 <div class="results">
     {%if entities|length == 0 %}
         <h3>Geen resultaten</h3>
@@ -41,23 +29,25 @@
     {% for entity in entities %}
         <div class="item entry clearfix">
             <h2>{{ entity.titel }}</h2>
-            <div class="info">
-                <div>{{entity.datumtijd|date('d-m-Y H:i:s')}}</div>
+            <div class="clearfix">
+                <div class="info">
+                    <div>{{entity.datumtijd|date('d-m-Y H:i:s')}}</div>
 
-                <h3>Kernboodschap</h3>
-                <div>{{ entity.kernboodschap|raw }}</div>
-                <h3>Tweet</h3>
-                <div>{{ entity.tweet|raw }}</div>
+                    <h3>Kernboodschap</h3>
+                    <div>{{ entity.kernboodschap|raw }}</div>
+                    <h3>Tweet</h3>
+                    <div>{{ entity.tweet|raw }}</div>
+                </div>
+                <div class="thumb">
+                    {%if entity.thumbfile %}
+                        <img src="{{path('file',{filename:entity.thumbfile})}}" />
+                    {%else%}
+                        &nbsp;
+                    {%endif%}
+                </div>
             </div>
-            <div class="thumb">
-                {%if entity.thumbfile %}
-                    <img src="{{path('file',{filename:entity.thumbfile})}}" />
-                {%else%}
-                    &nbsp;
-                {%endif%}
-            </div>
-            <div class="actions">
-                <ul>
+            <div>
+                <ul class="actions">
                     <li>
                         <a href="{{ path('item_edit', { 'id': entity.id }) }}">Bewerk</a>
                     </li>

@@ -11,6 +11,6 @@
         {{item.kernboodschap|raw}}
     </div>
     <div class="lees-meer">
-        <a title="{{item.titel}}" href="{{path('glzeist_programma_app_item_detail',{slug:item.slug})}}">lees meer</a>
+        <a title="{{item.titel}}" href="{{path('item',{thema:item.thema.slug,slug:item.slug})}}">lees meer</a>
     </div>
 </div>

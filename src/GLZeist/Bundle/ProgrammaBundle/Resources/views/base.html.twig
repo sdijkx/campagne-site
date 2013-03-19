@@ -44,6 +44,9 @@
             <nav>
                 {%include 'GLZeistProgrammaBundle:App:menu.html.twig'%}
             </nav>
+            {%if breadcrumb is defined%}
+                {{glzeist.kruimelpad(breadcrumb)}}
+            {%endif%}
             <div id="content">
                 {%block content%}{%endblock%}
             </div>
