@@ -20,12 +20,15 @@ class ItemRepository extends \Doctrine\ORM\EntityRepository
     {
             $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
             $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Item', 'i');
-            $rsm->addFieldResult('i', 'id', 'id');
+            $rsm->addJoinedEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Thema', 't','i','thema');
+            $rsm->addFieldResult('i', 'item_id', 'id');
             $rsm->addFieldResult('i', 'titel', 'titel');
             $rsm->addFieldResult('i', 'tweet', 'tweet');
             $rsm->addFieldResult('i', 'kernboodschap', 'kernboodschap');
             $rsm->addFieldResult('i', 'thumbfile', 'thumbfile');
-            $rsm->addFieldResult('i', 'slug', 'slug');
+            $rsm->addFieldResult('i', 'item_slug', 'slug');
+            $rsm->addFieldResult('t', 'thema_id', 'id');
+            $rsm->addFieldResult('t', 'thema_slug', 'slug');
             $rsm->addScalarResult('relevance', 'relevance','float');
             
             $search=mysql_real_escape_string($search);
@@ -33,20 +36,27 @@ class ItemRepository extends \Doctrine\ORM\EntityRepository
 
             $sql = 
                 "SELECT 
-                    i.id,
+                    i.id as item_id,
                     i.titel,
                     i.tweet,
                     i.kernboodschap, 
                     i.thumbfile,
-                    i.slug,
+                    i.slug as item_slug,
+                    t.id as thema_id,
+                    t.slug as thema_slug,
                     MATCH(s.keywords) AGAINST('{$search}' IN BOOLEAN MODE) +
                     MATCH(s.search_text) AGAINST('{$search}') 
                     AS relevance 
                  FROM 
-                    item_search AS s JOIN Item AS i ON s.item_id = i.id  
-                 WHERE MATCH(s.search_text) AGAINST('{$search}' IN BOOLEAN MODE) OR MATCH(s.keywords) AGAINST('{$search}' IN BOOLEAN MODE)".
-                 "ORDER BY relevance DESC, datumtijd DESC ".
-                ($limit>0?" LIMIT {$limit} ":" ");
+                    item_search AS s 
+                    JOIN Item AS i ON s.item_id = i.id 
+                    JOIN Thema AS t ON t.id=i.thema_id
+                    WHERE 
+                        MATCH(s.search_text) AGAINST('{$search}' IN BOOLEAN MODE) OR
+                        MATCH(s.keywords) AGAINST('{$search}' IN BOOLEAN MODE)
+                    ORDER BY relevance DESC, datumtijd DESC ".
+                    ($limit>0?" LIMIT {$limit} ":" ");
+                    
                 
             $query = $this->_em->createNativeQuery($sql, $rsm);
             
