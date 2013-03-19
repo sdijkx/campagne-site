@@ -116,7 +116,9 @@ class ItemController extends Controller
             throw $this->createNotFoundException();        
         }
         $related=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findAllRelated($item->getId());
-        return array('item'=>$item,'related'=>$related,
+        return array(
+            'item'=>$item,
+            'thema'=> $item->getThema(),
             'breadcrumb'=>array(
                 array(
                     'url' => $this->generateUrl('thema',array('slug'=>$thema)),

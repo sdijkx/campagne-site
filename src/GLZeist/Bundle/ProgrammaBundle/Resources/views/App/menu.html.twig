@@ -2,10 +2,16 @@
 {%set active = app.request.baseUrl ~ app.request.pathInfo %}
 
 <ul>
-    {%set url = path('home') %}
-    <li><a class="{%if active==url %}menurood{%else%}menugroen{%endif%}" href="{{url}}">Home</a> | </li>
+    {%set url=path('home') %}
+    <li><a class="{%if active== url %}menurood{%else%}menugroen{%endif%}" href="{{url}}">Home</a> | </li>
     {%for thema in themas()%}
-        {%set url = path('thema',{slug:thema.slug}) %}
-        <li><a class="{%if active==url %}menurood{%else%}menugroen{%endif%}" href="{{url}}">{{thema.titel}}</a> {%if not loop.last%} | {%endif%} </li>
+        {%set path=app.request.pathInfo|split('/')%}
+        {%if path|length>=2 %}
+            {%set slug=app.request.pathInfo|split('/')[1] %}
+        {%else%}
+            {%set slug='' %}
+        {%endif%}
+        {%set url=path('thema',{slug:thema.slug}) %}
+        <li><a class="{%if slug==thema.slug %}menurood{%else%}menugroen{%endif%}" href="{{url}}">{{thema.titel}}</a> {%if not loop.last%} | {%endif%} </li>
     {%endfor%}
 </ul>
