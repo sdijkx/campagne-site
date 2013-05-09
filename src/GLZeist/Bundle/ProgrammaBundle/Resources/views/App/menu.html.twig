@@ -4,14 +4,10 @@
 <ul>
     {%set url=path('home') %}
     <li><a class="{%if active== url %}menurood{%else%}menugroen{%endif%}" href="{{url}}">Home</a> | </li>
-    {%for thema in themas()%}
-        {%set path=app.request.pathInfo|split('/')%}
-        {%if path|length>=2 %}
-            {%set slug=app.request.pathInfo|split('/')[1] %}
-        {%else%}
-            {%set slug='' %}
-        {%endif%}
-        {%set url=path('thema',{slug:thema.slug}) %}
-        <li><a class="{%if slug==thema.slug %}menurood{%else%}menugroen{%endif%}" href="{{url}}">{{thema.titel}}</a> {%if not loop.last%} | {%endif%} </li>
+    {%for entity in themas()%}
+        {%set url=path('thema',{slug:entity.slug}) %}
+        <li><a class="{%if thema is defined and entity.slug==thema.slug %}menurood{%else%}menugroen{%endif%}" href="{{url}}">{{entity.titel}}</a> | </li>
     {%endfor%}
+    {%set url=path('persoon_index') %}
+    <li><a class="{%if active== url or app.request.get('_route')=='persoon' %}menurood{%else%}menugroen{%endif%}" href="{{url}}">Personen</a> </li>
 </ul>

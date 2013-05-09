@@ -14,7 +14,6 @@ class ItemType extends AbstractType
             ->add('titel')
             ->add('kernboodschap', 'textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
             ->add('tweet','textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
-            ->add('shortURL')
             ->add('voorstellen','textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
             ->add('verantwoording','textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
             ->add('hoofdtekst','textarea',array('required'=>false,'attr'=>array('class'=>'large')))

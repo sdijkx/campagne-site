@@ -7,13 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Item
+ * Published
  *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="GLZeist\Bundle\ProgrammaBundle\Repository\ItemRepository")
+ * @ORM\Entity(repositoryClass="GLZeist\Bundle\ProgrammaBundle\Repository\PublishedItemRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Item
+class PublishedItem
 {
     /**
      * @var integer
@@ -89,13 +88,6 @@ class Item
      */
     private $thumbfile;
     
-    
-    /**
-     * @Assert\File(maxSize="6000000",mimeTypes={"image/gif","image/png","image/jpg","image/jpeg"})
-     */
-    public $file;
-    
-    
     /**
      * @var boolean
      *
@@ -110,21 +102,10 @@ class Item
      */
     private $slug;
 
-
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\Column(type="datetime",nullable=true)
      */
-    private $gemaaktDoor;
-    
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $gemaaktOp;
-    
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $gewijzigdOp;
+    private $gepubliceerdOp;
     
     /**
      * @ORM\ManyToMany(targetEntity="Trefwoord")
@@ -149,8 +130,8 @@ class Item
     private $thema;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Item")
-     * @ORM\JoinTable(name="item_relatie",
+     * @ORM\ManyToMany(targetEntity="PublishedItem")
+     * @ORM\JoinTable(name="item_published_relatie",
      *      joinColumns={@ORM\JoinColumn(name="item_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="reference_id", referencedColumnName="id")}
      *      )
@@ -163,10 +144,19 @@ class Item
     private $links;
     
     /**
-     * @ORM\OneToOne(targetEntity="PublishedItem",cascade={"all"})
+     * @ORM\OneToOne(targetEntity="Item")
      */
-    private $publishedItem;    
-  
+    private $item;    
+    
+    /**
+     * @ORM\Column(name="zoek_tekst",type="text",nullable=true)
+     */
+    private $zoektekst;
+    
+    /**
+     * @ORM\Column(name="zoek_trefwoorden",type="text",nullable=true)
+     */    
+    private $zoektrefwoorden;
     
     
     public function __construct()
@@ -176,9 +166,7 @@ class Item
         $this->relaties=new \Doctrine\Common\Collections\ArrayCollection();
         $this->links=new \Doctrine\Common\Collections\ArrayCollection();
         $this->homepage=false;
-        $this->gepubliceerd=false;
-        $this->gemaaktOp=new \DateTime();
-        $this->gewijzigdOp=clone $this->gemaaktOp;
+        $this->gepubliceerdOp=new \DateTime();
     }
     
     
@@ -324,15 +312,7 @@ class Item
         return $this->links;
     }
 
-    public function setLinks($links) {
-        
-        foreach($links as $link)
-        {
-            $link->setItem($this);
-        }
-        $this->links = $links;
-    }
-
+   
         
     public function getVideo() {
         return $this->video;
@@ -357,16 +337,6 @@ class Item
     public function setThumbfile($thumbfile) {
         $this->thumbfile = $thumbfile;
     }
-
-    
-    public function getFile() {
-        return $this->file;
-    }
-
-    public function setFile($file) {
-        $this->file = $file;
-    }
-
             
     public function getSlug() {
         return $this->slug;
@@ -376,30 +346,13 @@ class Item
         $this->slug = $slug;
     }
 
-    public function getGemaaktDoor() {
-        return $this->gemaaktDoor;
+    public function getGepubliceerdOp() {
+        return $this->gepubliceerdOp;
     }
 
-    public function setGemaaktDoor($gemaaktDoor) {
-        $this->gemaaktDoor = $gemaaktDoor;
+    public function setGepubliceerdOp($gepubliceerdOp) {
+        $this->gepubliceerdOp = $gepubliceerdOp;
     }
-
-    public function getGemaaktOp() {
-        return $this->gemaaktOp;
-    }
-
-    public function setGemaaktOp($gemaaktOp) {
-        $this->gemaaktOp = $gemaaktOp;
-    }
-    
-    public function getGewijzigdOp() {
-        return $this->gewijzigdOp;
-    }
-
-    public function setGewijzigdOp($gewijzigdOp) {
-        $this->gewijzigdOp = $gewijzigdOp;
-    }
-
             
     public function getTrefwoorden() {
         return $this->trefwoorden;
@@ -448,41 +401,34 @@ class Item
     public function setThema($thema) {
         $this->thema = $thema;
     }
-    
-    public function getPublishedItem() {
-        return $this->publishedItem;
+
+    public function getZoektekst() {
+        return $this->zoektekst;
     }
 
-    public function setPublishedItem($publishedItem) {
-        $this->publishedItem = $publishedItem;
+    public function setZoektekst($zoektekst) {
+        $this->zoektekst = $zoektekst;
     }
 
-    
-    
-    /**
-     *
-     * @ORM\PreUpdate
-     */
-    public function preUpdate()
-    {
-        $this->gewijzigdOp=new \DateTime();
+    public function getZoektrefwoorden() {
+        return $this->zoektrefwoorden;
     }
 
+    public function setZoektrefwoorden($zoektrefwoorden) {
+        $this->zoektrefwoorden = $zoektrefwoorden;
+    }
     
-                    
+    public function getItem() {
+        return $this->item;
+    }
+
+    public function setItem($item) {
+        $this->item = $item;
+    }
+
+                        
     public function __toString()
     {
         return $this->titel;
     }
-
-    public function isGepubliceerd()
-    {
-        return $this->publishedItem!=null;
-    }
-    
-    public function isGewijzigdNaPublicatie()
-    {
-        return ($this->publishedItem!=null && $this->publishedItem->getGepubliceerdOp()<$this->getGewijzigdOp());
-    }
-
 }

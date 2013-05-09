@@ -1,0 +1,39 @@
+{% extends "GLZeistProgrammaBundle::admin.html.twig" %} {%block content%}<h1>Personen overzicht</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th></th>
+            <th>Naam</th>
+            <th>Functie</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('admin_edit_persoon', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td><img src="{{path('file',{filename:entity.thumbfile})}}" /></td>
+            <td>{{ entity.naam }}</td>
+            <td>{{ entity.functie }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('admin_edit_persoon', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('admin_new_persoon') }}">
+            Voeg een persoon toe
+        </a>
+    </li>
+</ul>
+{%endblock%}

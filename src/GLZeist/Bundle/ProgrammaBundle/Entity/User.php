@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements \Symfony\Component\Security\Core\User\AdvancedUserInterface, \Serializable
 {
+    static $ROLES=array('ROLE_USER','ROLE_MODERATOR','ROLE_ADMIN');
       /**
      * @ORM\Column(type="integer")
      * @ORM\Id
@@ -35,6 +36,12 @@ class User implements \Symfony\Component\Security\Core\User\AdvancedUserInterfac
      * @ORM\Column(type="string", length=40)
      */
     private $password;
+    
+    /**
+     * @ORM\Column(type="string", length=40)
+     */
+    private $role;
+    
 
 
     /**
@@ -83,13 +90,22 @@ class User implements \Symfony\Component\Security\Core\User\AdvancedUserInterfac
     {
         return $this->password;
     }
+    
+    public function getRole() {
+        return $this->role;
+    }
 
+    public function setRole($role) {
+        $this->role = $role;
+    }
+
+    
     /**
      * @inheritDoc
      */
     public function getRoles()
     {
-        return array('ROLE_USER');
+        return array($this->role);
     }
 
     /**

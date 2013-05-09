@@ -10,7 +10,13 @@
         <li><a href="{{path('media')}}">Media</a></li>
         #}
         <li><a href="{{path('admin_item')}}">Item</a></li>
-        <li><a href="{{path('admin_trefwoord')}}">Trefwoord</a></li>
-        <li><a href="{{path('admin_thema')}}">Thema</a></li>
+        {%if is_moderator() %}
+            <li><a href="{{path('admin_trefwoord')}}">Trefwoord</a></li>
+            <li><a href="{{path('admin_thema')}}">Thema</a></li>
+            <li><a href="{{path('admin_persoon')}}">Personen</a></li>
+        {%endif%}
+        {%if is_admin() %}
+            <li><a href="{{path('admin_user')}}">User</a></li>
+        {%endif%}
     </ul>
 {%endif%}

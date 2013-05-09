@@ -6,11 +6,21 @@
 
     <parameters>
         <parameter key="gl_zeist_programma.upload_listener.class">GLZeist\Bundle\ProgrammaBundle\Listener\UploadListener</parameter>
-        <parameter key="gl_zeist_programma.search_fields_listener.class">GLZeist\Bundle\ProgrammaBundle\Listener\SearchFieldsListener</parameter>
+        <parameter key="gl_zeist_programma.search_fields_listener.class">GLZeist\Bundle\ProgrammaBundle\Listener\PublishedItemSearchFieldsListener</parameter>
+        <parameter key="gl_zeist_programma.request_listener.class">GLZeist\Bundle\ProgrammaBundle\Listener\RequestListener</parameter>        
+        <parameter key="gl_zeist_programma.publish_service.class">GLZeist\Bundle\ProgrammaBundle\PublishService</parameter>        
+        <parameter key="gl_zeist_programma.fulltext_search_service.class">GLZeist\Bundle\ProgrammaBundle\FulltextSearchService</parameter>                
         <parameter key="upload_dir">%kernel.root_dir%/uploads</parameter>
     </parameters>
+    
+            
 
     <services>
+        
+        <service id="gl_zeist_programma.fulltext_search_service" class="%gl_zeist_programma.fulltext_search_service.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+        
         <service id="gl_zeist_programma.upload_listener" class="%gl_zeist_programma.upload_listener.class%">
             <argument>%upload_dir%</argument>
             <tag name="doctrine.event_listener" event="preUpdate" method="preUpdate" />
@@ -27,15 +37,28 @@
             <tag name="doctrine.event_listener" event="prePersist" method="shorten" />
         </service>
         
+        <service id="gl_zeist_programma.request_listener" class="%gl_zeist_programma.request_listener.class%">
+            <argument type="service" id="annotation_reader" />
+            <argument type="service" id="security.context" />
+            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />            
+        </service>        
+        
         
         
         <service id="gl_zeist_app_extension" class="GLZeist\Bundle\ProgrammaBundle\Twig\AppExtension">
             <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="security.context" />
             <tag name="twig.extension" />
         </service>
         
         <service id="gl_zeist_url_shortner" class="GLZeist\Bundle\ProgrammaBundle\Listener\URLShortener">
         </service>
+        
+        <service id="gl_zeist_programma.publish_service" class="%gl_zeist_programma.publish_service.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="logger" />
+        </service>
+        
         
         
     </services>

@@ -9,10 +9,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use GLZeist\Bundle\ProgrammaBundle\Entity\Thema;
 use GLZeist\Bundle\ProgrammaBundle\Form\ThemaType;
+use GLZeist\Bundle\ProgrammaBundle\Annotation\Granted;
 
 /**
  * Thema controller.
  *
+ * @Granted(role="ROLE_ADMIN")
  * @Route("/thema")
  */
 class ThemaController extends Controller

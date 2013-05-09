@@ -20,7 +20,7 @@
         <label>Aflopend</label>
     </form>
 </p>
-{{macros.paging(page,pageCount,'item',{search:search,orderby:orderBy,page:page})}}
+{{macros.paging(page,pageCount,'admin_item',{search:search,orderby:orderBy,page:page})}}
 <div class="results">
     {%if entities|length == 0 %}
         <h3>Geen resultaten</h3>
@@ -31,8 +31,15 @@
             <h2>{{ entity.titel }}</h2>
             <div class="clearfix">
                 <div class="info">
-                    <div>{{entity.datumtijd|date('d-m-Y H:i:s')}}</div>
-
+                    {%if entity.gewijzigdNaPublicatie %}
+                        <div><strong>Gewijzigd na laatste publicatie</strong></div>
+                    {%endif%}
+                    <div><label>Auteur:</label>&nbsp;{{entity.gemaaktDoor.username}}</div>
+                    <div><label>Laatst gewijzigd:</label>&nbsp;{{entity.gewijzigdOp|date('d-m-Y H:i:s')}}</div>
+                    <div><label>Gemaakt:</label>&nbsp;{{entity.gemaaktOp|date('d-m-Y H:i:s')}}</div>
+                    {%if entity.gepubliceerd %}
+                        <div><label>Laatste publicatie:</label>&nbsp;{{entity.publishedItem.gepubliceerdOp|date('d-m-Y H:i:s')}}</div>
+                    {%endif%}
                     <h3>Kernboodschap</h3>
                     <div>{{ entity.kernboodschap|raw }}</div>
                     <h3>Tweet</h3>

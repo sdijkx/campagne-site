@@ -1,6 +1,7 @@
 <?php
 namespace GLZeist\Bundle\ProgrammaBundle\Listener;
 use GLZeist\Bundle\ProgrammaBundle\Entity\Item;
+use GLZeist\Bundle\ProgrammaBundle\Entity\Persoon;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 
@@ -76,11 +77,11 @@ class UploadListener
     {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();    
-        if($entity instanceof Item)
+        if($entity instanceof Item || $entity instanceof Persoon)
         {
             return $entity;
         }
-        
+        return false;
     }
     
     private function getRootDir()

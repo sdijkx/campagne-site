@@ -5,6 +5,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use GLZeist\Bundle\ProgrammaBundle\Entity\User;
 
 class AddUser extends Command
 {
@@ -19,9 +20,14 @@ class AddUser extends Command
                 'Username'
             )
             ->addArgument(
+                'role',
+                InputArgument::REQUIRED,
+                'Role'
+            )                
+            ->addArgument(
                 'password',
                 InputArgument::REQUIRED,
-                'Passsword'
+                'Password'
             )
         ;
     }
@@ -31,6 +37,7 @@ class AddUser extends Command
         $container= $this->getApplication()->getKernel()->getContainer();
         
         $username = $input->getArgument('username');
+        $role=$input->getArgument('role');
         $password = $input->getArgument('password');
         
         
@@ -43,6 +50,11 @@ class AddUser extends Command
         {
             throw new \Exception('De gebruiker komt al voor in de database');
         }
+        
+        if(!in_array($role,User::$ROLES))
+        {
+            throw new \Exception('Onbekende gebruikers role');
+        }
 
         
 
@@ -53,6 +65,7 @@ class AddUser extends Command
         $encodedPassword=$encoderFactory->getEncoder($user)->encodePassword($password,$user->getSalt());
         
         $user->setPassword($encodedPassword);
+        $user->setRole($role);
         $em->persist($user);
         $em->flush();
         

@@ -33,7 +33,7 @@
                     <img src="{{ asset('bundles/glzeistprogramma/images/logo.png') }}" />
                 </div>
                 <div id="search">
-                    <form action="{{path('glzeist_programma_app_item_search')}}" method="POST">
+                    <form action="{{path('glzeist_programma_app_search')}}" method="POST">
                         <input name="search" value="{%if search is defined%}{{search}}{%endif%}" type="text" />
                         <input type="submit" value="Zoek"/>
                     </form>

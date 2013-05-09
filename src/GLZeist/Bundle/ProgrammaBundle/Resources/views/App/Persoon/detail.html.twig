@@ -1,0 +1,24 @@
+{% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block content%}
+
+<article id="binnenvak" class="persoon">
+    <header>
+        <h1>{{persoon.naam}}</h1>
+        <div>{{persoon.functie}}</div>
+    </header>
+    <div>
+        {{persoon.personalia|raw}}
+    </div>
+</article>
+
+{%endblock%}
+
+{%block rightcolumn%}
+    {%if persoon.imagefile %}
+        <div id="afbeelding">
+            <div class="image">
+                <img src="{{path('file',{filename:persoon.imagefile})}}" />
+            </div>
+        </div>
+    {%endif%}
+{%endblock%}

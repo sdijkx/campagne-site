@@ -1,0 +1,23 @@
+{% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
+{%block content%}
+<h1>Bewerk Persoon</h1>
+<form action="{{ path('admin_create_persoon', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Opslaan</button>
+    </p>
+</form>
+
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_persoon') }}">
+            Terug naar het overzicht
+        </a>
+    </li>
+</ul>
+<script>
+    CKEDITOR.replace('glzeist_bundle_programmabundle_persoontype_pesonalia');
+</script>
+
+{%endblock%}

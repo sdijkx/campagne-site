@@ -9,10 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use GLZeist\Bundle\ProgrammaBundle\Entity\Item;
 use GLZeist\Bundle\ProgrammaBundle\Form\ItemType;
+use GLZeist\Bundle\ProgrammaBundle\Annotation\Granted;
 
 /**
  * Item controller.
- *
+ * @Granted(role="ROLE_USER")
  * @Route("/item")
  */
 class ItemController extends Controller
@@ -25,38 +26,20 @@ class ItemController extends Controller
      */
     public function indexAction()
     {
+        $securityContext=$this->get('security.context');
         $em = $this->getDoctrine()->getManager();
         
-        $orderBy=$this->getRequest()->get('orderby','i.datumtijd');
+        $orderBy=$this->getRequest()->get('orderby','i.gewijzigdOp');
         $sortOrder=$this->getRequest()->get('sortorder','DESC');
         $search=$this->getRequest()->get('search',null);
         $page=$this->getRequest()->get('page',1);
         
-        
-        $fields=array('i.titel' => 'Titel','i.kernboodschap' => 'Kernboodschap','i.tweet' => 'Tweet','i.datumtijd' => 'Datum');
-
-        $qb=$em->createQueryBuilder();
-        $qb
-            ->select('COUNT(i)')
-            ->from('GLZeistProgrammaBundle:Item','i');
-        if(!empty($search))
-        {
-            $qb->andWhere('i.zoektekst LIKE :search OR i.zoektrefwoorden LIKE :search');
-            $qb->setParameter('search',$search);
-        }
-        $query=$qb->getQuery();
-        $count=$query->getSingleScalarResult();
-        
         $limit=10;
-        $pageCount=($count-1)/$limit+1;
         $offset=($page-1)*$limit;
         
-        $pages=array();
-        for($i=1;$i<=$pageCount;$i++)
-        {
-            $pages[$i]=$i;
-        }
 
+        
+        $fields=array('i.titel' => 'Titel','i.kernboodschap' => 'Kernboodschap','i.tweet' => 'Tweet','i.gewijzigdOp' => 'Datum');
 
         $qb=$em->createQueryBuilder();
         $qb
@@ -68,18 +51,33 @@ class ItemController extends Controller
             $qb->andWhere('i.zoektekst LIKE :search OR i.zoektrefwoorden LIKE :search');
             $qb->setParameter('search',$search);
         }
+        if(!$securityContext->isGranted('ROLE_MODERATOR'))
+        {
+            $qb->andWhere('i.gemaaktDoor=:user');
+            $qb->setParameter('user',$this->getUser());
+        }
         $qb->setFirstResult( $offset );
         $qb->setMaxResults( $limit );
         
         $query=$qb->getQuery();
-        $entities=$query->getResult();
         
+        $paginator=new \Doctrine\ORM\Tools\Pagination\Paginator($query);
+        $count=$paginator->count();
+
+        $pageCount=($count-1)/$limit+1;
+        $offset=($page-1)*$limit;
+        
+        $pages=array();
+        for($i=1;$i<=$pageCount;$i++)
+        {
+            $pages[$i]=$i;
+        }
         
                 
         //$entities = $em->getRepository('GLZeistProgrammaBundle:Item')->findAll(array($orderBy => $sortOrder));
 
         return array(
-            'entities' => $entities,
+            'entities' => $paginator,
             'fields' => $fields,
             'search' => $search,
             'orderBy'=>$orderBy,
@@ -114,6 +112,27 @@ class ItemController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+    
+
+    /**
+     * Finds and displays a Item entity.
+     *
+     * @Route("/{id}/preview", name="admin_preview_item")
+     * @Template("GLZeistProgrammaBundle:App:Item/detail.html.twig")
+     */
+    public function previewAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Item entity.');
+        }
+        return array(
+            'item'      => $entity,
+        );
+    }    
 
     /**
      * Displays a form to create a new Item entity.
@@ -147,10 +166,11 @@ class ItemController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setGemaaktDoor($this->getUser());
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('item', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('item_edit', array('id' => $entity->getId())));
         }
 
         return array(
@@ -177,11 +197,13 @@ class ItemController extends Controller
 
         $editForm = $this->createForm(new ItemType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
+        $publishForm = $this->createPublishForm($id);
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'publish_form' => $publishForm->createView()
         );
     }
 
@@ -219,6 +241,7 @@ class ItemController extends Controller
                 $entity->setThumbfile(rand());
             }
             
+            //remove links
             foreach($entity->getLinks() as $link)
             {
                 foreach ($links as $key => $toDel) {
@@ -233,6 +256,8 @@ class ItemController extends Controller
                 $em->remove($link);
             }
             
+           
+            
             $em->persist($entity);
             $em->flush();
 
@@ -243,7 +268,41 @@ class ItemController extends Controller
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'publish_form' => $this->createPublishForm($id)->createView() 
         );
+    }
+    
+    /**
+     * @Route("/{id}/publish",name="admin_publiceer_item")
+     * @Granted(role="ROLE_MODERATOR")
+     * @Method("POST")
+     */    
+    public function publishAction(Request $request, $id)
+    {
+        
+        $form = $this->createPublishForm($id);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Item entity.');
+            }
+            
+            $publisher=$this->get('gl_zeist_programma.publish_service');
+            try
+            {
+                $publisher->publish($entity);
+            }
+            catch(\Exception $e)
+            {
+                $this->get('session')->setFlash('error',$e->getMessage());
+            }
+        }
+
+        return $this->redirect($this->generateUrl('admin_item',array('id'=>$id)));        
     }
 
     /**
@@ -272,6 +331,7 @@ class ItemController extends Controller
         return $this->redirect($this->generateUrl('item'));
     }
 
+
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder(array('id' => $id))
@@ -279,4 +339,13 @@ class ItemController extends Controller
             ->getForm()
         ;
     }
+    
+    private function createPublishForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
+            ->getForm()
+        ;
+    }
+    
 }

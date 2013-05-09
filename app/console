@@ -14,6 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use GLZeist\Bundle\ProgrammaBundle\Command\AddUser;
 use GLZeist\Bundle\ProgrammaBundle\Command\UpdateUser;
+use GLZeist\Bundle\ProgrammaBundle\Command\UpdateUserRole;
+use GLZeist\Bundle\ProgrammaBundle\Command\ListUsers;
 
 $input = new ArgvInput();
 $env = $input->getParameterOption(array('--env', '-e'), getenv('SYMFONY_ENV') ?: 'dev');
@@ -23,4 +25,7 @@ $kernel = new AppKernel($env, $debug);
 $application = new Application($kernel);
 $application->add(new AddUser());
 $application->add(new UpdateUser());
+$application->add(new UpdateUserRole());
+$application->add(new ListUsers());
+
 $application->run($input);

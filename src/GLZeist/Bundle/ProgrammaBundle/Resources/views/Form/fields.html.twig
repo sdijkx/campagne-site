@@ -66,3 +66,44 @@
     {% endif %}
 {% endspaceless %}
 {% endblock form_errors %}
+
+
+{% block collection_widget %}
+{% spaceless %}
+    {%import _self as fields%}
+    {% if prototype is defined %}
+        {% set attr = attr|merge({'data-prototype': block('collection_prototype_widget') }) %}
+    {% endif %}
+    <div class="collection">
+        <div class="items" {{ block('widget_container_attributes') }}>
+            {%for row in form%}
+                {{fields.collection_item_widget(row)}}
+            {%endfor%}
+        </div>
+        <a class="add button" title="Toevoegen" href="#">
+            <span>Toevoegen</span>
+        </a>
+    </div>
+    
+{% endspaceless %}
+{% endblock collection_widget %}
+
+{% block collection_prototype_widget%}
+{% spaceless %}
+    {%import _self as fields%}
+    {{fields.collection_item_widget(prototype)}}
+{% endspaceless %}
+{%endblock%}
+
+{% macro collection_item_widget(form) %}
+{% spaceless %}
+    <div>
+        {% for row in form %}
+            {{ form_row(row) }}
+        {% endfor %}
+        <a class="remove button" title="Verwijderen" href="#">
+            <span>Verwijderen</span>
+        </a>
+    </div>
+{% endspaceless %}
+{% endmacro collection_item_widget %}

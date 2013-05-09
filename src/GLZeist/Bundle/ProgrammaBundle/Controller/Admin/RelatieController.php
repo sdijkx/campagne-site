@@ -9,10 +9,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use GLZeist\Bundle\ProgrammaBundle\Entity\Relatie;
 use GLZeist\Bundle\ProgrammaBundle\Form\RelatieType;
+use GLZeist\Bundle\ProgrammaBundle\Annotation\Granted;
 
 /**
  * Relatie controller.
- *
+ * 
+ * @Granted(role="ROLE_ADMIN")
  * @Route("/relatie")
  */
 class RelatieController extends Controller

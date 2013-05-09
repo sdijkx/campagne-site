@@ -7,11 +7,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Security\Core\SecurityContext;
+use GLZeist\Bundle\ProgrammaBundle\Annotation\Granted;
 
+/**
+ * @Granted(role="ROLE_ADMIN")
+ */
 class UserController extends Controller
 {
     /**
      * @Route("/login")
+     * @Granted(role="IS_AUTHENTICATED_ANONYMOUSLY")
      * @Template
      */
     
@@ -55,6 +60,7 @@ class UserController extends Controller
     }
     /**
      * @Route("/logout")
+     * @Granted(role="ROLE_USER")
      * @Template
      */
     
@@ -63,5 +69,13 @@ class UserController extends Controller
         $this->get('session')->invalidate();
         return $this->generateUrl('/');        
     }
-    
+    /**
+     * @Route("/user/index",name="admin_user")
+     * 
+     */
+
+    public function indexAction()
+    {
+        return new \Symfony\Component\HttpFoundation\Response('index');
+    }
 }

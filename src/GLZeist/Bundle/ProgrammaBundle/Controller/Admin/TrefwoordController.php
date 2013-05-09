@@ -9,11 +9,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use GLZeist\Bundle\ProgrammaBundle\Entity\Trefwoord;
 use GLZeist\Bundle\ProgrammaBundle\Form\TrefwoordType;
+use GLZeist\Bundle\ProgrammaBundle\Annotation\Granted;
 
 /**
  * Trefwoord controller.
  *
  * @Route("/trefwoord")
+ * @Granted(role="ROLE_MODERATOR")
  */
 class TrefwoordController extends Controller
 {

@@ -9,10 +9,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use GLZeist\Bundle\ProgrammaBundle\Entity\Paragraaf;
 use GLZeist\Bundle\ProgrammaBundle\Form\ParagraafType;
+use GLZeist\Bundle\ProgrammaBundle\Annotation\Granted;
 
 /**
  * Paragraaf controller.
- *
+ * 
+ * @Granted(role="ROLE_MODERATOR")
  * @Route("/paragraaf")
  */
 class ParagraafController extends Controller

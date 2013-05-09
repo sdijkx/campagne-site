@@ -1,0 +1,31 @@
+{% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block content%}
+    {%for key, result in results%}
+
+        {%if result['item'] is defined and result['item'] is not empty %}
+            {%set item=result['item'] %}
+            <div class="search-result">
+                {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig'%}
+            </div>
+            
+        {%endif%}
+
+        {%if result['thema'] is defined and result['thema'] is not empty %}
+            {%set thema=result['thema'] %}
+            <div class="search-result">
+                {%include 'GLZeistProgrammaBundle:App/Default:includes/thema-list-entry.html.twig'%}
+            </div>
+
+        {%endif%}
+
+        {%if result['persoon'] is defined and result['persoon'] is not empty %}
+            {%set persoon=result['persoon'] %}
+            {%include 'GLZeistProgrammaBundle:App/Default:includes/persoon-list-entry.html.twig'%}
+        {%endif%}
+
+        
+{%endfor%}
+{%if moreitems %}
+    {{ glzeist.meer_items('search',{search:search},results|length,limit) }}
+{%endif%}
+{%endblock%}

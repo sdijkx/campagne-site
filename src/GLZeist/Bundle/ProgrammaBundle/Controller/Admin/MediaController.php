@@ -9,10 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use GLZeist\Bundle\ProgrammaBundle\Entity\Media;
 use GLZeist\Bundle\ProgrammaBundle\Form\MediaType;
+use GLZeist\Bundle\ProgrammaBundle\Annotation\Granted;
 
 /**
  * Media controller.
- *
+ * @Granted(role="ROLE_MODERATOR")
  * @Route("/media")
  */
 class MediaController extends Controller

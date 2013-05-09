@@ -100,8 +100,9 @@ class Thema
     public function setSlug($slug) {
         $this->slug = $slug;
     }
+    
 
-        
+            
 
     public function __toString()
     {

@@ -1,4 +1,21 @@
-{% extends "GLZeistProgrammaBundle::admin.html.twig" %} {%block content%}<h1>Item edit</h1>
+{% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
+{%block content%}
+<h1>Item edit</h1>
+<div>
+    <ul class="actions">
+        <li><a href="{{path('admin_preview_item',{id:entity.id})}}">Voorbeeld</a></li>
+        
+        {%if is_moderator() %}
+            <li>
+                <form action="{{ path('admin_publiceer_item', { 'id': entity.id }) }}" method="post">
+                    {{ form_widget(publish_form) }}
+                    <button type="submit">Publiceren</button>
+                </form>
+            </li>
+        {%endif%}
+
+    </ul>
+</div>
 
 <form action="{{ path('item_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     
@@ -45,7 +62,6 @@
     <div class="form_row">
         {{ form_label(edit_form.links) }}
         {{ form_widget(edit_form.links) }}
-        <a href="#" id="add-link">Link toevoegen</a>
     </div>
 
     {{ form_row(edit_form._token) }}
@@ -96,14 +112,9 @@
 
     var linkCount = '{{ edit_form.links | length }}';
 
-
-    function appendRemoveLink(n)
-    {
-        $(n).append('<a href="#" class="button remove-link">Verwijderen</a>');
-    }
-
-    $('#add-link').click(function() {
-        var list = jQuery('#glzeist_bundle_programmabundle_itemtype_links');
+    $('div.collection a.add').click(function() {
+        var collection = $(this).parent('div.collection');
+        var list = $('div.items',collection);
 
         var newWidget = list.attr('data-prototype');
 
@@ -112,19 +123,13 @@
         linkCount++;
 
         var newDiv = jQuery(newWidget);
-        appendRemoveLink(newDiv);
         newDiv.appendTo(list);
-    
 
         return false;
     });
 
-    $('#glzeist_bundle_programmabundle_itemtype_links > div.form_row').each(function(i,n)
-    {
-        appendRemoveLink(n);
-    });
 
-    $('#glzeist_bundle_programmabundle_itemtype_links').on('click','a.remove-link', function(){
+    $('div.collection').on('click','a.remove', function(){
         $(this).parent().remove();
         return false;
     });
