@@ -87,14 +87,7 @@ class PublishedItem
      * @ORM\Column(name="thumbfile", type="string",nullable=true)
      */
     private $thumbfile;
-    
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="homepage", type="boolean")
-     */
-    private $homepage;
-    
+        
     
     /**
      * @Gedmo\Slug(fields={"titel"})

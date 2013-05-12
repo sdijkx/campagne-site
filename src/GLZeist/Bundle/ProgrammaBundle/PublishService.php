@@ -7,12 +7,14 @@ class PublishService {
     private $em;
     private $logger;
     private $mailer;
+    private $templating;
     
-    public function __construct(\Doctrine\ORM\EntityManager $em, \Symfony\Component\HttpKernel\Log\LoggerInterface $logger, \Swift_Mailer $mailer)
+    public function __construct(\Doctrine\ORM\EntityManager $em, \Symfony\Component\HttpKernel\Log\LoggerInterface $logger, \Swift_Mailer $mailer,$templating)
     {
         $this->em=$em;
         $this->mailer=$mailer;
         $this->logger=$logger;
+        $this->templating=$templating;
         
     }
     
@@ -116,9 +118,9 @@ class PublishService {
         $message = \Swift_Message::newInstance()
             ->setSubject('GLZeist item gepubliceerd')
             ->setFrom('noreply@groenlinkszeist.nl')
-            ->setTo($entity->getGemaaktDoor())
+            ->setTo($entity->getGemaaktDoor()->getEmail())
             ->setBody(
-                $this->renderView(
+                $this->templating->render(
                     'GLZeistProgrammaBundle:Admin:Item/publicatie_bevestiging.email.txt.twig',
                     array(
                         'item' => $entity
@@ -170,7 +172,7 @@ class PublishService {
                 ->setFrom('noreply@groenlinkszeist.nl')
                 ->setTo($user->getEmail())
                 ->setBody(
-                    $this->renderView(
+                    $this->templating->render(
                         'GLZeistProgrammaBundle:Admin:Item/publicatie_aanvraag.email.txt.twig',
                         array(
                             'sender' => $entity->getGemaaktDoor(),

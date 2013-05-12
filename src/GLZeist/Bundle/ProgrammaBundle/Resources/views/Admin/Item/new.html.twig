@@ -1,13 +1,26 @@
 {% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
 {%block content%}
 <h1>Item toevoegen</h1>
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_item') }}">
+            Terug naar het overzicht
+        </a>
+    </li>
+</ul>
 
 <form action="{{ path('item_create') }}" method="post" {{ form_enctype(form) }} class="new">
   
     {{ form_errors(form) }}
     {{ form_row(form.titel) }}
+    {{ form_row(form.thema) }}
     {{ form_row(form.kernboodschap) }}
-    {{ form_row(form.tweet) }}
+    <div class="form_row">
+        <label>Tweet (<span id="wordcount">{{entity.tweet|length}}</span> tekens)</label>
+        {{ form_widget(form.tweet) }}
+        
+    </div>
+
     {{ form_row(form.voorstellen) }}
     {{ form_row(form.verantwoording) }}
     {{ form_row(form.hoofdtekst) }}
@@ -18,36 +31,54 @@
     </div>
     {{ form_row(form.file) }}
     
-    {%if entity.video %}
-        <div>
-            <label>Video</label>
-            <iframe id="ytplayer" type="text/html" width="640" height="360"
-            src="https://www.youtube.com/embed/{{entity.video}}"
-            frameborder="0" allowfullscreen ></iframe>
-        </div>
-    {%endif%}
+    <div class="form_row">
+        <label>Youtube Video</label>
+        <div class="video">
+            {%if entity.video %}
 
-    {{ form_row(form.video) }}
+                <iframe id="ytplayer" type="text/html" width="640" height="360"
+                src="https://www.youtube.com/embed/{{entity.video}}"
+                frameborder="0" allowfullscreen ></iframe>
+
+            {%endif%}   
+            {{ form_widget(form.video) }}
+            <div class="hint">Vul hier de code van de youtube viideo in bijv:<br/>HOdPlzh6Go8 (http://www.youtube.com/watch?v=HOdPlzh6Go8)</div>
+            <input type=submit value="Opslaan" />
+        </div>
+    </div>
     {{ form_row(form.trefwoorden) }}
-    {{ form_row(form.thema) }}
+    {{ form_row(form.relaties) }}
     {{ form_row(form._token) }}
-    <p>
+    <div class="form_actions">
         <button type="submit">Toevoegen</button>
-    </p>
+    </div>
 </form>
 
-<ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_item') }}">
-            Terug naar het overzicht
-        </a>
-    </li>
-</ul>
 <script>
     CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_kernboodschap');
     CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_hoofdtekst');
     CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_voorstellen');
     CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_verantwoording');
+
+  $("#glzeist_bundle_programmabundle_itemtype_tweet").keyup(function(){
+        var max=100;
+        
+        var len= $(this).val().length;
+        
+        $("#wordcount").html(len);
+
+        if(len>max)
+        {
+            if(!$('#wordcount').hasClass('error'))
+            {
+                $('#wordcount').addClass('error');
+            }
+        }
+        else
+        {
+            $('#wordcount').removeClass('error');
+        }
+    }).keyup();
 
 </script>
 {%endblock%}

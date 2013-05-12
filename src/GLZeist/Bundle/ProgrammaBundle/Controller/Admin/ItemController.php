@@ -90,30 +90,7 @@ class ItemController extends Controller
         );
     }
 
-    /**
-     * Finds and displays a Item entity.
-     *
-     * @Route("/{id}/show", name="item_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->findByIdForUser($id,$this->getUser());
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Item entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-    
+   
 
     /**
      * Finds and displays a Item entity.
@@ -166,12 +143,19 @@ class ItemController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity->setGemaaktDoor($this->getUser());
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('item_edit', array('id' => $entity->getId())));
+            
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $entity->setGemaaktDoor($this->getUser());
+                $em->persist($entity);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('notice','Het item is opgeslagen');
+                return $this->redirect($this->generateUrl('item_edit', array('id' => $entity->getId())));
+            }
+            catch(\Exception $e)
+            {
+                $this->get('session')->getFlashBag->add('error','Het item kan niet worden opgeslagen');
+            }
         }
 
         return array(
@@ -376,13 +360,32 @@ class ItemController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Item entity.');
             }
-
-            $em->remove($entity);
-            $em->flush();
-            $this->get('session')->getFlashBag()->add('notice','Het item is verwijderd');
+            
+            try
+            {
+                /*
+                if($entity->getPublishedItem())
+                {
+                    $publishedItem=$entity->getPublishedItem();
+                    $publishedItem->setItem(null);
+                    $entity->setPublishedItem(null);
+                    $em->remove($publishedItem);
+                    $em->flush();
+                }
+                 */
+                $em->remove($entity);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('notice','Het item is verwijderd');
+                return $this->redirect($this->generateUrl('admin_item'));
+            }
+            catch(\Exception $e)
+            {
+                $this->get('session')->getFlashBag()->add('error','Het item kan niet verwijderd worden');
+            }
+            
         }
 
-        return $this->redirect($this->generateUrl('item_edit'));
+        return $this->redirect($this->generateUrl('item_edit',array('id'=>$id)));
     }
 
 

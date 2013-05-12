@@ -65,11 +65,19 @@ class PersoonController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_persoon', array('id' => $entity->getId())));
+            
+            try
+            {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($entity);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('notice','De persoon is toegevoegd');
+                return $this->redirect($this->generateUrl('admin_persoon', array('id' => $entity->getId())));
+            }
+            catch(\Exception $e)
+            {
+                $this->get('session')->getFlashBag()->add('error','De persoon kan niet worden toegevoegd');
+            }
         }
 
         return array(
@@ -125,16 +133,25 @@ class PersoonController extends Controller
 
         if ($editForm->isValid()) {
             
-            if($entity->getFile()!==null)
+            try
             {
-                $entity->setImagefile(rand());
-                $entity->setThumbfile(rand());
-            }
-            
-            $em->persist($entity);
-            $em->flush();
+                if($entity->getFile()!==null)
+                {
+                    $entity->setImagefile(rand());
+                    $entity->setThumbfile(rand());
+                }
 
-            return $this->redirect($this->generateUrl('admin_edit_persoon', array('id' => $id)));
+                $em->persist($entity);
+                $em->flush();
+                
+                $this->get('session')->getFlashBag()->add('error','De persoon is opgeslagen');                
+
+                return $this->redirect($this->generateUrl('admin_edit_persoon', array('id' => $id)));
+            }
+            catch(\Exception $e)
+            {
+                $this->get('session')->getFlashBag()->add('error','De persoon kan niet worden opgeslagen');                
+            }
         }
 
         return array(
@@ -163,12 +180,21 @@ class PersoonController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Persoon entity.');
             }
-
-            $em->remove($entity);
-            $em->flush();
+            
+            try
+            {
+                $em->remove($entity);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('notice','De persoon is verwijderd');                
+                return $this->redirect($this->generateUrl('admin_persoon'));        
+            }
+            catch(\Exception $e)
+            {
+                $this->get('session')->getFlashBag()->add('error','De persoon kan niet worden verwijderd');                                
+            }
         }
 
-        return $this->redirect($this->generateUrl('admin_persoon'));        
+        return $this->redirect($this->generateUrl('admin_edit_persoon',array('id'=>$id)));        
     }
     
     private function createDeleteForm($id)

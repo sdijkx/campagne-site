@@ -95,15 +95,6 @@ class Item
      */
     public $file;
     
-    
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="homepage", type="boolean")
-     */
-    private $homepage;
-    
-    
     /**
      * @Gedmo\Slug(fields={"titel"})
      * @ORM\Column(length=128, unique=true)
@@ -135,7 +126,7 @@ class Item
     
     /**
      * @ORM\ManyToMany(targetEntity="Trefwoord")
-     * @ORM\OrderBy({"trefwoord"="DESC"})
+     * @ORM\OrderBy({"trefwoord"="ASC"})
      */
     private $trefwoorden;
     
@@ -171,6 +162,7 @@ class Item
     
     /**
      * @ORM\OneToOne(targetEntity="PublishedItem",cascade={"all"})
+     * @ORM\JoinColumn(nullable=true,onDelete="SET NULL")
      */
     private $publishedItem;    
   

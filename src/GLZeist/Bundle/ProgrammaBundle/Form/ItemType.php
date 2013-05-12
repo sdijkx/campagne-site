@@ -19,8 +19,17 @@ class ItemType extends AbstractType
             ->add('hoofdtekst','textarea',array('required'=>false,'attr'=>array('class'=>'large')))
             ->add('file')
             ->add('video')
-            ->add('relaties','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Item'))
-            ->add('trefwoorden','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Trefwoord'))
+            ->add('relaties','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Item', 
+                    'query_builder'=> function($repos) {
+                        
+                        return $repos->createQueryBuilder('i')->orderBy('i.titel','ASC');
+                        
+                        }))
+            ->add('trefwoorden','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Trefwoord',
+                'query_builder'=> function($repos) {
+                            return $repos->createQueryBuilder('t')->orderBy('t.trefwoord','ASC'); 
+                            
+                            }))
             ->add('thema','entity',array('expanded'=>true,'class' => 'GLZeistProgrammaBundle:Thema'))
             ->add('links','collection',array('type'=> new LinkType(),
                 'prototype'=>true,

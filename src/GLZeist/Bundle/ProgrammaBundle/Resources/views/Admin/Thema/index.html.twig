@@ -2,6 +2,14 @@
 {%block content%}
 <h1>Thema overzicht</h1>
 
+<ul class="actions">
+    <li>
+        <a href="{{ path('thema_new') }}">
+            Nieuw thema toevoegen
+        </a>
+    </li>
+</ul>
+
 <table class="records_list">
     <thead>
         <tr>
@@ -21,12 +29,4 @@
     {% endfor %}
     </tbody>
 </table>
-
-<ul class="actions">
-    <li>
-        <a href="{{ path('thema_new') }}">
-            Nieuw thema toevoegen
-        </a>
-    </li>
-</ul>
 {%endblock%}

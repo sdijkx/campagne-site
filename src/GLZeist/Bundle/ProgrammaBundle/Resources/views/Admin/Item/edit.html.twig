@@ -3,6 +3,12 @@
 <h1>Item bewerken</h1>
 <div class="clearfix">
     <ul class="actions">
+        <li>
+            <a href="{{ path('admin_item') }}">
+                Terug naar het overzicht
+            </a>
+        </li>
+
         <li><a href="{{path('admin_preview_item',{id:entity.id})}}">Voorbeeld</a></li>
         
         {%if is_moderator() %}
@@ -62,6 +68,7 @@
 
             {%endif%}   
             {{ form_widget(edit_form.video) }}
+            <div class="hint">Vul hier de code van de youtube viideo in bijv:<br/>HOdPlzh6Go8 (http://www.youtube.com/watch?v=HOdPlzh6Go8)</div>
             <input type=submit value="Opslaan" />
         </div>
     </div>
@@ -69,6 +76,9 @@
         {{ form_label(edit_form.links) }}
         {{ form_widget(edit_form.links) }}
     </div>
+
+
+
     {{ form_row(edit_form.trefwoorden) }}
     {{ form_row(edit_form.relaties) }}
 
@@ -81,11 +91,6 @@
 </form>
 
 <ul class="record_actions">
-    <li>
-        <a href="{{ path('admin_item') }}">
-            Terug naar het overzicht
-        </a>
-    </li>
     <li>
         <form action="{{ path('item_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}

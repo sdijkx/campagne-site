@@ -183,9 +183,16 @@ class ThemaController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Thema entity.');
             }
-
-            $em->remove($entity);
-            $em->flush();
+            try
+            {
+                $em->remove($entity);
+                $em->flush();
+            }
+            catch(\Exception $e)
+            {
+                $this->get('session')->getFlashBag()->add('error','Het thema kan niet verwijderd worden');
+                return $this->redirect($this->generateUrl('thema_edit',array('id'=>$id)));
+            }
         }
 
         return $this->redirect($this->generateUrl('admin_thema'));

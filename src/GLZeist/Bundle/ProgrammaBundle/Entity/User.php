@@ -149,8 +149,15 @@ class User implements \Symfony\Component\Security\Core\User\AdvancedUserInterfac
     public function setEmail($email) {
         $this->email = $email;
     }
+    public function getId() {
+        return $this->id;
+    }
 
-        
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+            
     /**
      * @inheritDoc
      */

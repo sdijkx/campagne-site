@@ -1,7 +1,14 @@
 {% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
 {%block content%}
 <h1>Item overzicht</h1>
-<p>
+<ul  class="actions clearfix">
+    <li>
+        <a href="{{ path('item_new') }}">
+            Nieuw item toevoegen
+        </a>
+    </li>
+</ul>
+<div>
     <form method="GET">    
         <div>
             <input type="text" name="search" value="{{search}}"/>
@@ -20,7 +27,7 @@
         <input type="radio" name="sortorder" value="DESC" {%if sortOrder == 'DESC' %} checked="checked" {%endif%} onchange="javascript:this.form.submit();" />
         <label>Aflopend</label>
     </form>
-</p>
+</div>
 {{macros.paging(page,pageCount,'admin_item',{search:search,orderby:orderBy,page:page})}}
 <div class="results">
     {%if entities|length == 0 %}
@@ -29,20 +36,30 @@
 
     {% for entity in entities %}
         <div class="item entry clearfix">
-            <h2>{{ entity.titel }}</h2>
-            <div class="clearfix" style="border:1px solid #DDD; padding:3px;">
+            <h2>{{entity.thema.titel}} - {{ entity.titel }}</h2>
+            <div class="extra">
+                {%if entity.gepubliceerd %}
+                    <div class="notice"><strong>Gepubliceerd</strong></div>
+                {%elseif entity.aangevraagd %}
+                    <div class="notice"><strong>Publicatie aangevraagd</strong></div>
+                {%elseif entity.gewijzigdNaPublicatie %}
+                    <div class="notice"><strong>Gewijzigd na laatste publicatie</strong></div>
+                {%endif%}
+                {%if entity.gepubliceerd %}
+                    <div><label>Laatste publicatie:</label>&nbsp;{{entity.publishedItem.gepubliceerdOp|date('d-m-Y H:i:s')}}</div>
+                    <br/>
+                {%endif%}
+
+            </div>
+
+            <div class="content clearfix" >
                 <ul class="actions" style="float:left;margin-top:0;">
                     <li>
                         <a title="Bewerk" href="{{ path('item_edit', { 'id': entity.id }) }}"><span class="icon-pencil">&nbsp;</span></a>
                     </li>
                 </ul>
-                <div style="float:left;width:30%">
-                    <h3>Kernboodschap</h3>
+                <div class="description">
                     <div>{{ entity.kernboodschap|raw }}</div>
-                </div>
-                <div style="float:left;width:30%">
-                    <h3>Tweet</h3>
-                    <div>{{ entity.tweet|raw }}</div>
                 </div>
                 <div class="thumb" style="float:right;width:120px%">
                     {%if entity.thumbfile %}
@@ -51,33 +68,15 @@
                         &nbsp;
                     {%endif%}
                 </div>
-
             </div>
             <div class="info">
 
-                {%if entity.aangevraagd %}
-                    <div class="notice"><strong>Publicatie aangevraagd</strong></div>
-                {%elseif entity.gewijzigdNaPublicatie %}
-                    <div class="notice"><strong>Gewijzigd na laatste publicatie</strong></div>
-                {%endif%}
-                
-
                 <div><label>Auteur:</label>&nbsp;{{entity.gemaaktDoor.username}}</div>
                 <div><label>Laatst gewijzigd:</label>&nbsp;{{entity.gewijzigdOp|date('d-m-Y H:i:s')}}</div>
-                {%if entity.gepubliceerd %}
-                    <div><label>Laatste publicatie:</label>&nbsp;{{entity.publishedItem.gepubliceerdOp|date('d-m-Y H:i:s')}}</div>
-                {%endif%}
                 <div><label>Gemaakt:</label>&nbsp;{{entity.gemaaktOp|date('d-m-Y H:i:s')}}</div>
+
             </div>
         </div>
     {% endfor %}
 </div>
-
-<ul  class="actions">
-    <li>
-        <a href="{{ path('item_new') }}">
-            Nieuw item toevoegen
-        </a>
-    </li>
-</ul>
 {%endblock%}

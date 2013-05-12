@@ -106,10 +106,13 @@ table.records_list td.right {text-align:right;}
 
 
 /*RECORD LISTS*/
-div.entry { margin-bottom:5px;}
-div.entry:hover{background-color: #EAEAEA;}
-div.entry h2 {line-height: 16pt; padding-bottom: 3px;}
-div.entry h3 {line-height: 16pt; padding-bottom: 3px;}
+div.entry { margin-bottom:15px;}
+div.entry h2 {line-height: 16pt; padding: 8px;border-top: 1px solid #EEE;border-left: 1px solid #EEE;border-right: 1px solid #EEE;}
+div.entry h3 {line-height: 14pt; padding-bottom: 3px;}
+div.entry div.extra {border-left:1px solid #EEE; padding:3px;border-right:1px solid #EEE; padding:3px;}
+div.entry div.content {border:1px solid #EEE; padding:3px;}
+div.entry div.description {float:left;padding:8px;}
+div.entry div.thumb {float:right;height:120px;width:120px;}
 div.entry div.info { padding:3px 0 6px 4px;; background-color:#BBB;border-bottom: 1px solid #EEE;color:#484848; }
 div.entry div.info > div {display:inline-block;margin-right:6px;} 
 div.entry div.info > div label {font-weight: bold;} 
@@ -131,7 +134,7 @@ div.form_actions { text-align: right;}
 
 
 div.form_row label { width:20%;display: inline-block;vertical-align: top;}
-input[type="text"] { display: inline-block;width:70%;font-size: 120%;}
+input[type="text"],input[type="email"] { display: inline-block;width:70%;font-size: 120%;}
 input[type="password"] {font-size:120%;}
 
 textarea { width:70%;height:60px;}
@@ -162,7 +165,10 @@ div.form_row div.video {display: inline-block; width:70%;}
 div.form_row div.video input[type=file]{display:block;}
 
 
-ul.errors { color:red; }
+ul.errors { 
+    margin:0;
+    color:red; 
+}
 
 
 /*
@@ -176,7 +182,7 @@ LOGIN
 /* ITEM */
 
 div.item.entry div.thumb { float:left;width:120px;}
-
+#wordcount.error { color:red; }
 
 /*FLASH*/
 div.flash
@@ -209,4 +215,9 @@ div.flash.warning {
 }
 
 
-
+/*LOGIN*/
+#login {
+    width:550px;    
+}
+#login div.form_row { border:none;}
+#login div.form_row label{ vertical-align: baseline;}

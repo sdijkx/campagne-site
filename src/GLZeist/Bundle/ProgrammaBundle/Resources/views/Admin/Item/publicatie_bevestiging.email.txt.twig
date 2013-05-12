@@ -2,5 +2,5 @@ Beste {{item.gemaaktDoor.username}}
 
 Het item {{item.titel}} is gepubliceerd op de site. Open de onderstaande link om het item te bekijken.
 
-{{url(item,{slug:item.slug})|raw}}
+{{url('item',{slug:item.slug,thema:item.thema.slug})|raw}}
 

@@ -68,11 +68,19 @@ class TrefwoordController extends Controller
         $form->bind($request);
 
         if ($form->isValid()) {
+            
             $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_trefwoord', array('id' => $entity->getId())));
+            try
+            {
+                $em->persist($entity);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add('notice','Het trefwoord is toegevoegd');
+                return $this->redirect($this->generateUrl('admin_trefwoord', array('id' => $entity->getId())));
+            }
+            catch(\Exception $e)
+            {
+                $this->get('session')->getFlashBag()->add('error','Het trefwoord kan niet worden toegevoegd');
+            }
         }
 
         return array(
@@ -97,9 +105,18 @@ class TrefwoordController extends Controller
             throw $this->createNotFoundException('Unable to find Trefwoord entity.');
         }
 
-        $em->remove($entity);
-        $em->flush();
-        return $this->redirect($this->generateUrl('admin_trefwoord'));
+        try
+        {
+            $em->remove($entity);
+            $em->flush();
+            return $this->redirect($this->generateUrl('admin_trefwoord'));
+        }
+        catch(\Exception $e)
+        {
+            $this->get('session')->getFlashBag()->add('error','Het trefwoord kan niet worden verwijderd');            
+        }
+        return $this->redirect($request->headers->get('Referer'));
+        
     }
 
     private function createDeleteForm($id)

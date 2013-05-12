@@ -3,24 +3,26 @@
     {% if error %}
         <div class="error">{{ error.message|trans }}</div>
     {% endif %}
-    <div id="login">
-        <form name="login" class="default-enter-key" action="{{ path('admin_login_check') }}" method="post">
-            <div>
-                <div class="form_row">
-                    <label>{% trans %}Gebruikersnaam{% endtrans %}</label>
-                    <input type="text" class="input_tekst" id="username" name="_username" value="{{ last_username }}" maxlength="100" />
+    <center>
+        <div id="login">
+            <form name="login" class="default-enter-key" action="{{ path('admin_login_check') }}" method="post">
+                <div>
+                    <div class="form_row">
+                        <label>{% trans %}Gebruikersnaam{% endtrans %}</label>
+                        <input type="text" class="input_tekst" id="username" name="_username" value="{{ last_username }}" maxlength="100" />
+                    </div>
+                    <div class="form_row">
+                        <label>{% trans %}Wachtwoord{% endtrans %}</label>
+                        <input type="password" class="input_tekst" id="password" name="_password" maxlength="100"/>
+                    </div>
+                    <div class="form_row">
+                        <input type="checkbox" id="remember_me" name="_remember_me" checked />&nbsp;<label>Onthoud mij</label>
+                    </div>
+                    <div class="form_row">
+                        <input type="submit" name="submit" value="{% trans %}Login{% endtrans %}" />
+                    </div>
                 </div>
-                <div class="form_row">
-                    <label>{% trans %}Wachtwoord{% endtrans %}</label>
-                    <input type="password" class="input_tekst" id="password" name="_password" maxlength="100"/>
-                </div>
-                <div class="form_row">
-                    <input type="checkbox" id="remember_me" name="_remember_me" checked />&nbsp;<label>Onthoud mij</label>
-                </div>
-                <div class="form_row">
-                    <input type="submit" name="submit" value="{% trans %}Login{% endtrans %}" />
-                </div>
-            </div>
-        </form>
-    </div>
+            </form>
+        </div>
+    </center>
 {%endblock%}

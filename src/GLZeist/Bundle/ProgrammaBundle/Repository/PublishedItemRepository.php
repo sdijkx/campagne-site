@@ -6,7 +6,7 @@ class PublishedItemRepository extends \Doctrine\ORM\EntityRepository
 
     public function findAllForHomepage()
     {
-        return $this->getEntityManager()->createQuery("SELECT i FROM GLZeistProgrammaBundle:PublishedItem i WHERE i.homepage=true")->getResult();
+        return $this->getEntityManager()->createQuery("SELECT i FROM GLZeistProgrammaBundle:PublishedItem i ORDER BY i.gepubliceerdOp DESC")->setMaxResults(5)->getResult();
     }
     
     public function findAllForTrefwoord($trefwoord)
