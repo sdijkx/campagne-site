@@ -101,7 +101,6 @@ class DefaultController extends Controller
     
     /**
      * @Route("/file/{filename}",name="file") 
-     * @Template()
      */
     public function fileAction($filename)
     {
@@ -113,6 +112,7 @@ class DefaultController extends Controller
         header('Content-type: '.$mimeType);
         header('Content-Disposition: attachment; filename="'.$filename.'"');
         readfile($path);
+        exit;
         
     }
     
