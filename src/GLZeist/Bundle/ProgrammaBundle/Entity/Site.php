@@ -4,6 +4,7 @@ namespace GLZeist\Bundle\ProgrammaBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table()
@@ -38,7 +39,7 @@ class Site {
     public $file;    
     
      /**
-     * @ORM\OneToMany(targetEntity="PublishedItem")
+     * @ORM\ManyToMany(targetEntity="PublishedItem")
      */
     private $items;
     
