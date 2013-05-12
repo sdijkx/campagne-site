@@ -29,6 +29,15 @@
                 {%include 'GLZeistProgrammaBundle:Admin:menu.html.twig' %}
             </nav>
         </header>
+        {% if app.session.started %}
+            {% for type,messages in app.session.flashbag.all() %}
+                {%for flashMessage in messages %}
+                    <div class="flash {{type}}">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}        
         <div id="container" class="clearfix">
             {%block content%}{%endblock%}
         </div>
@@ -36,12 +45,12 @@
         </footer>
         <script>
             $(function(){
-                $('div.form_textarea').on('click','a.edit,a.close',function(){
+                $('div.form_textarea').on('click','.edit,.close',function(){
                     parent=$(this).parent();
                     $('div.value',parent).toggle();
                     $('div.input',parent).toggle();
-                    $('a.edit',parent).toggle();
-                    $('a.close',parent).toggle();
+                    $('.edit',parent).toggle();
+                    $('.close',parent).toggle();
                     return false;
                 });
             });

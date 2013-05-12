@@ -29,6 +29,11 @@ security:
             pattern:    ^/admin/
             security: true
             anonymous: ~
+            remember_me:
+                key: %secret%
+                lifetime: 31536000
+                path: ~
+                domain: ~            
             form_login:
                 check_path: /admin/login_check
                 login_path: /admin/login

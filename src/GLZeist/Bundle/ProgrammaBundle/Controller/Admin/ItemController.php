@@ -34,7 +34,8 @@ class ItemController extends Controller
         $search=$this->getRequest()->get('search',null);
         $page=$this->getRequest()->get('page',1);
         
-        $limit=10;
+        $limit=$this->getRequest()->get('limit',10);
+        
         $offset=($page-1)*$limit;
         
 
@@ -64,7 +65,7 @@ class ItemController extends Controller
         $paginator=new \Doctrine\ORM\Tools\Pagination\Paginator($query);
         $count=$paginator->count();
 
-        $pageCount=($count-1)/$limit+1;
+        $pageCount=floor(($count-1)/$limit+1);
         $offset=($page-1)*$limit;
         
         $pages=array();
@@ -99,7 +100,7 @@ class ItemController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->find($id);
+        $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->findByIdForUser($id,$this->getUser());
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
@@ -118,13 +119,13 @@ class ItemController extends Controller
      * Finds and displays a Item entity.
      *
      * @Route("/{id}/preview", name="admin_preview_item")
-     * @Template("GLZeistProgrammaBundle:App:Item/detail.html.twig")
+     * @Template("GLZeistProgrammaBundle:App:PublishedItem/detail.html.twig")
      */
     public function previewAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->find($id);
+        $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->findByIdForUser($id,$this->getUser());
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
@@ -189,7 +190,7 @@ class ItemController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->find($id);
+        $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->findByIdForUser($id,$this->getUser());
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
@@ -218,7 +219,7 @@ class ItemController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->find($id);
+        $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->findByIdForUser($id,$this->getUser());
         
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
@@ -260,6 +261,8 @@ class ItemController extends Controller
             
             $em->persist($entity);
             $em->flush();
+            
+            $this->get('session')->getFlashBag()->add('notice','Het item is opgeslagen');
 
             return $this->redirect($this->generateUrl('item_edit', array('id' => $id)));
         }
@@ -285,7 +288,7 @@ class ItemController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->find($id);
+            $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->findByIdForUser($id,$this->getUser());
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Item entity.');
@@ -295,15 +298,65 @@ class ItemController extends Controller
             try
             {
                 $publisher->publish($entity);
+                $this->get('session')->getFlashBag()->add('notice','Het item is gepubliceerd');
+                return $this->redirect($this->generateUrl('admin_item',array('id'=>$id)));        
             }
             catch(\Exception $e)
             {
-                $this->get('session')->setFlash('error',$e->getMessage());
+                $this->get('session')->getFlashBag()->add('error',$e->getMessage());
+            }
+        }
+        else
+        {
+            foreach($form->getErrors() as $error)
+            {
+                $this->get('session')->getFlashBag()->add('error',$error->getMessage());
+            }
+        }
+        return $this->redirect($this->generateUrl('item_edit',array('id'=>$id)));        
+    }
+    
+    /**
+     * @Route("/{id}/request-publication",name="admin_publicatie_aanvraag")
+     * @Granted(role="ROLE_USER")
+     * @Method("POST")
+     */    
+    public function requestPublicationAction(Request $request, $id)
+    {
+
+        $form = $this->createPublishForm($id);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->findByIdForUser($id,$this->getUser());
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Item entity.');
+            }
+            
+            $publisher=$this->get('gl_zeist_programma.publish_service');
+            try
+            {
+                $publisher->requestPublication($entity);
+                $this->get('session')->getFlashBag()->add('notice','Aanvraag ingediend');
+                return $this->redirect($this->generateUrl('admin_item',array('id'=>$id)));        
+            }
+            catch(\Exception $e)
+            {
+                $this->get('session')->getFlashBag()->add('error',$e->getMessage());
+            }
+        }
+        else
+        {
+            foreach($form->getErrors() as $error)
+            {
+                $this->get('session')->getFlashBag()->add('error',$error->getMessage());
             }
         }
 
-        return $this->redirect($this->generateUrl('admin_item',array('id'=>$id)));        
+        return $this->redirect($this->generateUrl('item_edit',array('id'=>$id)));        
     }
+    
 
     /**
      * Deletes a Item entity.
@@ -318,7 +371,7 @@ class ItemController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->find($id);
+            $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->findByIdForUser($id,$this->getUser());
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Item entity.');
@@ -326,9 +379,10 @@ class ItemController extends Controller
 
             $em->remove($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add('notice','Het item is verwijderd');
         }
 
-        return $this->redirect($this->generateUrl('item'));
+        return $this->redirect($this->generateUrl('item_edit'));
     }
 
 

@@ -45,13 +45,15 @@ nav li:hover {background-color: #5F5F5F; }
 
 ul[class*="actions"] li {
     display: inline-block;
+    float:right;
 }
 
-/* BUTOONS */
+/* BUTTONS */
 
 *[type=submit],ul[class*="actions"] a, a.button { 
     text-decoration: none; display: inline-block; padding:3px 10px;border-radius:4px;margin:3px;border:none;
-    font-size: 12pt;
+    font-size: 12px;
+    text-shadow: 0 1px 0 rgba(0,180,46,0.5);
     color:#EFEFEF;
     cursor:pointer;
     background: #006e2e; /* Old browsers */
@@ -87,6 +89,8 @@ ul.record_actions {
     padding:3px;
     text-align: center;
 } 
+.paging a {text-decoration: none;color:#484848;}
+.paging a:visited {color:#484848;}
 /*
 RECORDS
 */
@@ -94,16 +98,23 @@ RECORDS
 table.records_list {width:100%;}
 table.records_list thead { background-color:#4F4F4F;color:#EFEFEF;}
 table.records_list thead th {font-weight: normal;padding:5px;}
+table.records_list thead th.edit,
+table.records_list thead th.remove {width:54px;}
 table.records_list td {text-align:center;}
 table.records_list td.left {text-align:left;}
 table.records_list td.right {text-align:right;}
 
+
 /*RECORD LISTS*/
-div.entry {border: 1px solid #DDD;padding:10px; margin-bottom:5px;}
+div.entry { margin-bottom:5px;}
+div.entry:hover{background-color: #EAEAEA;}
 div.entry h2 {line-height: 16pt; padding-bottom: 3px;}
 div.entry h3 {line-height: 16pt; padding-bottom: 3px;}
-div.entry div.info { float:left; width:65%;margin-left:10px;}
-div.entry div.actions { float:left;}
+div.entry div.info { padding:3px 0 6px 4px;; background-color:#BBB;border-bottom: 1px solid #EEE;color:#484848; }
+div.entry div.info > div {display:inline-block;margin-right:6px;} 
+div.entry div.info > div label {font-weight: bold;} 
+div.entry div.info > div.notice {font-weight: bold;color:#FFF;display:block;} 
+div.entry ul.actions { }
 div.results {margin-top:20px;padding: 10px;}
 ul.actions {margin-top:20px;margin-left:0}
 
@@ -116,6 +127,8 @@ div.form_row {padding:10px;border-bottom: #AAA solid thin;}
 #container > form > div { margin-top:20px;}
 
 div.form_row {}
+div.form_actions { text-align: right;}
+
 
 div.form_row label { width:20%;display: inline-block;vertical-align: top;}
 input[type="text"] { display: inline-block;width:70%;font-size: 120%;}
@@ -132,9 +145,9 @@ div.choice.expanded label {width:auto;}
 
 div.form_textarea {border:none!important;margin:0!important;display:inline-block;width:70%;}
 div.form_textarea div.input{display:none;}
-div.form_textarea a.close,
-div.form_textarea a.edit {text-decoration: none;}
-div.form_textarea a.close{display:none;}
+div.form_textarea .close a,
+div.form_textarea .edit a {text-decoration: none;}
+div.form_textarea .close{display:none;}
 div.form_row input[type=submit]{display:block;}
 
 form.new div.form_textarea div.input{display:block;}
@@ -163,3 +176,37 @@ LOGIN
 /* ITEM */
 
 div.item.entry div.thumb { float:left;width:120px;}
+
+
+/*FLASH*/
+div.flash
+{
+    font-size: 105%;
+    font-weight: bold;
+    width:100%;
+    text-align: center;
+    padding:10px 0 10px 0;
+    background-color: white;
+    background: -moz-linear-gradient(top,  #FFF 0%, #AAA 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFF), color-stop(100%,#AAA)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #FFF 0%,#AAA 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #FFF 0%,#AAA 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #FFF 0%,#AAA 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #FFF 0%,#AAA 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFF', endColorstr='#AAA',GradientType=0 ); /* IE6-9 */
+}
+
+div.flash.notice {
+    color: green;
+}
+
+div.flash.error {
+    color: red;
+}
+
+div.flash.warning {
+    color: orange;
+}
+
+
+

@@ -6,9 +6,9 @@
 <form action="{{ path('trefwoord_create') }}" method="post" {{ form_enctype(form) }}>
     {{form_errors(form)}}
     {{ form_widget(form) }}
-    <p>
+    <div class="form_actions">
         <button type="submit">Toevoegen</button>
-    </p>
+    </div>
 </form>
 
 <ul class="record_actions">

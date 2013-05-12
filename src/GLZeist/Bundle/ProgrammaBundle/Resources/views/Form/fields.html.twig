@@ -14,8 +14,8 @@
 {% block textarea_widget %}
 {% spaceless %}
     <div class="form_textarea">
-        <a href="#" class="edit">bewerk<i class="icon-pencil">&nbsp;</i></a>
-        <a href="#" class="close">sluit<i class="icon-cancel">&nbsp;</i></a>
+        <div class="edit"><a href="#" class="button"><i class="icon-pencil">&nbsp;</i></a></div>
+        <div class="close"><a href="#" class="button"><i class="icon-cancel">&nbsp;</i></a></div>
         <div class="input">
             <textarea {{ block('widget_attributes') }}>{{ value}}</textarea>
             <input type=submit value="Opslaan" />

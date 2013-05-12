@@ -26,6 +26,12 @@ class User implements \Symfony\Component\Security\Core\User\AdvancedUserInterfac
      * @ORM\Column(type="string", length=25, unique=true)
      */
     private $username;
+    
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $email;
+    
 
     /**
      * @ORM\Column(type="string", length=32)
@@ -136,6 +142,15 @@ class User implements \Symfony\Component\Security\Core\User\AdvancedUserInterfac
         return $this->isActive;
     }    
 
+    public function getEmail() {
+        return $this->email;
+    }
+
+    public function setEmail($email) {
+        $this->email = $email;
+    }
+
+        
     /**
      * @inheritDoc
      */

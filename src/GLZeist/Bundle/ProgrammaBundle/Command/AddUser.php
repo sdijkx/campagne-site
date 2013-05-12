@@ -29,6 +29,12 @@ class AddUser extends Command
                 InputArgument::REQUIRED,
                 'Password'
             )
+            ->addArgument(
+                'email',
+                InputArgument::OPTIONAL,
+                'Email'
+            )
+                
         ;
     }
 

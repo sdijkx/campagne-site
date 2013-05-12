@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use GLZeist\Bundle\ProgrammaBundle\Command\AddUser;
 use GLZeist\Bundle\ProgrammaBundle\Command\UpdateUser;
 use GLZeist\Bundle\ProgrammaBundle\Command\UpdateUserRole;
+use GLZeist\Bundle\ProgrammaBundle\Command\UpdateUserEmail;
 use GLZeist\Bundle\ProgrammaBundle\Command\ListUsers;
 
 $input = new ArgvInput();
@@ -26,6 +27,7 @@ $application = new Application($kernel);
 $application->add(new AddUser());
 $application->add(new UpdateUser());
 $application->add(new UpdateUserRole());
+$application->add(new UpdateUserEmail());
 $application->add(new ListUsers());
 
 $application->run($input);

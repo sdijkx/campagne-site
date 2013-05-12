@@ -126,6 +126,13 @@ class Item
      */
     private $gewijzigdOp;
     
+    
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $aangevraagd;
+    
+    
     /**
      * @ORM\ManyToMany(targetEntity="Trefwoord")
      * @ORM\OrderBy({"trefwoord"="DESC"})
@@ -179,6 +186,7 @@ class Item
         $this->gepubliceerd=false;
         $this->gemaaktOp=new \DateTime();
         $this->gewijzigdOp=clone $this->gemaaktOp;
+        $this->aangevraagd=false;
     }
     
     
@@ -457,7 +465,15 @@ class Item
         $this->publishedItem = $publishedItem;
     }
 
+    public function getAangevraagd() {
+        return $this->aangevraagd;
+    }
+
+    public function setAangevraagd($aangevraagd) {
+        $this->aangevraagd = $aangevraagd;
+    }
     
+        
     
     /**
      *

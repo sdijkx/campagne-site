@@ -11,7 +11,7 @@ class UpdateUser extends Command
     protected function configure()
     {
         $this
-            ->setName('glzeist:password')
+            ->setName('glzeist:user:password')
             ->setDescription('Update password')
             ->addArgument(
                 'username',

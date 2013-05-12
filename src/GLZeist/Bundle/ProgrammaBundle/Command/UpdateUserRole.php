@@ -12,7 +12,7 @@ class UpdateUserRole extends Command
     protected function configure()
     {
         $this
-            ->setName('glzeist:role')
+            ->setName('glzeist:user:role')
             ->setDescription('Update user role')
             ->addArgument(
                 'username',

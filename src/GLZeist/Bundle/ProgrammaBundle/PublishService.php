@@ -6,11 +6,14 @@ class PublishService {
     
     private $em;
     private $logger;
+    private $mailer;
     
-    public function __construct(\Doctrine\ORM\EntityManager $em, \Symfony\Component\HttpKernel\Log\LoggerInterface $logger)
+    public function __construct(\Doctrine\ORM\EntityManager $em, \Symfony\Component\HttpKernel\Log\LoggerInterface $logger, \Swift_Mailer $mailer)
     {
         $this->em=$em;
+        $this->mailer=$mailer;
         $this->logger=$logger;
+        
     }
     
     public function publish(Entity\Item $item)
@@ -80,6 +83,7 @@ class PublishService {
             }
             
             $publishedItem->setGepubliceerdOp(new \DateTime());
+            $item->setAangevraagd(false);
 
             $this->em->persist($item);
             $this->em->persist($publishedItem);
@@ -94,5 +98,90 @@ class PublishService {
             $this->logger->err("Er is een fout: {$e->getMessage()} opgetreden, item {$item->getSlug()} is niet gepubliceerd");
             throw new \Exception('Er is een fout opgetreden, het item kan niet worden gepubliceerd');
         }
+        
+        try
+        {
+            $this->sendIsPublished($item);
+        }
+        catch(\Exception $e)
+        {
+            $this->logger->err("Er is een fout: {$e->getMessage()} opgetreden, voor item {$item->getSlug()} is geen notificatie naar de eigenaar verzonden");
+            throw new \Exception('Er is een fout opgetreden, het item is gepubliceerd maar de eigenaar heeft geen bevestiging ontvangen');
+        }
+        
+    }
+    
+    private function sendIsPublished(Entity\Item $entity)
+    {
+        $message = \Swift_Message::newInstance()
+            ->setSubject('GLZeist item gepubliceerd')
+            ->setFrom('noreply@groenlinkszeist.nl')
+            ->setTo($entity->getGemaaktDoor())
+            ->setBody(
+                $this->renderView(
+                    'GLZeistProgrammaBundle:Admin:Item/publicatie_bevestiging.email.txt.twig',
+                    array(
+                        'item' => $entity
+                        )
+                )
+            )
+        ;            
+        $this->mailer->send($message);
+        
+    }
+    
+    
+    public function requestPublication(Entity\Item $entity)
+    {
+        $this->em->beginTransaction();
+        try
+        {
+            $entity->setAangevraagd(true);
+            $this->em->persist($entity);
+            $this->em->flush();            
+            $this->em->commit();
+
+        }
+        catch(\Exception $e)
+        {
+            $this->em->rollback();
+            
+            throw new \Exception('Er is een fout opgetreden, de aanvraag kan niet worden opgeslagen');
+        }
+        
+        try
+        {
+            $this->sendRequestToModerators($entity);
+        }
+        catch(\Exception $e)
+        {
+            throw new \Exception('Er is een fout opgetreden, de aanvraag is mogelijk niet verzonden naar de redacteuren');
+        }
+        
+    }
+    
+    private function sendRequestToModerators(Entity\Item $entity)
+    {
+        $moderators=$this->em->getRepository('GLZeistProgrammaBundle:User')->findByRole(array('ROLE_MODERATOR','ROLE_ADMIN'));
+        foreach($moderators as $moderator)
+        {
+            $message = \Swift_Message::newInstance()
+                ->setSubject('GLZeist aanvraag voor publicatie')
+                ->setFrom('noreply@groenlinkszeist.nl')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'GLZeistProgrammaBundle:Admin:Item/publicatie_aanvraag.email.txt.twig',
+                        array(
+                            'sender' => $entity->getGemaaktDoor(),
+                            'moderator' => $moderator->getUsername(),
+                            'item' => $entity
+                            )
+                    )
+                )
+            ;            
+            $this->mailer->send($message);
+        }
+        
     }
 }
