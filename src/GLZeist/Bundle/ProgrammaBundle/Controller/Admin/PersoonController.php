@@ -29,7 +29,7 @@ class PersoonController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('GLZeistProgrammaBundle:Persoon')->findAll();
+        $entities = $em->getRepository('GLZeistProgrammaBundle:Persoon')->createQueryBuilder('p')->orderBy('p.naam','ASC')->getQuery()->getResult();
 
         return array(
             'entities' => $entities,

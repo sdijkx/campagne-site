@@ -1,4 +1,12 @@
 {% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block introductie%}
+    {%if speerpunten is defined and speerpunten|length>0 %}
+        {{glzeist.introductie(speerpunten)}}
+    {%endif%}
+{%endblock%}
+{%block rightcolumn%}
+    {{glzeist.twitter_widget}}
+{%endblock%}
 {%block content%}
     {%for item in items%}
         {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig' %}

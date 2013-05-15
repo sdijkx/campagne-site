@@ -49,7 +49,7 @@ class ItemController extends Controller
             ->orderBy($orderBy,$sortOrder);
         if(!empty($search))
         {
-            $qb->andWhere('i.zoektekst LIKE :search OR i.zoektrefwoorden LIKE :search');
+            $qb->andWhere('i.titel LIKE :search OR i.kernboodschap LIKE :search OR i.hoofdtekst LIKE :search OR i.tweet LIKE :search');
             $qb->setParameter('search',$search);
         }
         if(!$securityContext->isGranted('ROLE_MODERATOR'))
@@ -283,7 +283,6 @@ class ItemController extends Controller
             {
                 $publisher->publish($entity);
                 $this->get('session')->getFlashBag()->add('notice','Het item is gepubliceerd');
-                return $this->redirect($this->generateUrl('admin_item',array('id'=>$id)));        
             }
             catch(\Exception $e)
             {
@@ -360,10 +359,9 @@ class ItemController extends Controller
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Item entity.');
             }
-            
+            $em->beginTransaction();
             try
             {
-                /*
                 if($entity->getPublishedItem())
                 {
                     $publishedItem=$entity->getPublishedItem();
@@ -372,15 +370,16 @@ class ItemController extends Controller
                     $em->remove($publishedItem);
                     $em->flush();
                 }
-                 */
                 $em->remove($entity);
                 $em->flush();
+                $em->commit();
                 $this->get('session')->getFlashBag()->add('notice','Het item is verwijderd');
                 return $this->redirect($this->generateUrl('admin_item'));
             }
             catch(\Exception $e)
             {
-                $this->get('session')->getFlashBag()->add('error','Het item kan niet verwijderd worden');
+                $em->rollback();
+                $this->get('session')->getFlashBag()->add('error','Het item kan niet verwijderd worden'.$e->getMessage());
             }
             
         }

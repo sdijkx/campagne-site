@@ -1,13 +1,34 @@
 
-{%set active = app.request.baseUrl ~ app.request.pathInfo %}
+{%set current = app.request.baseUrl ~ app.request.pathInfo %}
 
 <ul>
     {%set url=path('home') %}
-    <li><a class="{%if active== url %}menurood{%else%}menugroen{%endif%}" href="{{url}}">Home</a> | </li>
+    {%set active= (current== url) %}
+    <li {%if active %}class="actief"{%endif%} ><a href="{{url}}">Home</a></li>
     {%for entity in themas()%}
         {%set url=path('thema',{slug:entity.slug}) %}
-        <li><a class="{%if thema is defined and entity.slug==thema.slug %}menurood{%else%}menugroen{%endif%}" href="{{url}}">{{entity.titel}}</a> | </li>
+        {%set active= (thema is defined and entity.slug==thema.slug ) %}
+        <li {%if active %}class="actief"{%endif%}><a href="{{url}}">{{entity.titel}}</a></li>
     {%endfor%}
     {%set url=path('persoon_index') %}
-    <li><a class="{%if active== url or app.request.get('_route')=='persoon' %}menurood{%else%}menugroen{%endif%}" href="{{url}}">Personen</a> </li>
+    {%set active= (current== url or app.request.get('_route')=='persoon') %}
+    <li {%if active %}class="actief"{%endif%}><a href="{{url}}">Personen</a> </li>
 </ul>
+
+<div class="responsive">
+    <select id="select_menu_navigation">
+        {%set url=path('home') %}
+        {%set active= (current== url) %}
+        <option {%if active %}selected="selected"{%endif%} value="{{url}}">Home</option>
+        {%for entity in themas()%}
+            {%set url=path('thema',{slug:entity.slug}) %}
+            {%set active= (thema is defined and entity.slug==thema.slug ) %}
+            <option {%if active %}selected="selected"{%endif%} value="{{url}}">{{entity.titel}}</option>
+        {%endfor%}
+        {%set url=path('persoon_index') %}
+        {%set active= (current== url or app.request.get('_route')=='persoon') %}
+        <option {%if active %}selected="selected"{%endif%} value="{{url}}">Personen</option>
+    </select>
+
+</div>
+

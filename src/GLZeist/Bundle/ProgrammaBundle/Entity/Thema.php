@@ -31,7 +31,7 @@ class Thema
     /**
      * @var string
      *
-     * @ORM\Column(name="tekst", type="text", length=255)
+     * @ORM\Column(name="tekst", type="text", length=255, nullable=true)
      */
     private $tekst;
     

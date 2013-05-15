@@ -41,7 +41,6 @@ class PublishService {
             $publishedItem->setVerantwoording($item->getVerantwoording());
             $publishedItem->setVoorstellen($item->getVoorstellen());
             $publishedItem->setVideo($item->getVideo());
-            $publishedItem->setHomepage($item->getHomepage());
             $publishedItem->setImagefile($item->getImagefile());
             $publishedItem->setThumbfile($item->getThumbfile());
 
@@ -98,7 +97,7 @@ class PublishService {
         {
             $this->em->rollback();
             $this->logger->err("Er is een fout: {$e->getMessage()} opgetreden, item {$item->getSlug()} is niet gepubliceerd");
-            throw new \Exception('Er is een fout opgetreden, het item kan niet worden gepubliceerd');
+            throw new \Exception('Er is een fout opgetreden, het item kan niet worden gepubliceerd '.$e->getMessage());
         }
         
         try

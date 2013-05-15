@@ -1,16 +1,13 @@
 {% extends "GLZeistProgrammaBundle::base.html.twig" %} 
 {%block content%}
 
-<article id="binnenvak" class="item">
-    <header>
+<div id="binnenvak" class="item">
+    <div class="header">
         <h1>{{item.titel}}</h1>
         {%if item.tweet %}
             {{glzeist.tweet(item.tweet)}}
         {%endif%}
-    </header>
-    <h2>
-        Kernboodschap
-    </h2>
+    </div>
     <div>
         {{item.kernboodschap|raw}}
     </div>
@@ -45,13 +42,13 @@
         <div>
             <ul class="links">
             {%for link in item.links %}
-                <li>&gt;&nbsp;<a href={{link.url}} title="{{link.titel}}">{{link.titel}}</a></li>
+                <li>{{glzeist.link(link.url,link.titel)}}</li>
             {%endfor%}
             </ul>
         </div>
     {%endif%}
 
-</article>
+</div>
 
 {%endblock%}
 
@@ -67,7 +64,7 @@
             <h2>Samenhangende items</h2>
             <h3>
             {%for relatie in item.relaties %}
-                &gt; {{relatie.titel}}
+                {{glzeist.link(path('item',{thema:relatie.thema.slug,slug:relatie.slug}),relatie.titel)}}
                <br>
             {%endfor%}
             </h3>
@@ -78,7 +75,7 @@
             <h2>Trefwoorden</h2>
             <h3>
             {%for trefwoord in item.trefwoorden %}
-                &gt; <a href="{{path('trefwoord',{slug:trefwoord.slug})}}" title="{{trefwoord.trefwoord}}">{{trefwoord.trefwoord}}</a>
+                {{glzeist.link(path('trefwoord',{slug:trefwoord.slug}),trefwoord.trefwoord)}}
                 <br>
             {%endfor%}
             </h3>

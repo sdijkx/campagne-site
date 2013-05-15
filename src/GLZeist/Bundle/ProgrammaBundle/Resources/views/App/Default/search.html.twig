@@ -1,5 +1,8 @@
 {% extends "GLZeistProgrammaBundle::base.html.twig" %} 
 {%block content%}
+    {%if results|length == 0 %}
+        <div>Er zijn geen resultaten gevonden</div>
+    {%endif%}
     {%for key, result in results%}
 
         {%if result['item'] is defined and result['item'] is not empty %}
@@ -22,10 +25,8 @@
             {%set persoon=result['persoon'] %}
             {%include 'GLZeistProgrammaBundle:App/Default:includes/persoon-list-entry.html.twig'%}
         {%endif%}
-
-        
-{%endfor%}
-{%if moreitems %}
-    {{ glzeist.meer_items('search',{search:search},results|length,limit) }}
-{%endif%}
+    {%endfor%}
+    {%if moreitems %}
+        {{ glzeist.meer_items('search',{search:search},results|length,limit) }}
+    {%endif%}
 {%endblock%}

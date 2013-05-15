@@ -1,0 +1,25 @@
+@media only screen and (max-width:959px)
+{
+    * {
+        margin:0;
+        padding:0;
+        font-family:Arial, Verdana, Tahoma, Helvetica, sans-serif;
+    }
+    
+    #container {margin:0 auto;padding:10px;}
+    #logo { width:100%; text-align:center;}
+    #search { width:100%;text-align:center;}
+    #nav {width:100%;text-align:center;padding:10px 0 10px 0;font-size:120%;}
+    #nav ul {display:none;}
+    
+    
+}
+
+@media only screen and (min-width:786px) and (max-width:959px)
+{
+    
+}
+@media only screen and (max-width:767px)
+{
+
+}

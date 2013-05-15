@@ -39,7 +39,7 @@ class UserController extends Controller
         
         if($securityContext->isGranted(\Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter::IS_AUTHENTICATED_FULLY))
         {
-            return $this->redirect($this->generateUrl('hoofdstuk'));
+            return $this->redirect($this->generateUrl('admin_item'));
         }
         
         // get the login error if there is one
@@ -53,8 +53,9 @@ class UserController extends Controller
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
         
+        $this->get('session')->getFlashBag()->add('error','U kan niet aangemeld worden');
+        
         return array(
-            'error'=>$error,
             'last_username'=>$session->get(SecurityContext::LAST_USERNAME)
         );
         

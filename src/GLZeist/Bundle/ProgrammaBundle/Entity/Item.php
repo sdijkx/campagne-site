@@ -174,7 +174,6 @@ class Item
         $this->media=new \Doctrine\Common\Collections\ArrayCollection();
         $this->relaties=new \Doctrine\Common\Collections\ArrayCollection();
         $this->links=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->homepage=false;
         $this->gepubliceerd=false;
         $this->gemaaktOp=new \DateTime();
         $this->gewijzigdOp=clone $this->gemaaktOp;

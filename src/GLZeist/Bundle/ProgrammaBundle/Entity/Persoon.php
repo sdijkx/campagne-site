@@ -47,14 +47,11 @@ class Persoon
     private $slug;    
     
     /**
-     *
      * @ORM\Column(name="imagefile", type="string",nullable=true)
      */
     private $imagefile;
     
     /**
-     * @var string
-     *
      * @ORM\Column(name="thumbfile", type="string",nullable=true)
      */
     private $thumbfile;    

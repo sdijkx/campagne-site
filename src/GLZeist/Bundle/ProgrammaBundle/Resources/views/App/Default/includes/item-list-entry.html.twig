@@ -1,18 +1,25 @@
 <div class="item-list-entry clearfix">
-    <h3 class="titel">
-        {{item.titel}}
-    </h3>
-    {%if item.thumbfile %}
-        <div class="thumb">
-            <img src="{{path('file',{filename:item.thumbfile})}}" />
+    <h2 class="titel">
+        <a href="{{path('item',{thema:item.thema.slug,slug:item.slug})}}"">{{item.titel}}</a>
+    </h2>
+    <div class="meta"><span class="geplaatst">{{item.gepubliceerdOp|date('d-m-Y H:i:s')}}</span></div>
+    <div class="clearfix">
+        {%if item.thumbfile %}
+            <div class="thumb">
+                <img src="{{path('file',{filename:item.thumbfile})}}" />
+            </div>
+        {%endif%}
+        <div class="kernboodschap">
+            {{item.kernboodschap|raw}}
+        </div>
+    </div>
+    {%if item.trefwoorden|length > 0 %}
+        <div class="trefwoorden">
+            <strong>Trefwoorden:</strong>
+            {%for trefwoord in item.trefwoorden %}
+                <a href="{{path('trefwoord',{slug:trefwoord.slug})}}" title="{{trefwoord.trefwoord}}">{{trefwoord.trefwoord}}</a>
+            {%endfor%}
         </div>
     {%endif%}
-    <div class="kernboodschap">
-        {{item.kernboodschap|raw}}
-    </div>
-    <div class="lees-meer">
-        <a title="{{item.titel}}" href="{{path('item',{
-            thema:item.thema.slug,
-            slug:item.slug})}}">lees meer</a>
-    </div>
+
 </div>

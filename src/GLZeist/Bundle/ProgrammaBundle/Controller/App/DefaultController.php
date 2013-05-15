@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use GLZeist\Bundle\ProgrammaBundle\Entity\Speerpunt;
+
 class DefaultController extends Controller
 {
     /**
@@ -14,8 +16,40 @@ class DefaultController extends Controller
      */
     public function homeAction()
     {
+        
+        $speerpunten = array();
+        
+        $i=0;
+
+        $speerpunten[$i]=new Speerpunt;
+        $speerpunten[$i]->setTitel('Repaircafé');
+        $speerpunten[$i]->setContent('Repaircafé groot succes');
+        $speerpunten[$i]->setAfbeelding('http://zeist.groenlinks.nl/files/imageupload/sticky_teaser_image_1/repaircaf___Peter.jpg');
+        $speerpunten[$i]->setUrl('http://zeist.groenlinks.nl/node/92906');
+
+        $i++;
+        $speerpunten[$i]=new Speerpunt;
+        $speerpunten[$i]->setTitel('Kinderpardon');
+        $speerpunten[$i]->setContent('Raad Zeist steunt kinderpardon');
+        $speerpunten[$i]->setAfbeelding('http://zeist.groenlinks.nl/files/imageupload/sticky_teaser_image_1/Laura_raad_over_motie_KP.jpg');
+        $speerpunten[$i]->setUrl('http://zeist.groenlinks.nl/node/79414');
+
+        $i++;
+        $speerpunten[$i]=new Speerpunt;
+        $speerpunten[$i]->setTitel('Soesterberg');
+        $speerpunten[$i]->setContent('Zorgen Groenlinks over Arena Nationaal militair museum');
+        $speerpunten[$i]->setAfbeelding('http://zeist.groenlinks.nl/files/imageupload/sticky_teaser_image_1/Arena_NMM.jpg');
+        $speerpunten[$i]->setUrl('http://zeist.groenlinks.nl/node/93317');
+
+        $i++;
+        $speerpunten[$i]=new Speerpunt;
+        $speerpunten[$i]->setTitel('Kerckebosch');
+        $speerpunten[$i]->setContent('Vernieuwing Kerckebosch van start gegaan');
+        $speerpunten[$i]->setAfbeelding('http://zeist.groenlinks.nl/files/imageupload/sticky_teaser_image_1/map_home.jpg');
+        $speerpunten[$i]->setUrl('http://zeist.groenlinks.nl/node/80117');
+        
         $items = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findAllForHomePage();
-        return array('items' => $items);
+        return array('items' => $items,'speerpunten' => $speerpunten);
     }
     
     /**
@@ -32,7 +66,7 @@ class DefaultController extends Controller
         return array('results'=>$results,'search'=>$search,'limit'=>$limit,'moreitems'=>$this->moreitems($results,$limit),
             'breadcrumb'=>array(
                 array(
-                    'name' => 'Zoeken'
+                    'name' => 'Zoekresultaten'
                 )
             )
             

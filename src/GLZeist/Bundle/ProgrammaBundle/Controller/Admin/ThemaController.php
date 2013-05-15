@@ -29,7 +29,7 @@ class ThemaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('GLZeistProgrammaBundle:Thema')->findAll();
+        $entities = $em->getRepository('GLZeistProgrammaBundle:Thema')->createQueryBuilder('t')->orderBy('t.titel','ASC')->getQuery()->getResult();
 
         return array(
             'entities' => $entities,

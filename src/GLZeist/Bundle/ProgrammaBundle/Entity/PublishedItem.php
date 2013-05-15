@@ -158,7 +158,6 @@ class PublishedItem
         $this->media=new \Doctrine\Common\Collections\ArrayCollection();
         $this->relaties=new \Doctrine\Common\Collections\ArrayCollection();
         $this->links=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->homepage=false;
         $this->gepubliceerdOp=new \DateTime();
     }
     
@@ -369,14 +368,6 @@ class PublishedItem
 
     public function setRelaties($relaties) {
         $this->relaties = $relaties;
-    }
-    
-    public function getHomepage() {
-        return $this->homepage;
-    }
-
-    public function setHomepage($homepage) {
-        $this->homepage = $homepage;
     }
     
     public function getParagraaf() {

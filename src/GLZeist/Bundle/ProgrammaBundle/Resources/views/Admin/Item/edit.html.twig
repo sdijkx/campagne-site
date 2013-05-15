@@ -1,6 +1,23 @@
 {% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
 {%block content%}
 <h1>Item bewerken</h1>
+<div>
+    {%if entity.gepubliceerd %}
+        <div class="notice"><strong>Gepubliceerd</strong></div>
+    {%elseif entity.aangevraagd %}
+        <div class="notice"><strong>Publicatie aangevraagd</strong></div>
+    {%elseif entity.gewijzigdNaPublicatie %}
+        <div class="notice"><strong>Gewijzigd na laatste publicatie</strong></div>
+    {%else%}
+        <div class="notice"><strong>Niet gepubliceerd</strong></div>
+    {%endif%}
+    {%if entity.gepubliceerd %}
+        <div><label>Laatste publicatie:</label>&nbsp;{{entity.publishedItem.gepubliceerdOp|date('d-m-Y H:i:s')}}</div>
+        <br/>
+    {%endif%}
+
+</div>
+
 <div class="clearfix">
     <ul class="actions">
         <li>
@@ -25,8 +42,13 @@
                     <button type="submit">Publicatie aanvragen</button>
                 </form>
             </li>
-
         {%endif%}
+        <li>
+            <form action="{{ path('item_delete', { 'id': entity.id }) }}" method="post">
+                {{ form_widget(delete_form) }}
+                <button type="submit">Verwijderen</button>
+            </form>
+        </li>
 
     </ul>
 </div>
@@ -90,14 +112,6 @@
     </div>
 </form>
 
-<ul class="record_actions">
-    <li>
-        <form action="{{ path('item_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Verwijderen</button>
-        </form>
-    </li>
-</ul>
 <script>
     CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_kernboodschap');
     CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_hoofdtekst');

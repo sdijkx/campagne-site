@@ -6,47 +6,62 @@
 <!--[if gt IE 8]><!--> <html lang="{{app.request.locale}}"> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="keywords" content="GroenLinks, Zeist, verkiezingsprogramma">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
         <meta name="owner" content="GroenLinks Zeist">
-        <meta name="author" content="Ronald Camstra en Steven Dijkxhoorn">
+        <meta name="author" content="GroenLinks Zeist">
         <meta name="robots" content="index,follow">
+        <meta name="keywords" content="GroenLinks, Zeist, verkiezingsprogramma">
         <meta name="description" content="GroenLinks Zeist - Verkiezingsprogramma 2014">
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
 
         <title>{%block title%}{%endblock%}</title>
         
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+
+        <link rel="stylesheet" href="{{asset('fontello/css/fontello.css')}}">
+        <!--[if IE 7]>
+            <link rel="stylesheet" href="{{asset('fontello/css/fontello-ie7.css')}}">
+        <![endif]-->
+
+
         {% javascripts '@GLZeistProgrammaBundle/Resources/public/js/*' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
         {% stylesheets '@GLZeistProgrammaBundle/Resources/public/css/*' %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
+            <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
+
         
     </head>
     <body>
-        <div id="container" class="clearfix">
-            <header>
+        <div id="page-background" class="clearfix">
+            <div id="left-page">&nbsp;</div>
+            <div id="right-page">&nbsp;</div>
+        </div>
+        <div id="container" class="clearfix" style="">
+            <div id="header">
+                <div id="banner">
+                </div>
                 <div id="logo">
                     <img src="{{ asset('bundles/glzeistprogramma/images/logo.png') }}" />
                 </div>
                 <div id="search">
                     <form action="{{path('glzeist_programma_app_search')}}" method="POST">
+                        <span class="icon-search">&nbsp;</span>
                         <input name="search" value="{%if search is defined%}{{search}}{%endif%}" type="text" />
                         <input type="submit" value="Zoek"/>
                     </form>
                 </div>
-                <div id="banner">
-                </div>
-            </header>
-            <nav>
+            </div>
+            <div id="nav">
                 {%include 'GLZeistProgrammaBundle:App:menu.html.twig'%}
-            </nav>
+            </div>
             {%if breadcrumb is defined%}
                 {{glzeist.kruimelpad(breadcrumb)}}
             {%endif%}
+            {%block introductie %}
+            {%endblock%}
             <div id="content">
                 {%block content%}{%endblock%}
             </div>
@@ -54,7 +69,53 @@
                 {%block rightcolumn%}{%endblock%}
             </div>
         </div>
-        <footer class="clearfix">
-        </footer>
+        <div id="footer" class="clearfix">
+        </div>
+        <script>
+        $(document).ready(function(){
+            $('#select_menu_navigation').change(function(){
+                document.location = $(this).val();
+            });
+
+            function roteerSpotlicht()
+            {
+                $('div.spotlicht').each(function(i,n){
+                    var spotlicht=$(n);
+
+                    var aantal=$('div.speerpunt',spotlicht).length;
+                    var huidig=$('div.speerpunt.focus',spotlicht);
+                    if(huidig.length==0)
+                    {
+                        huidig=$('div.speerpunt',spotlicht).first();
+                        huidig.toggleClass('focus'); 
+                    }
+                    else
+                    {
+                        var volgendId=(parseInt(huidig.attr("no"))+1)%aantal;
+                        var volgende=$('div.speerpunt[no='+volgendId+']',spotlicht);
+
+                        volgende.toggleClass('focus');
+                        $('div.content',huidig).toggleClass('focus');
+                        $('div.actief',spotlicht).animate(
+                            {
+                                left: (volgendId*153+74)
+                            }, 
+                            1000, 
+                            function() {
+                                huidig.toggleClass('focus'); 
+                                $('div.content',volgende).toggleClass('focus');
+                            }
+                        );
+                        
+                        
+                    }
+
+                });
+            }
+
+            setInterval(roteerSpotlicht,5000);
+
+        });
+        </script>
     </body>
 </html>

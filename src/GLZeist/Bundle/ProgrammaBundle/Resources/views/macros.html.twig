@@ -32,3 +32,44 @@
         </div>
     {%endif%}
 {%endmacro%}
+
+{%macro link(url,titel) %}
+    <span class="link">&rsaquo;&nbsp;<a href={{url}} title="{{titel}}">{{titel}}</a></span>
+{%endmacro%}
+
+{%macro introductie(speerpunten) %}
+{%import _self as _ %}
+<div class="introductie clearfix"">
+    <div class="spotlicht">
+        <div class="afbeelding"></div>
+        <div class="actief"></div>        
+        {%for speerpunt in speerpunten%}
+            <div class="speerpunt {%if loop.index==1%}focus{%endif%}" no="{{loop.index-1}}">
+                <div class="titel">
+                    <a href="{{speerpunt.url}}">{{speerpunt.titel}}</a>
+                </div>
+                <div class="afbeelding">
+                    <img src="{{speerpunt.afbeelding}}" alt="{{speerpunt.titel}}">
+                </div>
+                <div class="content {%if loop.index==1%}focus{%endif%}">
+                    <span>{{speerpunt.content}}</span>
+                </div>
+            </div>
+        {%endfor%}
+    </div>
+    <div class="promotie">
+        <h3>Zeist</h3>
+        <ul>
+            <li>{{_.link('#','Duurzaam')}}</li>
+            <li>{{_.link('#','Eerlijk delen')}}</li>
+            <li>{{_.link('#','Open samenleving')}}</li>
+        </ul>
+    </div>
+
+</div>
+{%endmacro%}
+
+{%macro twitter_widget() %}
+<a class="twitter-timeline"  href="https://twitter.com/search?q=zeist+groenlinks"  data-widget-id="334766773385691136">Tweets about "zeist groenlinks"</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+{%endmacro%}
