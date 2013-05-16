@@ -3,6 +3,6 @@
         <a title="{{thema.titel}}" href="{{path('thema',{slug:thema.slug})}}">{{thema.titel}}</a>
     </h2>
     <div class="tekst">
-        {{thema.tekst}}
+        {{thema.tekst|raw}}
     </div>
 </div>
