@@ -27,6 +27,6 @@
         {%endif%}
     {%endfor%}
     {%if moreitems %}
-        {{ glzeist.meer_items('search',{search:search},results|length,limit) }}
+        {{ glzeist.meer_items('glzeist_programma_app_search',{search:search},results|length,limit) }}
     {%endif%}
 {%endblock%}
