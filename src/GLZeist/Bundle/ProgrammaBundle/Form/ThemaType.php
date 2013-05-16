@@ -12,6 +12,7 @@ class ThemaType extends AbstractType
     {
         $builder
             ->add('titel')
+            ->add('metaDescription','textarea')
             ->add('tekst','textarea',array('required'=>false))
         ;
     }

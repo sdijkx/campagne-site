@@ -1,4 +1,9 @@
 {% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block title%}{{thema.titel}}{%endblock%}
+{%block seo%}
+    <meta name="description" content="{{thema.metaDescription}}">
+{%endblock%}
+
 {%block content%}
 
 <div class="thema-header">

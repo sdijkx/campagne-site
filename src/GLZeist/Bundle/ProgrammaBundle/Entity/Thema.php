@@ -27,6 +27,14 @@ class Thema
      * @ORM\Column(name="titel", type="string", length=255)
      */
     private $titel;
+
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="metaDescription", type="string", length=255, nullable=true)
+     */
+    private $metaDescription;
     
     /**
      * @var string
@@ -99,8 +107,15 @@ class Thema
     public function setSlug($slug) {
         $this->slug = $slug;
     }
-    
+    public function getMetaDescription() {
+        return $this->metaDescription;
+    }
 
+    public function setMetaDescription($metaDescription) {
+        $this->metaDescription = $metaDescription;
+    }
+
+        
             
 
     public function __toString()

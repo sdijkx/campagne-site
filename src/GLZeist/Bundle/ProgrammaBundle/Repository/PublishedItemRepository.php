@@ -11,7 +11,7 @@ class PublishedItemRepository extends \Doctrine\ORM\EntityRepository
     
     public function findAllForTrefwoord($trefwoord)
     {
-        return $this->getEntityManager()->createQuery("SELECT i FROM GLZeistProgrammaBundle:PublishedItem i JOIN i.trefwoorden t  WHERE t=:trefwoord ORDER BY i.gewijzigdOp DESC")
+        return $this->getEntityManager()->createQuery("SELECT i FROM GLZeistProgrammaBundle:PublishedItem i JOIN i.trefwoorden t  WHERE t=:trefwoord ORDER BY i.gepubliceerdOp DESC")
                 ->setParameter('trefwoord',$trefwoord)
                 ->getResult();
     }

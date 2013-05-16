@@ -1,4 +1,18 @@
 {% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block title%}Onderwerp - {{item.titel}}{%endblock%}
+{%block seo%}
+    {%set keywords="" %}
+    {%for trefwoord in item.trefwoorden %}
+        {%set keywords=keywords ~ trefwoord.trefwoord %}
+        {%if not loop.last %}
+            {%set keywords=keywords ~ ","%}
+        {%endif%}
+    {%endfor%}
+    <meta name="keywords" content="{{keywords}}">
+    <meta name="description" content="{{item.tweet|raw}}">
+{%endblock%}
+
+
 {%block content%}
 
 <div id="binnenvak" class="item">
