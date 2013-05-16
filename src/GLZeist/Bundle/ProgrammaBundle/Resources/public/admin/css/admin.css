@@ -182,8 +182,8 @@ LOGIN
 
 
 /* ITEM */
-
-div.item.entry div.thumb { float:left;width:120px;}
+div.item.entry div.description { float:left;width:70%;}
+div.item.entry div.thumb { float:right;width:120px;}
 #wordcount.error { color:red; }
 
 /*FLASH*/

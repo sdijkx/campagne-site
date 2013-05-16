@@ -61,7 +61,7 @@
                 <div class="description">
                     <div>{{ entity.kernboodschap|raw }}</div>
                 </div>
-                <div class="thumb" style="float:right;width:120px%">
+                <div class="thumb">
                     {%if entity.thumbfile %}
                         <img src="{{path('file',{filename:entity.thumbfile})}}" />
                     {%else%}
