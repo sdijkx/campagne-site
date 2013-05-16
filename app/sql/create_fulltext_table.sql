@@ -53,7 +53,7 @@ INSERT INTO item_search SET object_id=NEW.id, object_type='thema', keywords=NULL
 CREATE TRIGGER trigger_update_search_thema
 AFTER UPDATE ON Thema
 FOR EACH ROW
-UPDATE item_search SET search_text=search_text=LOWER(CONCAT(NEW.titel,' ',NEW.tekst)) WHERE object_id=OLD.id AND object_type='thema';
+UPDATE item_search SET search_text=LOWER(CONCAT(NEW.titel,' ',NEW.tekst)) WHERE object_id=OLD.id AND object_type='thema';
 
 CREATE TRIGGER trigger_delete_search_thema
 AFTER DELETE ON Thema

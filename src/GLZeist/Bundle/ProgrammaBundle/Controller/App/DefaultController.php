@@ -33,9 +33,9 @@ class DefaultController extends Controller
     {
         $ft=$this->get('gl_zeist_programma.fulltext_search_service');
         $search=$this->getRequest()->get('search');
-        $limit=$this->getRequest()->get('limit',10);
-        $results = $ft->search($search,$limit+1);
-        return array('results'=>$results,'search'=>$search,'limit'=>$limit,'moreitems'=>$this->moreitems($results,$limit),
+        $limit=$this->getRequest()->get('limit',100);
+        $results = $ft->search($search,$limit);
+        return array('results'=>$results,'search'=>$search,'limit'=>$limit,
             'breadcrumb'=>array(
                 array(
                     'name' => 'Zoekresultaten'

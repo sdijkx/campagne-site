@@ -10,12 +10,14 @@
     <p>{{thema.tekst|raw}}</p>
 </div>
 
-<h1>Verwante onderwerpen</h1>
-<div class="thema">
-    {%for item in items%}
-        {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig' %}
-    {%endfor%}
-</div>
+{%if items|length>0 %}
+    <h1>Verwante onderwerpen</h1>
+    <div class="thema">
+        {%for item in items%}
+            {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig' %}
+        {%endfor%}
+    </div>
+{%endif%}
 
 
 

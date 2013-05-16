@@ -26,7 +26,4 @@
             {%include 'GLZeistProgrammaBundle:App/Default:includes/persoon-list-entry.html.twig'%}
         {%endif%}
     {%endfor%}
-    {%if moreitems %}
-        {{ glzeist.meer_items('glzeist_programma_app_search',{search:search},results|length,limit) }}
-    {%endif%}
 {%endblock%}
