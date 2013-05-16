@@ -1,8 +1,8 @@
-<div class="thema-list-entry clearfix">
-    <h3 class="titel">
-        {{thema.titel}}
-    </h3>
-    <div class="lees-meer">
-        <a title="{{thema.titel}}" href="{{path('thema',{slug:thema.slug})}}">lees meer</a>
+<div class="thema-list-entry list-entry clearfix">
+    <h2 class="titel">
+        <a title="{{thema.titel}}" href="{{path('thema',{slug:thema.slug})}}">{{thema.titel}}</a>
+    </h2>
+    <div class="tekst">
+        {{thema.tekst}}
     </div>
 </div>

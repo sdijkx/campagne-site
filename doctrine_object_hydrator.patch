@@ -1,0 +1,26 @@
+commit f1e738c058b815d9129edfaaa236db9e21899072
+Author: steven <steven.dijkxhoorn@c3m-dashboard.com>
+Date:   Thu May 16 13:23:46 2013 +0200
+
+    fix object hydrator
+
+diff --git a/lib/Doctrine/ORM/Internal/Hydration/ObjectHydrator.php b/lib/Doctrine/ORM/Internal/Hydration/ObjectHydrator.php
+index 04d741c..cca762d 100644
+--- a/lib/Doctrine/ORM/Internal/Hydration/ObjectHydrator.php
++++ b/lib/Doctrine/ORM/Internal/Hydration/ObjectHydrator.php
+@@ -399,7 +399,14 @@ class ObjectHydrator extends AbstractHydrator
+ 
+                 // Get a reference to the parent object to which the joined element belongs.
+                 if ($this->_rsm->isMixed && isset($this->rootAliases[$parentAlias])) {
+-                    $first = reset($this->resultPointers);
++                    
++                    if(isset($this->resultPointers[$parentAlias])) {
++                        $first=$this->resultPointers[$parentAlias];
++                    }
++                    else {
++                        $first = reset($this->resultPointers);
++                    }
++                    //$first = reset($this->resultPointers);
+                     $parentObject = $first[key($first)];
+                 } else if (isset($this->resultPointers[$parentAlias])) {
+                     $parentObject = $this->resultPointers[$parentAlias];

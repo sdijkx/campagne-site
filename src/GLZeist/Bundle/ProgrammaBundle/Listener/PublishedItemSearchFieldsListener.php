@@ -17,12 +17,14 @@ class PublishedItemSearchFieldsListener
     
     private function supports(LifecycleEventArgs $args)
     {
+        
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();    
         if($entity instanceof PublishedItem)
         {
             return $entity;
         }
+        return false;
     }
     
     public function getSubscribedEvents() {
@@ -37,18 +39,17 @@ class PublishedItemSearchFieldsListener
         $entity=$this->supports($args);
         if($entity)
         {
+            
             $updateTime=false;
-            if($args->hasChangedField('trefwoorden'))
+
+            $keywords='';
+
+            foreach($entity->getTrefwoorden() as $trefwoord)
             {
-                $keywords='';
-                
-                foreach($entity->getTrefwoorden() as $trefwoord)
-                {
-                    $keywords.=' '.$trefwoord->getZoekterm();
-                }
-                $entity->setZoektrefwoorden($keywords);
-                $updateTime=true;
+                $keywords.=' '.$trefwoord->getZoekterm();
             }
+            $entity->setZoektrefwoorden($keywords);
+    
             if(
                     $args->hasChangedField('titel') ||
                     $args->hasChangedField('hoofdtekst') ||

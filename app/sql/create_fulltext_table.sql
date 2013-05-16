@@ -85,3 +85,5 @@ DELETE FROM item_search;
 INSERT INTO item_search (object_id,object_type,keywords,search_text) SELECT id, 'item', zoek_trefwoorden,zoek_tekst FROM PublishedItem;
 INSERT INTO item_search (object_id,object_type,keywords,search_text) SELECT id, 'thema', NULL,LOWER(CONCAT(titel,' ',tekst)) FROM Thema;
 INSERT INTO item_search (object_id,object_type,keywords,search_text) SELECT id, 'persoon', NULL,LOWER(CONCAT(naam,' ',functie,' ',personalia)) FROM Persoon;
+
+UPDATE PublishedItem,publisheditem_trefwoord pt, Trefwoord t  SET zoek_trefwoorden = IF( zoek_trefwoorden IS NULL, LOWER(t.trefwoord),LOWER(CONCAT_WS(' ',zoek_trefwoorden,t.trefwoord))) WHERE pt.publisheditem_id=PublishedItem.id AND t.id=pt.trefwoord_id;

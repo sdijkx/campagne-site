@@ -1,0 +1,32 @@
+{% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
+{%block content%}
+<h1>Speerpunt overzicht</h1>
+
+<ul class="actions">
+    <li>
+        <a href="{{ path('speerpunt_new') }}">
+            Nieuw speerpunt toevoegen
+        </a>
+    </li>
+</ul>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            
+            <th class="edit"></th>
+            <th>Titel</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td >
+                <a class="button" title="Bewerk" href="{{ path('speerpunt_edit', { 'id': entity.id }) }}"><span class="icon-pencil">&nbsp;</span></a>
+            </td>
+            <td class="left">{{ entity.titel }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{%endblock%}

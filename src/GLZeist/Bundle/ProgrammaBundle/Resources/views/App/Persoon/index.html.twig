@@ -1,17 +1,6 @@
 {% extends "GLZeistProgrammaBundle::base.html.twig" %} 
 {%block content%}
     {%for persoon in personen%}
-        <div class="persoon-list-entry clearfix">
-            <h3 class="naam">{{persoon.naam}}</h3>
-            <div>{{persoon.functie}}</div>
-            {%if persoon.thumbfile %}
-                <div class="thumb">
-                    <img src="{{path('file',{filename:persoon.thumbfile})}}" />
-                </div>
-            {%endif%}
-            <div class="lees-meer">
-                <a title="{{persoon.naam}}" href="{{path('persoon',{slug:persoon.slug})}}">lees meer</a>
-            </div>
-        </div>
+        {%include 'GLZeistProgrammaBundle:App/Default:includes/persoon-list-entry.html.twig'%}
     {%endfor%}
 {%endblock%}

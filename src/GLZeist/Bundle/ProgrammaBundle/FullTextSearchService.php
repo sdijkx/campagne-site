@@ -25,7 +25,22 @@ class FullTextSearchService
         $rsm = new \Doctrine\ORM\Query\ResultSetMapping();
         
         $rsm->addScalarResult('relevance', 'relevance','float');
-        $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Item', 'i','item');
+
+        $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Thema', 't','thema');            
+        $rsm->addFieldResult('t', 'thema_id', 'id');
+        $rsm->addFieldResult('t', 'thema_titel', 'titel');
+        $rsm->addFieldResult('t', 'thema_slug', 'slug');
+        $rsm->addFieldResult('t', 'thema_tekst', 'tekst');
+        
+                
+        $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Persoon', 'p','persoon');            
+        $rsm->addFieldResult('p', 'persoon_id', 'id');
+        $rsm->addFieldResult('p', 'naam', 'naam');
+        $rsm->addFieldResult('p', 'functie', 'functie');
+        $rsm->addFieldResult('p', 'persoon_slug', 'slug');
+        $rsm->addFieldResult('p', 'persoon_thumbfile', 'thumbfile');
+
+        $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\PublishedItem', 'i','item');
         $rsm->addJoinedEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Thema', 'i_t','i','thema');
 
         $rsm->addFieldResult('i', 'item_id', 'id');
@@ -33,21 +48,10 @@ class FullTextSearchService
         $rsm->addFieldResult('i', 'tweet', 'tweet');
         $rsm->addFieldResult('i', 'kernboodschap', 'kernboodschap');
         $rsm->addFieldResult('i', 'thumbfile', 'thumbfile');
+        $rsm->addFieldResult('i', 'gepubliceerdOp', 'gepubliceerdOp');
         $rsm->addFieldResult('i', 'item_slug', 'slug');
         $rsm->addFieldResult('i_t', 'item_thema_id', 'id');
         $rsm->addFieldResult('i_t', 'item_thema_slug', 'slug');
-
-        $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Thema', 't','thema');            
-        $rsm->addFieldResult('t', 'thema_id', 'id');
-        $rsm->addFieldResult('t', 'thema_titel', 'titel');
-        $rsm->addFieldResult('t', 'thema_slug', 'slug');
-
-        $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Persoon', 'p','persoon');            
-        $rsm->addFieldResult('p', 'persoon_id', 'id');
-        $rsm->addFieldResult('p', 'naam', 'naam');
-        $rsm->addFieldResult('p', 'functie', 'functie');
-        $rsm->addFieldResult('p', 'persoon_slug', 'slug');
-        $rsm->addFieldResult('p', 'persoon_thumbfile', 'thumbfile');
         
 
         $search=addslashes($search);
@@ -59,12 +63,14 @@ class FullTextSearchService
                 i.titel,
                 i.tweet,
                 i.kernboodschap, 
+                i.gepubliceerdOp,
                 i.thumbfile,
                 i.slug as item_slug,
                 i_t.id as item_thema_id,
                 i_t.slug as item_thema_slug,
                 t.id as thema_id,
                 t.titel as thema_titel,
+                t.tekst as thema_tekst,
                 t.slug as thema_slug,
                 p.id as persoon_id,
                 p.naam,
@@ -86,9 +92,9 @@ class FullTextSearchService
 
 
         $query = $em->createNativeQuery($sql, $rsm);
-
+        
         $results = $query->getResult();
-
+        
         return $results;
         
     }

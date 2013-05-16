@@ -1,0 +1,19 @@
+{% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
+{%block content%}
+<h1>Speerpunt toevoegen</h1>
+
+<form action="{{ path('speerpunt_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Toevoegen</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_speerpunt') }}">
+            Terug naar het overzicht
+        </a>
+    </li>
+</ul>
+{%endblock%}

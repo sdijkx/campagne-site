@@ -1,15 +1,15 @@
 {% extends "GLZeistProgrammaBundle::base.html.twig" %} 
 {%block content%}
 
-<article id="binnenvak" class="persoon">
-    <header>
+<div id="binnenvak" class="persoon">
+    <div class="header">
         <h1>{{persoon.naam}}</h1>
-        <div>{{persoon.functie}}</div>
-    </header>
+    </div>
+    <h2>{{persoon.functie}}</h2>
     <div>
         {{persoon.personalia|raw}}
     </div>
-</article>
+</div>
 
 {%endblock%}
 

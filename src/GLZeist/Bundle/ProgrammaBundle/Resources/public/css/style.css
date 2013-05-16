@@ -224,6 +224,10 @@ div.kruimelpad a:visited {
     color:#FA0026;
 }
 
+/*LIST ENTRY*/
+.list-entry {position:relative;margin-bottom:10px;padding-bottom:3px;border-bottom:1px dotted #7FB539}
+
+
 /*INTRODUCTIE*/
 
 div.introductie { margin: 10px;background-color:#EEEEEE;padding:2.3em 2em; }
@@ -272,6 +276,14 @@ div.thema-header { font-size:1.3em;padding:20px 30px;background-color:#EEEEEE;wi
 div.thema-header > p {display:inline-block;vertical-align:middle;}
 div.thema { font-size:1em;}
 
+/*
+THEMA LIST ENTRY
+*/
+.thema-list-entry div.tekst {
+    margin-bottom:5px;
+}
+
+
 /*ITEM*/
 .item .header { height: auto;position: relative;}
 .item .header:after {clear:both;content:"\0000a0";height:0;display:block;}
@@ -284,7 +296,7 @@ div.thema { font-size:1em;}
 #video, #relaties, #trefwoorden, #afbeelding { margin-top: 10px; border-bottom: 1px dashed #7FB539}
 
 /*ITEM LIST ENTRY*/
-.item-list-entry {position:relative;margin-bottom:10px;padding-bottom:3px;border-bottom:1px dotted #7FB539}
+.item-list-entry {}
 .item-list-entry h2 {font-size:1.3em;}
 .item-list-entry div.thumb{ float:left;}
 .item-list-entry div.kernboodschap{ float:left;width:470px;margin-left: 10px;  }
@@ -299,6 +311,18 @@ div.thema { font-size:1em;}
 {
     
 }
+.persoon-list-entry div.thumb
+{
+    float:left;
+}
+
+.persoon-list-entry div.functie
+{
+    float:left;
+    margin-left:10px;
+}
+
+
 
 /* ALGEMEEN */
 .geplaatst { color:#666;font-style:italic;}
