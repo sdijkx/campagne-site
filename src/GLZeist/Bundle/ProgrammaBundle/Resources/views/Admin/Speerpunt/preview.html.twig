@@ -1,0 +1,12 @@
+{% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block title%}Home{%endblock%}
+
+{%block introductie%}
+    {%if speerpunten is defined and speerpunten|length>0 %}
+        {{glzeist.introductie(speerpunten)}}
+    {%endif%}
+{%endblock%}
+{%block rightcolumn%}
+{%endblock%}
+{%block content%}
+{%endblock%}

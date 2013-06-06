@@ -23,11 +23,12 @@ use GLZeist\Bundle\ProgrammaBundle\Entity\Persoon;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 
-class UploadListener
+class ImageUploadListener
 {
     private $rootDir;
+    private $reader;
     
-    public function __construct($rootDir=null)
+    public function __construct($reader,$rootDir=null)
     {
         $this->rootDir=$rootDir;
     }

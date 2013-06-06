@@ -17,18 +17,30 @@
     
 */
 
-namespace GLZeist\Bundle\ProgrammaBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+    public $file;    
 
-class DefaultControllerTest extends WebTestCase
-{
-    public function testIndex()
-    {
-        $client = static::createClient();
+    public function getImagefile() {
+        return $this->imagefile;
+    }
 
-        $crawler = $client->request('GET', '/hello/Fabien');
+    public function setImagefile($imagefile) {
+        $this->imagefile = $imagefile;
+    }
 
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+    public function getThumbfile() {
+        return $this->thumbfile;
+    }
+
+    public function setThumbfile($thumbfile) {
+        $this->thumbfile = $thumbfile;
+    }
+
+    public function getFile() {
+        return $this->file;
+    }
+
+    public function setFile($file) {
+        $this->file = $file;
     }
 }

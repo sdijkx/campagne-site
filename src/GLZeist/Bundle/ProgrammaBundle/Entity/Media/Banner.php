@@ -17,18 +17,24 @@
     
 */
 
-namespace GLZeist\Bundle\ProgrammaBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
-class DefaultControllerTest extends WebTestCase
-{
-    public function testIndex()
-    {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/hello/Fabien');
-
-        $this->assertTrue($crawler->filter('html:contains("Hello Fabien")')->count() > 0);
+    public $file;    
+    
+    public function getBanner() {
+        return $this->banner;
     }
+
+    public function setBanner($banner) {
+        $this->banner = $banner;
+    }
+
+    public function getFile() {
+        return $this->file;
+    }
+
+    public function setFile($file) {
+        $this->file = $file;
+    }
+
+
 }
