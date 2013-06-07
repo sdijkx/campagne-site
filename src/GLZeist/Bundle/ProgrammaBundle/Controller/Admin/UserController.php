@@ -54,23 +54,20 @@ class UserController extends Controller
             throw new \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException();
         }
         
-        if($securityContext->isGranted(\Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter::IS_AUTHENTICATED_FULLY))
+        if($securityContext->isGranted(\Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter::IS_AUTHENTICATED_REMEMBERED))
         {
             return $this->redirect($this->generateUrl('admin_item'));
         }
         
+        $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
         // get the login error if there is one
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) 
+        if ($error) 
         {
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } 
-        else 
-        {
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
-        }
+            $this->get('session')->getFlashBag()->add('error','U kan niet aangemeld worden');
+        } 
         
-        $this->get('session')->getFlashBag()->add('error','U kan niet aangemeld worden');
+        
         
         return array(
             'last_username'=>$session->get(SecurityContext::LAST_USERNAME)
