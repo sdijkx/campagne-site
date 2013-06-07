@@ -26,6 +26,13 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity
+ * 
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({
+ *  "banner" = "GLZeist\Bundle\ProgrammaBundle\Entity\Media\Banner",
+ *  "logo" = "GLZeist\Bundle\ProgrammaBundle\Entity\Media\Logo",
+ *  "image" = "GLZeist\Bundle\ProgrammaBundle\Entity\Media\Image" })
  */
 class Media
 {

@@ -122,12 +122,7 @@ class PublishedItem
      * @ORM\OrderBy({"trefwoord"="DESC"})
      */
     private $trefwoorden;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Media",mappedBy="item",cascade={"all"})
-     */
-    private $media;
-    
+        
     /**
      * @ORM\ManyToOne(targetEntity="Paragraaf",inversedBy="paragraaf")
      */
@@ -172,7 +167,6 @@ class PublishedItem
     public function __construct()
     {
         $this->trefwoorden=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->media=new \Doctrine\Common\Collections\ArrayCollection();
         $this->relaties=new \Doctrine\Common\Collections\ArrayCollection();
         $this->links=new \Doctrine\Common\Collections\ArrayCollection();
         $this->gepubliceerdOp=new \DateTime();
@@ -369,14 +363,6 @@ class PublishedItem
 
     public function setTrefwoorden($trefwoorden) {
         $this->trefwoorden = $trefwoorden;
-    }
-
-    public function getMedia() {
-        return $this->media;
-    }
-
-    public function setMedia($media) {
-        $this->media = $media;
     }
 
     public function getRelaties() {

@@ -84,17 +84,6 @@ class PublishService {
                 $publishedItem->getLinks()->add($copy);
             }
 
-            $publishedItem->getMedia()->clear();
-            foreach($item->getMedia() as $media)
-            {
-                //copy link
-                $copy=new Entity\Media();
-                $copy->setTitel($media->getTitel());
-                $copy->setUrl($media->getUrl());
-                $copy->setPosition($media->getPosition());
-                $publishedItem->getMedia()->add($link);
-            }
-
             $publishedItem->getTrefwoorden()->clear();
             foreach($item->getTrefwoorden() as $trefwoord)
             {
