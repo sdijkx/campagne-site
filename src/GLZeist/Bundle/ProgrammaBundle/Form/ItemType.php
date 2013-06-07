@@ -31,9 +31,9 @@ class ItemType extends AbstractType
             ->add('titel')
             ->add('kernboodschap', 'textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
             ->add('tweet','textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
-            ->add('voorstellen','textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
-            ->add('verantwoording','textarea',array('required'=>false,'attr'=>array('class'=>'medium')))
-            ->add('hoofdtekst','textarea',array('required'=>false,'attr'=>array('class'=>'large')))
+            ->add('voorstellen','textarea',array('required'=>false,'attr'=>array('class'=>'medium'),'label'=>'Wat stellen we voor?'))
+            ->add('verantwoording','textarea',array('required'=>false,'attr'=>array('class'=>'medium'),'label'=>'Wat hebben we er de afgelopen vier jaar aan gedaan? '))
+            ->add('hoofdtekst','textarea',array('required'=>false,'attr'=>array('class'=>'large'),'label'=>'Achtergrond'))
             ->add('file')
             ->add('video')
             ->add('relaties','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Item', 
