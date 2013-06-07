@@ -17,6 +17,19 @@
     
 */
 
+namespace GLZeist\Bundle\ProgrammaBundle\Entity\Media;
+
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Hoofdstuk
+ *
+ * @ORM\Table()
+ * @ORM\Entity
+ */
+class Banner
+{
 
     public $file;    
     

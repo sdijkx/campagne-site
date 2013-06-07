@@ -31,10 +31,7 @@
         </a>
     </li>
     <li>
-        <form action="{{ path('speerpunt_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Verwijderen</button>
-        </form>
+        {{macros.delete_form('speerpunt_delete',delete_form,entity)}}
     </li>
 </ul>
 {%endblock%}

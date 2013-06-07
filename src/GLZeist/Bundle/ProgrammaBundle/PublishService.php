@@ -187,7 +187,7 @@ class PublishService {
             $message = \Swift_Message::newInstance()
                 ->setSubject('GLZeist aanvraag voor publicatie')
                 ->setFrom('noreply@groenlinkszeist.nl')
-                ->setTo($user->getEmail())
+                ->setTo($entity->getGemaaktDoor()->getEmail())
                 ->setBody(
                     $this->templating->render(
                         'GLZeistProgrammaBundle:Admin:Item/publicatie_aanvraag.email.txt.twig',

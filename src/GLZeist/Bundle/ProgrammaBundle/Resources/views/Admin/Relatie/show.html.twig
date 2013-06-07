@@ -25,10 +25,7 @@
         </a>
     </li>
     <li>
-        <form action="{{ path('relatie_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Verwijderen</button>
-        </form>
+        {{macros.delete_form('relatie_delete',delete_form,entity)}}
     </li>
 </ul>
 {%endblock%}

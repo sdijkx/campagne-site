@@ -56,3 +56,11 @@
 </span>
 </p>
 {%endmacro%}
+
+{%macro delete_form(path,delete_form,entity)%}
+    <form action="{{ path(path, { 'id': entity.id }) }}" method="post">
+        {{ form_widget(delete_form) }}
+        <button type="submit" onclick="return confirm('Weet u zeker dat u wilt verwijderen?')">Verwijderen</button>
+    </form>
+
+{%endmacro%}

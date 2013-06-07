@@ -8,10 +8,7 @@
         </a>
     </li>
     <li>
-        <form action="{{ path('admin_delete_persoon', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit">Verwijderen</button>
-        </form>
+        {{macros.delete_form('admin_delete_persoon',delete_form,entity)}}
     </li>
 </ul>
 <form action="{{ path('admin_update_persoon', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
