@@ -75,3 +75,15 @@
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </a>
 {%endmacro%}
+
+{%macro promotie_widget() %}
+    {%import _self as _ %}
+    <div class="promotie">
+        <h3>Zeist</h3>
+        <ul>
+            {%for hoofdstuk in hoofdstukken() %}
+                <li>{{_.link(path('hoofdstuk',{slug:hoofdstuk.slug}),hoofdstuk.titel)}}</li>
+            {%endfor%}
+        </ul>
+    </div>
+{%endmacro%}

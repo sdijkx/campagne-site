@@ -39,6 +39,7 @@ class AppExtension extends \Twig_Extension
     {
         return array(
             'themas' => new \Twig_Function_Method($this,'getThemas'),
+            'hoofdstukken' => new \Twig_Function_Method($this,'getHoofdstukken'),
             'is_moderator' => new \Twig_Function_Method($this,'isModerator'),
             'is_admin' => new \Twig_Function_Method($this,'isAdmin')
             
@@ -49,6 +50,12 @@ class AppExtension extends \Twig_Extension
     {
         return $this->em->getRepository('GLZeistProgrammaBundle:Thema')->findAll();
     }
+
+    public function getHoofdstukken()
+    {
+        return $this->em->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->findAll();
+    }
+    
     
     public function isModerator()
     {
