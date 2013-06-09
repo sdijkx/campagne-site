@@ -154,6 +154,9 @@ div.form_textarea .close a,
 div.form_textarea .edit a {text-decoration: none;}
 div.form_textarea .close{display:none;}
 div.form_row input[type=submit]{display:block;}
+div.form_textarea .value p{}
+div.form_textarea .value ul{list-style:disc inside}
+
 
 form.new div.form_textarea div.input{display:block;}
 form.new div.form_textarea a.close{display:none;}

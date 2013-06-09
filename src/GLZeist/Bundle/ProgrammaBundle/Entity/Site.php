@@ -43,6 +43,7 @@ class Site {
      * @ORM\Column(type="string",nullable=true)
      */        
     private $afdeling;
+        
     
     /**
      * @ORM\Column(name="imagefile", type="string",nullable=true)

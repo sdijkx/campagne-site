@@ -1,0 +1,31 @@
+{% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block title%}{{hoofdstuk.titel}}{%endblock%}
+{%block seo%}
+    <meta name="description" content="{{hoofdstuk.metaDescription}}">
+{%endblock%}
+
+{%block content%}
+
+<div class="hoofdstuk-header">
+    <h1>{{hoofdstuk.titel}}</h1>
+    <p>
+    {{hoofdstuk.tekst|raw}}
+    </p>
+    <h2>Thema's</h2>
+    <p>
+        {%if hoofdstuk.themas|length >0 %}
+            <div class="themas">
+            {% for thema in hoofdstuk.themas %}
+                <div>{{glzeist.link(path('thema',{slug:thema.slug}),thema.titel)}}</div>
+            {%endfor%}
+            </div>
+        {%endif%}
+    </p>
+</div>
+
+
+{%endblock%}
+
+{%block rightcontent%}
+
+{%endblock%}

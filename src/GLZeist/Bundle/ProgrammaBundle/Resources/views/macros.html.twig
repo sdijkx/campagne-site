@@ -37,7 +37,7 @@
     <span class="link">&rsaquo;&nbsp;<a href={{url}} title="{{titel}}">{{titel}}</a></span>
 {%endmacro%}
 
-{%macro introductie(speerpunten) %}
+{%macro introductie(speerpunten,hoofdstukken) %}
 {%import _self as _ %}
 <div class="introductie clearfix"">
     <div class="spotlicht">
@@ -60,9 +60,9 @@
     <div class="promotie">
         <h3>Zeist</h3>
         <ul>
-            <li>{{_.link('#','Duurzaam')}}</li>
-            <li>{{_.link('#','Eerlijk delen')}}</li>
-            <li>{{_.link('#','Open samenleving')}}</li>
+            {%for hoofdstuk in hoofdstukken %}
+                <li>{{_.link(path('hoofdstuk',{slug:hoofdstuk.slug}),hoofdstuk.titel)}}</li>
+            {%endfor%}
         </ul>
     </div>
 

@@ -29,6 +29,9 @@ class HoofdstukType extends AbstractType
     {
         $builder
             ->add('titel')
+            ->add('metaDescription','textarea',array('required'=>false))                
+            ->add('tekst')             
+            ->add('themas','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Thema'))                
         ;
     }
 

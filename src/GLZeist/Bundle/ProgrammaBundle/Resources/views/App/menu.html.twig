@@ -10,6 +10,9 @@
         {%set active= (thema is defined and entity.slug==thema.slug ) %}
         <li {%if active %}class="actief"{%endif%}><a href="{{url}}">{{entity.titel}}</a></li>
     {%endfor%}
+    {%set url=path('hoofdstuk_index') %}
+    {%set active= (current== url or app.request.get('_route')=='hoofdstuk') %}
+    <li {%if active %}class="actief"{%endif%}><a href="{{url}}">Hoofdstukken</a> </li>
     {%set url=path('persoon_index') %}
     {%set active= (current== url or app.request.get('_route')=='persoon') %}
     <li {%if active %}class="actief"{%endif%}><a href="{{url}}">Personen</a> </li>

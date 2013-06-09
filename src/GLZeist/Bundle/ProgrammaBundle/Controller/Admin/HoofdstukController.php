@@ -38,7 +38,7 @@ class HoofdstukController extends Controller
     /**
      * Lists all Hoofdstuk entities.
      *
-     * @Route("/", name="hoofdstuk")
+     * @Route("/", name="admin_hoofdstuk")
      * @Template()
      */
     public function indexAction()
@@ -53,30 +53,6 @@ class HoofdstukController extends Controller
     }
     
     
-    /**
-     * Finds and displays a Hoofdstuk entity.
-     *
-     * @Route("/{id}/show", name="hoofdstuk_show")
-     * @Template()
-     */
-    public function showAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Hoofdstuk entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
     /**
      * Displays a form to create a new Hoofdstuk entity.
      *
@@ -111,7 +87,7 @@ class HoofdstukController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
+            $this->get('session')->getFlashBag()->add('notice','Het hoofdstuk is opgeslagen');
             return $this->redirect($this->generateUrl('hoofdstuk', array('id' => $entity->getId())));
         }
 

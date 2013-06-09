@@ -2,13 +2,6 @@
 {%block content%}
 <h1>Nieuw Hoofdstuk</h1>
 
-<form action="{{ path('hoofdstuk_new') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Nieuw</button>
-    </p>
-</form>
-
 <ul class="record_actions">
     <li>
         <a href="{{ path('hoofdstuk') }}">
@@ -16,4 +9,12 @@
         </a>
     </li>
 </ul>
+
+<form action="{{ path('hoofdstuk_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <div class="form_actions">
+        <button type="submit">Toevoegen</button>
+    </div>
+</form>
+
 {%endblock%}

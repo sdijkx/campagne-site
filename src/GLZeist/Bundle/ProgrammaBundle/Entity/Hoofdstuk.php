@@ -52,6 +52,25 @@ class Hoofdstuk
      */
     private $slug;
     
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="metaDescription", type="string", length=255, nullable=true)
+     */
+    private $metaDescription;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tekst", type="text", nullable=true)
+     */
+    private $tekst;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Thema")
+     */
+    private $themas;
+    
     
     /**
      * @ORM\OneToMany(targetEntity="Paragraaf",cascade={"all"},mappedBy="hoofdstuk")
@@ -62,6 +81,7 @@ class Hoofdstuk
     public function __construct()
     {
         $this->paragrafen=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->themas=new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     
@@ -109,7 +129,31 @@ class Hoofdstuk
         $this->slug = $slug;
     }
 
-        
+    public function getMetaDescription() {
+        return $this->metaDescription;
+    }
+
+    public function setMetaDescription($metaDescription) {
+        $this->metaDescription = $metaDescription;
+    }
+
+    public function getTekst() {
+        return $this->tekst;
+    }
+
+    public function setTekst($tekst) {
+        $this->tekst = $tekst;
+    }
+
+    public function getThemas() {
+        return $this->themas;
+    }
+
+    public function setThemas($themas) {
+        $this->themas = $themas;
+    }
+
+            
     public function getParagrafen() {
         return $this->paragrafen;
     }
@@ -118,6 +162,8 @@ class Hoofdstuk
         $this->paragrafen = $paragrafen;
     }
 
+    
+    
     public function __toString()
     {
         return $this->titel;
