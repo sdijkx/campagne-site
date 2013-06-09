@@ -19,9 +19,11 @@
 
 namespace GLZeist\Bundle\ProgrammaBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * Item
