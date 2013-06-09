@@ -88,7 +88,7 @@ class HoofdstukController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->get('session')->getFlashBag()->add('notice','Het hoofdstuk is opgeslagen');
-            return $this->redirect($this->generateUrl('hoofdstuk', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('hoofdstuk_edit', array('id' => $entity->getId())));
         }
 
         return array(
