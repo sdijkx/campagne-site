@@ -200,12 +200,14 @@ class ItemController extends Controller
         $editForm = $this->createForm(new ItemType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
         $publishForm = $this->createPublishForm($id);
+        $unpublishForm = $this->createUnpublishForm($id);
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'publish_form' => $publishForm->createView()
+            'publish_form' => $publishForm->createView(),
+            'unpublish_form' => $unpublishForm->createView()
         );
     }
 
@@ -300,6 +302,46 @@ class ItemController extends Controller
             {
                 $publisher->publish($entity);
                 $this->get('session')->getFlashBag()->add('notice','Het item is gepubliceerd');
+            }
+            catch(\Exception $e)
+            {
+                $this->get('session')->getFlashBag()->add('error',$e->getMessage());
+            }
+        }
+        else
+        {
+            foreach($form->getErrors() as $error)
+            {
+                $this->get('session')->getFlashBag()->add('error',$error->getMessage());
+            }
+        }
+        return $this->redirect($this->generateUrl('item_edit',array('id'=>$id)));        
+    }
+
+    /**
+     * @Route("/{id}/unpublish",name="admin_unpublish_item")
+     * @Granted(role="ROLE_MODERATOR")
+     * @Method("POST")
+     */    
+    public function unpublishAction(Request $request, $id)
+    {
+        
+        $form = $this->createPublishForm($id);
+        $form->bind($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('GLZeistProgrammaBundle:Item')->findByIdForUser($id,$this->getUser());
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Item entity.');
+            }
+            
+            $publisher=$this->get('gl_zeist_programma.publish_service');
+            try
+            {
+                $publisher->unpublish($entity);
+                $this->get('session')->getFlashBag()->add('notice','Het item is teruggetrokken');
             }
             catch(\Exception $e)
             {
@@ -420,5 +462,14 @@ class ItemController extends Controller
             ->getForm()
         ;
     }
+    
+    private function createUnpublishForm($id)
+    {
+        return $this->createFormBuilder(array('id' => $id))
+            ->add('id', 'hidden')
+            ->getForm()
+        ;
+    }
+    
     
 }

@@ -36,6 +36,35 @@ class PublishService {
         
     }
     
+    public function unpublish(Entity\Item $item)
+    {
+        $this->em->beginTransaction();
+        
+        try
+        {
+            $publishedItem=$item->getPublishedItem();
+            $item->setPublishedItem(null);
+            $publishedItem->setItem(null);
+            
+            $this->em->persist($item);
+            $this->em->persist($publishedItem);
+            $this->em->remove($publishedItem);
+            $this->em->flush();
+            
+            $this->em->commit();
+            
+            
+        }
+        catch(\Exception $e)
+        {
+            $this->em->rollback();
+            $this->logger->err("Er is een fout: {$e->getMessage()} opgetreden, item {$item->getSlug()} is niet verwijderd als publicatie");
+            throw new \Exception('Er is een fout opgetreden, het item kan niet worden verwijderd als publicatie '.$e->getMessage());
+        }
+        
+        
+    }
+    
     public function publish(Entity\Item $item)
     {
         $this->em->beginTransaction();

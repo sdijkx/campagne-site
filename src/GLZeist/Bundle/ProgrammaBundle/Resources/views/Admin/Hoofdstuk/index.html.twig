@@ -6,21 +6,17 @@
 <table class="records_list">
     <thead>
         <tr>
+            <th class="edit"></th>
             <th>Titel</th>
-            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td>{{ entity.titel }}</td>
-            <td>
-                <ul class="actions">
-                    <li>
-                        <a href="{{ path('hoofdstuk_edit', { 'id': entity.id }) }}">Bewerk</a>
-                    </li>
-                </ul>
+            <td >
+                <a class="button" title="Bewerk" href="{{ path('hoofdstuk_edit', { 'id': entity.id }) }}"><span class="icon-pencil">&nbsp;</span></a>
             </td>
+            <td class="left">{{ entity.titel }}</td>
         </tr>
     {% endfor %}
     </tbody>

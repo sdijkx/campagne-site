@@ -123,26 +123,6 @@ class DefaultController extends Controller
         );
     }
     
-    /**
-     * @Route("/hoofdstuk/{slug}", name="hoofdstuk")
-     * @Template()
-     */
-    public function hoofdstukAction($slug)
-    {
-        $hoofdstuk = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->findOneBySlug($slug);
-        if (!$hoofdstuk) 
-        {
-            throw $this->createNotFoundException();        
-        }
-        return array(
-            'hoofdstuk'=>$hoofdstuk,
-            'breadcrumb'=>array(
-                array(
-                    'name' => $hoofdstuk->getTitel()
-                )
-            )
-        );
-    }    
     
     /**
      * @Route("/file/{filename}",name="file") 

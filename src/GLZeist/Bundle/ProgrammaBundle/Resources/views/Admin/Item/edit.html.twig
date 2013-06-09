@@ -28,13 +28,27 @@
 
         <li><a href="{{path('admin_preview_item',{id:entity.id})}}">Voorbeeld</a></li>
         
-        {%if is_moderator() %}
+        {%if is_moderator() and entity.gepubliceerd %}
+            <li>
+                <form action="{{ path('admin_publiceer_item', { 'id': entity.id }) }}" method="post">
+                    {{ form_widget(publish_form) }}
+                    <button type="submit">Opnieuw Publiceren</button>
+                </form>
+            </li>
+            <li>
+                <form action="{{ path('admin_unpublish_item', { 'id': entity.id }) }}" method="post">
+                    {{ form_widget(unpublish_form) }}
+                    <button type="submit">Publicatie verwijderen</button>
+                </form>
+            </li>
+        {%elseif is_moderator() %}            
             <li>
                 <form action="{{ path('admin_publiceer_item', { 'id': entity.id }) }}" method="post">
                     {{ form_widget(publish_form) }}
                     <button type="submit">Publiceren</button>
                 </form>
             </li>
+
         {%else%}
             <li>
                 <form action="{{ path('admin_publicatie_aanvraag', { 'id': entity.id }) }}" method="post">

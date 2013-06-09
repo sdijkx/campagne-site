@@ -30,9 +30,9 @@ h1 {
 }
 
 h2 {
-  font-size:           1.3em;
-  font-weight:         normal;
-  font-style:   italic;
+  font-size:           1.1em;
+  font-weight:         bold;
+  
 }
 
 h3 {
@@ -274,7 +274,7 @@ div.spotlicht > div.speerpunt.focus > div.titel a {color:#FFF;}
 /*
 THEMA
 */
-div.thema-header { font-size:1.3em;padding:20px 30px;background-color:#EEEEEE;width:90%;margin:0 auto 20px auto;}
+div.thema-header { font-size:1.3em;padding:20px 30px;background-color:#7EC416;color:#FFF;width:90%;margin:0 auto 20px auto;border-radius:10px 10px 0 0}
 div.thema-header > p {display:inline-block;vertical-align:middle;}
 div.thema { font-size:1em;}
 
