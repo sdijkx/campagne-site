@@ -129,8 +129,6 @@ class ImageUploadListener
     
     public function postPersist(LifecycleEventArgs $args)
     {
-            echo 'B';exit;
-            
         $this->upload($args);
     }
     
@@ -146,7 +144,6 @@ class ImageUploadListener
     
     public function postRemove(LifecycleEventArgs $args)
     {
-        echo 'E';exit;
         $this->removeUpload($args);
     }
     
