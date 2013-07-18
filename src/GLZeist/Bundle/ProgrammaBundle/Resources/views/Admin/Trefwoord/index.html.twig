@@ -21,7 +21,7 @@
         <tr>
             <td>
                 <form action="{{ path('trefwoord_delete', { 'id': entity.id }) }}" method="post">
-                    <button title="Verwijderen" type="submit"><span class="icon-cancel-circled">&nbsp;</span></button>
+                    <button title="Verwijderen" type="submit" onclick="return confirm('Weet u zeker dat u wilt verwijderen?')"><span class="icon-cancel-circled">&nbsp;</span></button>
                 </form>
             </td>
             <td class="left">{{ entity.trefwoord }}</td>

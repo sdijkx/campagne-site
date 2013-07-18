@@ -23,6 +23,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use GLZeist\Bundle\ProgrammaBundle\Searchable;
+use GLZeist\Bundle\ProgrammaBundle\Annotation as App;
 
 /**
  * Persoon
@@ -76,6 +77,8 @@ class Persoon
     
     /**
      * @Assert\File(maxSize="6000000",mimeTypes={"image/gif","image/png","image/jpg","image/jpeg"})
+     * @App\Image(width=300,height=280,filenameProperty="imagefile")
+     * @App\Image(width=120,height=92,filenameProperty="thumbfile")
      */
     public $file;
     

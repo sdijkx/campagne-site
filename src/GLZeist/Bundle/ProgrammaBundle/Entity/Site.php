@@ -22,6 +22,7 @@ namespace GLZeist\Bundle\ProgrammaBundle\Entity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use GLZeist\Bundle\ProgrammaBundle\Annotation as App;
 
 /**
  * @ORM\Entity
@@ -42,16 +43,23 @@ class Site {
      *
      * @ORM\Column(type="string",nullable=true)
      */        
-    private $afdeling;
-        
+    private $titel;
     
     /**
-     * @ORM\Column(name="imagefile", type="string",nullable=true)
+     *
+     * @ORM\Column(type="string",nullable=true)
+     */        
+    private $ondertitel;
+    
+    
+    /**
+     * @ORM\Column(name="banner", type="string",nullable=true)
      */
     private $banner;
     
     /**
      * @Assert\File(maxSize="6000000",mimeTypes={"image/gif","image/png","image/jpg","image/jpeg"})
+     * @App\Image(width=800,height=280,filenameProperty="banner")
      */
     public $file;    
     
@@ -74,12 +82,20 @@ class Site {
         $this->id = $id;
     }
 
-    public function getAfdeling() {
-        return $this->afdeling;
+    public function getTitel() {
+        return $this->titel;
     }
 
-    public function setAfdeling($afdeling) {
-        $this->afdeling = $afdeling;
+    public function setTitel($titel) {
+        $this->titel = $titel;
+    }
+
+    public function getOndertitel() {
+        return $this->ondertitel;
+    }
+
+    public function setOndertitel($ondertitel) {
+        $this->ondertitel = $ondertitel;
     }
 
     public function getBanner() {

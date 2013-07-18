@@ -2,20 +2,20 @@
 {%block content%}
 <h1>Item bewerken</h1>
 <div>
-    {%if entity.gepubliceerd %}
+    {%if entity.gewijzigdNaPublicatie %}
+        <div class="notice"><strong>Gewijzigd na laatste publicatie</strong></div>
+    {%elseif entity.gepubliceerd %}
         <div class="notice"><strong>Gepubliceerd</strong></div>
     {%elseif entity.aangevraagd %}
         <div class="notice"><strong>Publicatie aangevraagd</strong></div>
-    {%elseif entity.gewijzigdNaPublicatie %}
-        <div class="notice"><strong>Gewijzigd na laatste publicatie</strong></div>
     {%else%}
         <div class="notice"><strong>Niet gepubliceerd</strong></div>
     {%endif%}
     {%if entity.gepubliceerd %}
         <div><label>Laatste publicatie:</label>&nbsp;{{entity.publishedItem.gepubliceerdOp|date('d-m-Y H:i:s')}}</div>
-        <br/>
     {%endif%}
-
+    <div><label>Laatst gewijzigd:</label>&nbsp;{{entity.gewijzigdOp|date('d-m-Y H:i:s')}}</div>
+    <br/>
 </div>
 
 <div class="clearfix">
@@ -85,6 +85,7 @@
             <img src="{{path('file',{filename:entity.imagefile})}}" />
             <img src="{{path('file',{filename:entity.thumbfile})}}" />
             {{ form_widget(edit_form.file) }}
+            {{ form_errors(edit_form.file) }}
             <input type=submit value="Opslaan" />
         </div>
     </div>

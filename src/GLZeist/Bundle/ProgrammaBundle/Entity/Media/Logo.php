@@ -23,7 +23,6 @@ use Doctrine\ORM\Mapping as ORM;
 use GLZeist\Bundle\ProgrammaBundle\Entity\Media;
 
 /**
- * Hoofdstuk
  *
  * @ORM\Table()
  * @ORM\Entity

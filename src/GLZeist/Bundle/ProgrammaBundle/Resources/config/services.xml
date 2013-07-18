@@ -6,22 +6,31 @@
 
     <parameters>
         <parameter key="gl_zeist_programma.upload_listener.class">GLZeist\Bundle\ProgrammaBundle\Listener\UploadListener</parameter>
+        <parameter key="gl_zeist_programma.image_upload_listener.class">GLZeist\Bundle\ProgrammaBundle\Listener\ImageUploadListener</parameter>
         <parameter key="gl_zeist_programma.search_fields_listener.class">GLZeist\Bundle\ProgrammaBundle\Listener\PublishedItemSearchFieldsListener</parameter>
         <parameter key="gl_zeist_programma.request_listener.class">GLZeist\Bundle\ProgrammaBundle\Listener\RequestListener</parameter>        
         <parameter key="gl_zeist_programma.publish_service.class">GLZeist\Bundle\ProgrammaBundle\PublishService</parameter>        
         <parameter key="gl_zeist_programma.fulltext_search_service.class">GLZeist\Bundle\ProgrammaBundle\FullTextSearchService</parameter>                
+        <parameter key="gl_zeist_programma.site.class">GLZeist\Bundle\ProgrammaBundle\Site</parameter>                
         <parameter key="upload_dir">%kernel.root_dir%/uploads</parameter>
+        <parameter key="site_dir">%kernel.root_dir%/site</parameter>
     </parameters>
     
             
 
     <services>
+
+        <service id="gl_zeist_programma.site" class="%gl_zeist_programma.site.class%">
+            <argument>%site_dir%/settings.yml</argument>
+        </service>
         
         <service id="gl_zeist_programma.fulltext_search_service" class="%gl_zeist_programma.fulltext_search_service.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
         
-        <service id="gl_zeist_programma.upload_listener" class="%gl_zeist_programma.upload_listener.class%">
+        <service id="gl_zeist_programma.upload_listener" class="%gl_zeist_programma.image_upload_listener.class%">
+            <argument type="service" id="annotation_reader" />
+            <argument type="service" id="logger" />
             <argument>%upload_dir%</argument>
             <tag name="doctrine.event_listener" event="preUpdate" method="preUpdate" />
             <tag name="doctrine.event_listener" event="prePersist" method="prePersist" />
@@ -48,6 +57,7 @@
         <service id="gl_zeist_app_extension" class="GLZeist\Bundle\ProgrammaBundle\Twig\AppExtension">
             <argument type="service" id="doctrine.orm.entity_manager" />
             <argument type="service" id="security.context" />
+            <argument type="service" id="gl_zeist_programma.site" />
             <tag name="twig.extension" />
         </service>
         

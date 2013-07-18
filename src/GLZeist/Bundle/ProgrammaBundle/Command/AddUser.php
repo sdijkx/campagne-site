@@ -49,7 +49,7 @@ class AddUser extends Command
             )
             ->addArgument(
                 'email',
-                InputArgument::OPTIONAL,
+                InputArgument::REQUIRED,
                 'Email'
             )
                 
@@ -63,6 +63,7 @@ class AddUser extends Command
         $username = $input->getArgument('username');
         $role=$input->getArgument('role');
         $password = $input->getArgument('password');
+        $email = $input->getArgument('email');
         
         
         $em=$container->get('doctrine.orm.entity_manager');
@@ -77,7 +78,7 @@ class AddUser extends Command
         
         if(!in_array($role,User::$ROLES))
         {
-            throw new \Exception('Onbekende gebruikers role');
+            throw new \Exception('Onbekende gebruikers role ');
         }
 
         
@@ -90,6 +91,7 @@ class AddUser extends Command
         
         $user->setPassword($encodedPassword);
         $user->setRole($role);
+        $user->setEmail($email);
         $em->persist($user);
         $em->flush();
         

@@ -18,90 +18,91 @@
 */
 
 namespace GLZeist\Bundle\ProgrammaBundle\Listener;
-use GLZeist\Bundle\ProgrammaBundle\Entity\Item;
-use GLZeist\Bundle\ProgrammaBundle\Entity\Persoon;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-
+use Doctrine\Common\Annotations\Reader;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
 class ImageUploadListener
 {
     private $rootDir;
     private $reader;
+    private $logger;
     
-    public function __construct($reader,$rootDir=null)
+    public function __construct(Reader $reader,LoggerInterface $logger,$rootDir=null)
     {
         $this->rootDir=$rootDir;
+        $this->reader=$reader;
+        $this->logger=$logger;
     }
     
     
     public function preUpload(LifecycleEventArgs $args)
     {
-        $entity=$this->supports($args);
-        if($entity)
+        $conf=$this->getImageConfiguration($args);
+        foreach($conf as $image)
         {
-            $file=$entity->getFile();
-            if (null !== $file) {
-                // do whatever you want to generate a unique name
-                $filename = uniqid(mt_rand(), true);
-                $entity->setImagefile($filename.'.jpg');
-                $entity->setThumbfile($filename.'_thumb.jpg');
+            $file=$image->getFile();
+            if (null === $file) {
+                continue;
             }
+            $filename = uniqid(mt_rand(), true);
+            $image->setFilename($filename.'.jpg');
         }
     }
     
     public function upload(LifecycleEventArgs $args)
     {
-        $entity=$this->supports($args);
-        if($entity)
+        $conf=$this->getImageConfiguration($args);
+        
+        foreach($conf as $image)
         {
-            $file=$entity->getFile();
+            $file=$image->getFile();
             if (null === $file) {
-                return;
+                continue;
             }
             $scaler=new ImageScaler();
             $filename=$file->getRealPath();
             
             $type=$scaler->getType($filename);
 
-            $dest=$this->getRootDir().DIRECTORY_SEPARATOR.$entity->getImagefile();
-            $destThumb=$this->getRootDir().DIRECTORY_SEPARATOR.$entity->getThumbfile();
+            $dest=$this->getRootDir().DIRECTORY_SEPARATOR.$image->getFilename();
             
-            $scaler->scale($filename, $dest, $type, 300, 230);
-            $scaler->scale($filename, $destThumb, $type, 120, 92);
+            $scaler->scale($filename, $dest, $type, $image->getWidth(), $image->getHeight());
             
-        }        
+        }
     }
     
     public function removeUpload(LifecycleEventArgs $args)
     {
-        $entity=$this->supports($args);
-        if($entity)
+        $conf=$this->getImageConfiguration($args);
+        foreach($conf as $image)
         {
-            $filename=$entity->getImagefile();
+            $filename=$image->getFilename();
             if (null !== $filename) {
                 unlink($this->rootDir.DIRECTORY_SEPARATOR.$filename);
             }
-            
-            
-            $filename=$entity->getThumbfile();
-            if (null !== $filename) {
-                unlink($this->rootDir.DIRECTORY_SEPARATOR.$filename);
-            }
-            
             
         }
     }
     
-    private function supports(LifecycleEventArgs $args)
+    private function getImageConfiguration(LifecycleEventArgs $args)
     {
-        $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();    
-        if($entity instanceof Item || $entity instanceof Persoon)
+        $images=array();
+        $object = new \ReflectionObject($args->getEntity());
+        foreach($object->getProperties() as $property)
         {
-            return $entity;
+            foreach ($this->reader->getPropertyAnnotations($property) as $annotation)
+            { //Start of annotations reading
+
+                if ($annotation instanceof \GLZeist\Bundle\ProgrammaBundle\Annotation\Image)
+                {
+                    $images[]=new UploadImage($object,$args->getEntity(),$property,$annotation);
+                }
+            }
         }
-        return false;
+        return $images;
     }
+    
     
     private function getRootDir()
     {
@@ -110,14 +111,14 @@ class ImageUploadListener
     
     
     public function getSubscribedEvents() {
-    return array(
-        Events::prePersist,
-        Events::preUpdate,
-        Events::postPersist,
-        Events::postUpdate,
-        Events::postRemove
-    );
-}
+        return array(
+            Events::prePersist,
+            Events::preUpdate,
+            Events::postPersist,
+            Events::postUpdate,
+            Events::postRemove
+        );
+    }
    
     
 
@@ -128,6 +129,8 @@ class ImageUploadListener
     
     public function postPersist(LifecycleEventArgs $args)
     {
+            echo 'B';exit;
+            
         $this->upload($args);
     }
     
@@ -143,6 +146,7 @@ class ImageUploadListener
     
     public function postRemove(LifecycleEventArgs $args)
     {
+        echo 'E';exit;
         $this->removeUpload($args);
     }
     

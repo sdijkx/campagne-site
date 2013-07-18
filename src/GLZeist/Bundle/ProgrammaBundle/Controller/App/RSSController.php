@@ -16,16 +16,29 @@
     along with GroenLinks Zeist Campagnesite.  If not, see <http://www.gnu.org/licenses/>.
     
 */
-namespace GLZeist\Bundle\ProgrammaBundle\Annotation;
 
-/**
- * @Annotation
- * @Target({"PROPERTY"})
- */
+namespace GLZeist\Bundle\ProgrammaBundle\Controller\App;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use GLZeist\Bundle\ProgrammaBundle\RSS;
 
-class Image {
+
+class RSSController extends Controller
+{
+
+    /**
+     * @Route("/rss", name="rss")
+     * @Template()
+     */
     
-    public $filenameProperty;
-    public $width;
-    public $height;
+    public function indexAction(Request $request)
+    {
+        $limit=$request->get("limit",0);
+        $rss=new RSS('http://zeist.groenlinks.nl/rss');
+        return array('items' => $rss->getItems($limit));
+    }
 }
+
+

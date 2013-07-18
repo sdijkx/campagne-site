@@ -1,0 +1,11 @@
+{% for item in items %}
+    <h1>{{item.title}}</h1>
+    <p>{{item.description|raw}}</p>
+    <p style="color:red">{{item.teaser|raw}}</p>
+    {%if item.image %}
+        <img src="{{item.image}}" alt="{{item.title}}"/>
+    {%endif%}
+    {% if item.pubDate %}
+        <p>{{item.pubDate|date('d-m-Y')}}</p>
+    {%endif%}
+{%endfor%}

@@ -16,8 +16,33 @@
     along with GroenLinks Zeist Campagnesite.  If not, see <http://www.gnu.org/licenses/>.
     
 */
-namespace GLZeist\Bundle\ProgrammaBundle\Annotation;
 
-class ImageFile {
-    
+namespace GLZeist\Bundle\ProgrammaBundle\Form;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+class SiteType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('titel')
+            ->add('ondertitel')
+            ->add('banner','file')
+        ;
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'GLZeist\Bundle\ProgrammaBundle\Site'
+        ));
+    }
+
+    public function getName()
+    {
+        return 'glzeist_bundle_programmabundle_sitetype';
+    }
 }

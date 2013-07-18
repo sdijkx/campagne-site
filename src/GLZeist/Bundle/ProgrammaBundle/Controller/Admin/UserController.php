@@ -227,7 +227,6 @@ class UserController extends Controller
             }
             catch(\Exception $e)
             {
-                echo $e->getMessage();exit;
                 $this->get('session')->getFlashBag()->add('error','De gebruiker kan niet worden bijgewerkt');                
             }
         }

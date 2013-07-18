@@ -25,10 +25,11 @@ class AppExtension extends \Twig_Extension
     private $em;
     private $securityContext;
     
-    public function __construct(\Doctrine\ORM\EntityManager $em,  SecurityContextInterface $securityContext)
+    public function __construct(\Doctrine\ORM\EntityManager $em,  SecurityContextInterface $securityContext,  \GLZeist\Bundle\ProgrammaBundle\Site $site)
     {
         $this->em=$em;
         $this->securityContext=$securityContext;
+        $this->site=$site;
     }
     public function getName()
     {
@@ -44,6 +45,10 @@ class AppExtension extends \Twig_Extension
             'is_admin' => new \Twig_Function_Method($this,'isAdmin')
             
         );
+    }
+    
+    public function getGlobals() {
+        return array('site' => $this->site);
     }
     
     public function getThemas()

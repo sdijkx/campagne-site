@@ -269,12 +269,17 @@ class ItemController extends Controller
 
             return $this->redirect($this->generateUrl('item_edit', array('id' => $id)));
         }
+        else
+        {
+            $this->get('session')->getFlashBag()->add('error','Het formulier bevat fouten');
+        }
 
         return array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'publish_form' => $this->createPublishForm($id)->createView() 
+            'publish_form' => $this->createPublishForm($id)->createView(),
+            'unpublish_form' => $this->createUnpublishForm($id)->createView()
         );
     }
     
