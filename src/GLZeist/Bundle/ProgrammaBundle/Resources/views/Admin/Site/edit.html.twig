@@ -9,5 +9,13 @@
     </div>
 </form>
 
+<h1>Banner</h1>
+<img src="{{path('admin_site_banner')}}" />
+<form action="{{ path('admin_site_remove_banner') }}" method="post" {{ form_enctype(form) }}>
+    <div class="form_actions">
+        <button type="submit">Verwijder banner</button>
+    </div>
+</form>
+
 
 {%endblock%}

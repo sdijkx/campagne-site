@@ -61,7 +61,7 @@ class RSS
     private function _map($tag,$value)
     {
         
-        if($tag=='pubdate')
+        if($tag=='pubDate')
         {
             return new \DateTime($value);
         }

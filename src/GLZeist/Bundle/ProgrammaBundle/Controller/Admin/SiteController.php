@@ -53,6 +53,28 @@ class SiteController extends Controller
             'form'   => $form->createView()
         );                
     }
+    
+    /**
+     * @Route("/site/banner",name="admin_site_banner")
+     */    
+    public function bannerAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $site=$this->get('gl_zeist_programma.site');
+        if(!$site->getBanner() instanceof \Symfony\Component\HttpFoundation\File\File)
+        {
+            return new \Symfony\Component\BrowserKit\Response('No Banner', 404);
+        }
+        $path=$site->getBanner()->getRealPath();
+        $guesser=  \Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser::getInstance();
+        $mimeType=$guesser->guess($path);
+        ob_clean();
+        header('Content-type: '.$mimeType);
+        readfile($path);
+        exit;
+        
+    }
+    
 
     /**
      * @Route("/site/update",name="admin_site_update")
@@ -67,13 +89,22 @@ class SiteController extends Controller
         $site=$this->get('gl_zeist_programma.site');
 
 
-        $form = $this->createForm(new SiteType(), $site);
+        $form = $this->createForm(new SiteType());
         $form->bind($request);
 
         if ($form->isValid()) {
             try
             {
-                $site->update();
+                $data=$form->getData();
+                $banner=$data['banner'];
+                if($banner instanceof \Symfony\Component\HttpFoundation\File\UploadedFile)
+                {
+                    if($banner->getError()!=UPLOAD_ERR_OK)
+                    {
+                        throw new \Exception($this->codeToMessage($banner->getError()));
+                    }               
+                }
+                $site->update($data);
                 $this->get('session')->getFlashBag()->add('notice','De instellingen zijn bijgewerkt');
                 return $this->redirect($this->generateUrl('admin_site_edit'));
             }
@@ -91,6 +122,51 @@ class SiteController extends Controller
             'site'      => $site,
             'form'   => $form->createView()
         );        
+    }
+    
+    private function codeToMessage($code)
+    {
+        switch ($code) {
+            case UPLOAD_ERR_INI_SIZE:
+                $message = "The uploaded file exceeds the upload_max_filesize directive in php.ini";
+                break;
+            case UPLOAD_ERR_FORM_SIZE:
+                $message = "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form";
+                break;
+            case UPLOAD_ERR_PARTIAL:
+                $message = "The uploaded file was only partially uploaded";
+                break;
+            case UPLOAD_ERR_NO_FILE:
+                $message = "No file was uploaded";
+                break;
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $message = "Missing a temporary folder";
+                break;
+            case UPLOAD_ERR_CANT_WRITE:
+                $message = "Failed to write file to disk";
+                break;
+            case UPLOAD_ERR_EXTENSION:
+                $message = "File upload stopped by extension";
+                break;
+
+            default:
+                $message = "Unknown upload error";
+                break;
+        }
+        return $message;
+    }
+    
+    /**
+    * @Route("/site/banner/remove",name="admin_site_remove_banner")
+    * @Method("POST")
+    */
+    
+    public function removeBannerAction()
+    {
+        $site=$this->get('gl_zeist_programma.site');       
+        $site->setBanner(null);
+        $site->update();
+        return $this->redirect($this->generateUrl('admin_site_edit'));
     }
     
 }

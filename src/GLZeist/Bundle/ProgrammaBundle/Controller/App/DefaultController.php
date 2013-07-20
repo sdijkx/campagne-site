@@ -39,7 +39,9 @@ class DefaultController extends Controller
         $speerpunten=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Speerpunt')->findRandomForHomePage();
         $items = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findAllForHomePage();
         $hoofdstukken = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->findAll();
-        return array('items' => $items,'speerpunten' => $speerpunten,'hoofdstukken'=>$hoofdstukken);
+        $rss=$this->get('gl_zeist_programma.rss');
+        $nieuws=$rss->getItems(5);
+        return array('items' => $items,'speerpunten' => $speerpunten,'hoofdstukken'=>$hoofdstukken,'nieuws' => $nieuws);
     }
     
     /**
@@ -140,6 +142,27 @@ class DefaultController extends Controller
         exit;
         
     }
+    
+    /**
+     * @Route("/site/banner",name="site_banner") 
+     */
+    public function bannerAction()
+    {
+        $site=$this->get('gl_zeist_programma.site');
+        if(!$site->getBanner() instanceof \Symfony\Component\HttpFoundation\File\File)
+        {
+            return new \Symfony\Component\HttpFoundation\Response('Geen Banner',404);
+        }
+        $path=$site->getBanner()->getRealPath();
+        $guesser=  \Symfony\Component\HttpFoundation\File\MimeType\MimeTypeGuesser::getInstance();
+        $mimeType=$guesser->guess($path);
+        ob_clean();
+        header('Content-type: '.$mimeType);
+        readfile($path);
+        exit;
+        
+    }
+    
     
     
 }

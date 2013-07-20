@@ -18,9 +18,9 @@
 */
 namespace GLZeist\Bundle\ProgrammaBundle;
 
-use \Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Dumper;
-
+use Symfony\Component\HttpFoundation\File\File;
 
 class Site
 {
@@ -28,12 +28,14 @@ class Site
     private $titel;
     private $ondertitel;
     private $filename;
+    private $twitter;
 
     public function __construct($filename)
     {
         $this->filename=$filename;
         $this->load();
     }
+    
     
     private function load()
     {
@@ -43,31 +45,78 @@ class Site
     }
     private function fromArray($values)
     {
-        $this->banner=$values['banner'];
+        $this->twitter=$this->getFromArray($values,'twitter','groenlinks zeist');
+        try
+        {
+            $this->banner=new File($values['banner']);
+        }
+        catch(\Exception $e)
+        {
+            $this->banner=null;
+        }
         $this->titel=$values['titel'];
         $this->ondertitel=$values['ondertitel'];
     }
-    
-    public function update()
+    private function getFromArray($ar,$key,$default)
     {
+        return isset($ar[$key])?$ar[$key]:$default;
+    }
+
+    public function update($data=array())
+    {
+        foreach($data as $key => $value)
+        {
+            if($key=='banner')
+            {
+                if($value instanceof \Symfony\Component\HttpFoundation\File\File)
+                {
+                    $this->updateAndScaleBanner($value);
+                }
+            }
+            else
+            {
+                $this->$key=$value;    
+            }
+        }
+                        
         $dumper = new Dumper();
         $yaml = $dumper->dump($this->toArray());
         file_put_contents($this->filename, $yaml);        
     }
     
+    public function updateAndScaleBanner(\Symfony\Component\HttpFoundation\File\File $banner,$width=960,$height=149)
+    {
+        $scaler=new \GLZeist\Bundle\ProgrammaBundle\Listener\ImageScaler();
+        $filename=$banner->getFileInfo()->getRealPath();
+        $dest=$this->getDirectory().DIRECTORY_SEPARATOR.'banner.jpg';
+        $type=$scaler->getType($filename);
+        $scaler->scale($filename, $dest, $type, 960, 149);
+        $this->banner=new \Symfony\Component\HttpFoundation\File\File($dest);
+    }
+    
     private function toArray()
     {
+        if($this->banner instanceof File)
+        {
+            $banner=$this->banner->getRealPath();
+        }
+        else
+        {
+            $banner=$this->banner;
+        }
         return array(
-            'banner' => $this->banner,
+            'banner' => $banner,
             'titel' => $this->titel,
-            'ondertitel' => $this->ondertitel
+            'ondertitel' => $this->ondertitel,
+            'twitter' => $this->twitter
+                
         );
     }
     
     public function getBanner() {
         return $this->banner;
     }
-
+    
     public function getTitel() {
         return $this->titel;
     }
@@ -86,7 +135,20 @@ class Site
     public function setOndertitel($ondertitel) {
         $this->ondertitel = $ondertitel;
     }
+    
+    public function getTwitter() {
+        return $this->twitter;
+    }
 
+    public function setTwitter($twitter) {
+        $this->twitter = $twitter;
+    }
 
+    
+    public function getDirectory()
+    {
+        return dirname($this->filename);
+    }
+    
 
 }

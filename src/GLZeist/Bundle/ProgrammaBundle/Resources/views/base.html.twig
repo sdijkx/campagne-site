@@ -1,4 +1,9 @@
 {% import "GLZeistProgrammaBundle::macros.html.twig" as glzeist %}
+
+{%set pagetitle %}
+    {{site.titel}} {%block title%}{%endblock%}
+{%endset%}
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--[if lt IE 7]> <html class="lt-ie7" lang="{{app.request.locale}}"> <![endif]-->
 <!--[if IE 7]>    <html class="ie7" lang="{{app.request.locale}}"> <![endif]-->
@@ -11,7 +16,7 @@
         <meta name="author" content="GroenLinks Zeist">
         <meta name="robots" content="index,follow">
 
-        <title>{{site.titel}} - {%block title%}{%endblock%}</title>
+        <title>{{pagetitle}}</title>
         
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
@@ -34,7 +39,12 @@
             <meta name="description" content="{{site.titel}} - {{site.ondertitel}}">
         {%endblock%}
 
-        
+        {%block og%}
+            <meta property="og:title" content="{{pagetitle}}" />
+            <meta property="og:type" content="website" />
+            <meta property="og:site_name" content="{{site.titel}}" />
+            <meta property="og:url" content="{{app.request.uri}}" />
+        {%endblock%}
     </head>
     <body>
         <div id="page-background" class="clearfix">
@@ -44,6 +54,7 @@
         <div id="container" class="clearfix" style="">
             <div id="header">
                 <div id="banner">
+                    <img src="{{ path('site_banner') }}" />
                 </div>
                 <div id="logo">
                     <img src="{{ asset('bundles/glzeistprogramma/images/logo.png') }}" />
@@ -70,7 +81,7 @@
             <div id="rightcolumn">
                 {%block rightcolumn%}
                 {{glzeist.promotie_widget}}
-                {{glzeist.twitter_widget}}
+                {{glzeist.twitter_widget(site.twitter)}}
                 {%endblock%}
             </div>
         </div>

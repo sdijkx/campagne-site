@@ -36,7 +36,7 @@ class RSSController extends Controller
     public function indexAction(Request $request)
     {
         $limit=$request->get("limit",0);
-        $rss=new RSS('http://zeist.groenlinks.nl/rss');
+        $rss=$this->get('gl_zeist_programma.rss');
         return array('items' => $rss->getItems($limit));
     }
 }

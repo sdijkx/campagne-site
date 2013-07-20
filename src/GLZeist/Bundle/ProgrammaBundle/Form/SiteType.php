@@ -30,15 +30,13 @@ class SiteType extends AbstractType
         $builder
             ->add('titel')
             ->add('ondertitel')
-            ->add('banner','file')
+            ->add('twitter','text',array('required'=>false))
+            ->add('banner','file',array('required'=>false))
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'GLZeist\Bundle\ProgrammaBundle\Site'
-        ));
     }
 
     public function getName()
