@@ -1,4 +1,4 @@
-@media screen and (min-width:960px)
+@media screen
 {
 
 .responsive {display:none;}
@@ -242,30 +242,12 @@ div.spotlicht,div.introductie div.promotie
     margin-top:10px;   
 }
 
-div.spotlicht {  width:612px;;margin-right:20px;position:relative;border:1px solid #B2B2B2;}
-div.spotlicht > h2 { font: 2em/1em Georgia,"Times New Roman",serif;}
-div.spotlicht > div.afbeelding { width:612px;height:215px;}
-div.spotlicht > div.actief { position:absolute;left:74px;top:210px;width:5px;height:5px;background-color:red;z-index:100;}
-div.spotlicht > div.speerpunt {}
-div.spotlicht > div.speerpunt > div.titel { float:left;height:50px;width:153px;background-color:#FFF;text-align:center;}
-div.spotlicht > div.speerpunt > div.titel > a {padding:1.3em;display:inline-block;}
-
-div.spotlicht > div.speerpunt > div.afbeelding,
-div.spotlicht > div.speerpunt > div.content {display:none;}
-
-div.spotlicht > div.speerpunt > div.afbeelding { width:612px; height:215px; position:absolute;left:0;top:0;line-height:215px;text-align:center;background-color:#FFF;}
-div.spotlicht > div.speerpunt > div.afbeelding > img {vertical-align:middle;}
-div.spotlicht > div.speerpunt > div.content {position:absolute;left:20px;top:20px; z-index:100;}
-div.spotlicht > div.speerpunt > div.content span {font:2em/1em Georgia,"Times New Roman",serif;background-color:#FFF;padding:3px;line-height:1.5em;}
+/* PROMOTIE */
 div.promotie {background-color:#FFF;padding:2em 1.5em 1.5em;border: 1px dotted #444;width:200px;}
 div.promotie > h3 {font:2em/1em Georgia,"Times New Roman",serif}
 div.promotie > ul {list-style:none;}
 div.promotie > ul li {line-height:1.5em;font-size:1em;margin-bottom:5px;}
 
-div.spotlicht > div.speerpunt.focus > div.afbeelding,
-div.spotlicht > div.speerpunt div.content.focus {display:block;}
-div.spotlicht > div.speerpunt.focus > div.titel {color:#FFF;background-color:red;}
-div.spotlicht > div.speerpunt.focus > div.titel a {color:#FFF;}
 
 /*ZOEK RESULTATEN */
 
@@ -332,4 +314,124 @@ THEMA LIST ENTRY
 .geplaatst { color:#666;font-style:italic;}
 .meta {margin-bottom:3px;}
 div.lees-meer{ margin-top:10px;}
+}
+
+
+@media only screen and (max-width:959px)
+{
+    * {
+        margin:0;
+        padding:0;
+        font-family:Arial, Verdana, Tahoma, Helvetica, sans-serif;
+    }
+    
+    h2 {
+      font-size:           1.3em;
+      font-weight:         normal;
+      font-style:   italic;
+    }
+    h3 {
+      color:               RGB(0,0,0);
+      font-size:           1.1em;
+      line-height:	   1.2em;
+      font-weight:         normal;
+    }
+    
+
+    
+
+    div.twitter {display:none;}
+    
+    #page-background {display:none;}
+    #container {margin:0 auto;padding:10px;width:95%;border:none;}
+    #header {height:149px;}
+    #logo { position:absolute;top:0;left:0; text-align:left;border-top:none;}
+    #banner {position:absolute;top:0px;border-top:none;width:100%;background:#FFF;overflow:hidden;}
+    
+    #search { width:100%;text-align:center;display:none;}
+    #search input[name="search"] {font-size:1.2em;}
+    #search input[type="submit"] {font-size:1.2em;display:block;text-align-center;}
+    #nav {width:100%;text-align:center;padding:10px 0 10px 0;font-size:120%;}
+    #select_menu_navigation {display:none} 
+    
+    #nav { margin: 0 0 10px 0;border-bottom:10px solid #DCEEC6;}
+    #nav * {font-family:Georgia,"Times New Roman",Times,serif;font-size: 0.95em; }
+    #nav ul {list-style: none;border:none;}
+    #nav ul li {display: inline-block;padding:6px 8px;}
+    #nav ul li a {color:#000;text-decoration:none;}
+    #nav ul li:hover,
+    #nav ul li.actief {background-color:#7EC416;color:white;border-radius: 4px 4px;}
+    #nav ul li:hover a,
+    #nav ul li.actief a {color:#FFF;}
+
+    #nav .menugroen:link {
+      color:               RGB(38,148,62);
+      text-align:          left;
+      text-decoration:     none;
+    }
+    #nav .menugroen:visited {
+      color:               RGB(38,148,62);
+    }
+    #nav .menugroen:hover {
+      color:               RGB(228,28,41);
+    }
+    #nav .menugroen:active {
+      color:               RGB(228,28,41);
+    }    
+    
+    #content {
+        width:95%;
+        border:none;
+    }
+    #rightcolumn {
+        display:none;
+    }
+    
+    /*LIST ENTRY*/
+    .list-entry {position:relative;margin-bottom:10px;padding-bottom:3px;border-bottom:1px dotted #7FB539}
+
+    
+    div.introductie {
+        background-color:#EEEEEE;
+        padding:10px;
+        margin:0;
+        text-align:center;
+    }
+    
+    div.spotlicht { display:inline-block;float:none;}
+
+    div.promotie {display:none}
+
+    /*ITEM*/
+    .item .header { height: auto;position: relative;}
+    .item .header:after {clear:both;content:"\0000a0";height:0;display:block;}
+    .item h1 {float:left;}
+    .item h2 {margin-top:10px;}
+    .item .tweet-button { float:right;}
+    .item > div { font-style:normal;text-align:left; padding:3px 10px;}
+    .item ul.links {list-style: none;} 
+
+    #video, #relaties, #trefwoorden, #afbeelding { margin-top: 10px; border-bottom: 1px dashed #7FB539}
+
+    /*ITEM LIST ENTRY*/
+    .item-list-entry {}
+    .item-list-entry h2 {font-size:1.0em;}
+    .item-list-entry div.thumb{ float:left;}
+    .item-list-entry div.kernboodschap{ float:left;margin-left: 10px;  }
+    .item-list-entry div.trefwoorden {padding-top:3px;font-size:1em;display:block;}
+    .item-list-entry div.trefwoorden * { color:#666;  }
+    
+    /* ALGEMEEN */
+    .geplaatst { color:#666;font-style:italic;font-size:0.8em;}
+    .meta {margin-bottom:3px;}    
+    
+}
+
+@media only screen and (min-width:786px) and (max-width:959px)
+{
+    
+}
+@media only screen and (max-width:767px)
+{
+
 }

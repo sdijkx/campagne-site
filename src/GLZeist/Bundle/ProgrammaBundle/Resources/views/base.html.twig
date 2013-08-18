@@ -18,22 +18,17 @@
 
         <title>{{pagetitle}}</title>
         
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
-
+        
         <link rel="stylesheet" href="{{asset('fontello/css/fontello.css')}}">
         <!--[if IE 7]>
             <link rel="stylesheet" href="{{asset('fontello/css/fontello-ie7.css')}}">
         <![endif]-->
 
-
-        {% javascripts '@GLZeistProgrammaBundle/Resources/public/js/*' %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-
         {% stylesheets '@GLZeistProgrammaBundle/Resources/public/css/*' %}
             <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
+
+        <script type="text/javascript" data-main="{{asset('lib/app.js')}}" src="{{asset('lib/require.js')}}"></script>
 
         {%block seo%}
             <meta name="description" content="{{site.titel}} - {{site.ondertitel}}">
@@ -87,51 +82,5 @@
         </div>
         <div id="footer" class="clearfix">
         </div>
-        <script>
-        $(document).ready(function(){
-            $('#select_menu_navigation').change(function(){
-                document.location = $(this).val();
-            });
-
-            function roteerSpotlicht()
-            {
-                $('div.spotlicht').each(function(i,n){
-                    var spotlicht=$(n);
-
-                    var aantal=$('div.speerpunt',spotlicht).length;
-                    var huidig=$('div.speerpunt.focus',spotlicht);
-                    if(huidig.length==0)
-                    {
-                        huidig=$('div.speerpunt',spotlicht).first();
-                        huidig.toggleClass('focus'); 
-                    }
-                    else
-                    {
-                        var volgendId=(parseInt(huidig.attr("no"))+1)%aantal;
-                        var volgende=$('div.speerpunt[no='+volgendId+']',spotlicht);
-
-                        volgende.toggleClass('focus');
-                        $('div.content',huidig).toggleClass('focus');
-                        $('div.actief',spotlicht).animate(
-                            {
-                                left: (volgendId*153+74)
-                            }, 
-                            1000, 
-                            function() {
-                                huidig.toggleClass('focus'); 
-                                $('div.content',volgende).toggleClass('focus');
-                            }
-                        );
-                        
-                        
-                    }
-
-                });
-            }
-
-            setInterval(roteerSpotlicht,5000);
-
-        });
-        </script>
     </body>
 </html>

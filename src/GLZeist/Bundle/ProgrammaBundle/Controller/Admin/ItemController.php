@@ -239,12 +239,6 @@ class ItemController extends Controller
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
-            if($entity->getFile()!==null)
-            {
-                $entity->setImagefile(rand());
-                $entity->setThumbfile(rand());
-            }
-            
             //remove links
             foreach($entity->getLinks() as $link)
             {
@@ -259,8 +253,6 @@ class ItemController extends Controller
                 $link->setItem(null);
                 $em->remove($link);
             }
-            
-           
             
             $em->persist($entity);
             $em->flush();

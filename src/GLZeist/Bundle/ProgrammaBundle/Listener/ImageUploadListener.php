@@ -19,6 +19,7 @@
 
 namespace GLZeist\Bundle\ProgrammaBundle\Listener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreFlushEventArgs;
 use Doctrine\Common\Annotations\Reader;
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 
@@ -116,7 +117,8 @@ class ImageUploadListener
             Events::preUpdate,
             Events::postPersist,
             Events::postUpdate,
-            Events::postRemove
+            Events::postRemove,
+            Events::preFlush
         );
     }
    
@@ -146,5 +148,34 @@ class ImageUploadListener
     {
         $this->removeUpload($args);
     }
+    
+    public function preFlush(PreFlushEventArgs $args)
+    {
+        $uow=$args->getEntityManager()->getUnitOfWork();
+        $map=$uow->getIdentityMap();
+        //traverse identity map and mark the uploaded images for update 
+        foreach($map as $entitySet)
+        {
+            foreach($entitySet as $entity)
+            {
+                $object = new \ReflectionObject($entity);
+                foreach($object->getProperties() as $property)
+                {
+                    foreach ($this->reader->getPropertyAnnotations($property) as $annotation)
+                    {
+                        if ($annotation instanceof \GLZeist\Bundle\ProgrammaBundle\Annotation\Image)
+                        {
+                            $uploadImage=new UploadImage($object,$entity,$property,$annotation);
+                            if($uploadImage->getFile() instanceof \Symfony\Component\HttpFoundation\File\UploadedFile)
+                            {
+                                $uploadImage->setFilename(uniqid());
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     
 }

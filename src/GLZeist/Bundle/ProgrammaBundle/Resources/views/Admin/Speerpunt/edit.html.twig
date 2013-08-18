@@ -13,14 +13,17 @@
 </ul>
 
 <form action="{{ path('speerpunt_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
+    {{ form_row(edit_form.titel) }}
+    {{ form_row(edit_form.content) }}
+    {{ form_row(edit_form.url) }}
+    <div>
+        <img src="{{path('file',{filename:entity.afbeelding})}}" />
+    </div>
+    {{ form_row(edit_form.file) }}
+    {{ form_row(edit_form._token) }}
     <div class="form_actions">
         <button type="submit">Opslaan</button>
     </div>
 </form>
-
-<script>
-    CKEDITOR.replace('glzeist_bundle_programmabundle_speerpunttype_tekst');
-</script>
 
 {%endblock%}

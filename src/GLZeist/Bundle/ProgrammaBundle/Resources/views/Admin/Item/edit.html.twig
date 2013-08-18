@@ -125,53 +125,55 @@
 </form>
 
 <script>
-    CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_kernboodschap');
-    CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_hoofdtekst');
-    CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_voorstellen');
-    CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_verantwoording');
+    require(["jquery","ckeditor/ckeditor"], function() {
+        CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_kernboodschap');
+        CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_hoofdtekst');
+        CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_voorstellen');
+        CKEDITOR.replace('glzeist_bundle_programmabundle_itemtype_verantwoording');
 
-    $("#glzeist_bundle_programmabundle_itemtype_tweet").keyup(function(){
-        var max=100;
-        
-        var len= $(this).val().length;
-        
-        $("#wordcount").html(len);
+        $("#glzeist_bundle_programmabundle_itemtype_tweet").keyup(function(){
+            var max=100;
 
-        if(len>max)
-        {
-            if(!$('#wordcount').hasClass('error'))
+            var len= $(this).val().length;
+
+            $("#wordcount").html(len);
+
+            if(len>max)
             {
-                $('#wordcount').addClass('error');
+                if(!$('#wordcount').hasClass('error'))
+                {
+                    $('#wordcount').addClass('error');
+                }
             }
-        }
-        else
-        {
-            $('#wordcount').removeClass('error');
-        }
-    }).keyup();
+            else
+            {
+                $('#wordcount').removeClass('error');
+            }
+        }).keyup();
 
-    var linkCount = '{{ edit_form.links | length }}';
+        var linkCount = '{{ edit_form.links | length }}';
 
-    $('div.collection a.add').click(function() {
-        var collection = $(this).parent('div.collection');
-        var list = $('div.items',collection);
+        $('div.collection a.add').click(function() {
+            var collection = $(this).parent('div.collection');
+            var list = $('div.items',collection);
 
-        var newWidget = list.attr('data-prototype');
+            var newWidget = list.attr('data-prototype');
 
-        newWidget = newWidget.replace(/__name__label__/g, '');
-        newWidget = newWidget.replace(/__name__/g, linkCount);
-        linkCount++;
+            newWidget = newWidget.replace(/__name__label__/g, '');
+            newWidget = newWidget.replace(/__name__/g, linkCount);
+            linkCount++;
 
-        var newDiv = jQuery(newWidget);
-        newDiv.appendTo(list);
+            var newDiv = jQuery(newWidget);
+            newDiv.appendTo(list);
 
-        return false;
-    });
+            return false;
+        });
 
 
-    $('div.collection').on('click','a.remove', function(){
-        $(this).parent().remove();
-        return false;
+        $('div.collection').on('click','a.remove', function(){
+            $(this).parent().remove();
+            return false;
+        });
     });
 
 

@@ -41,21 +41,31 @@
 {%import _self as _ %}
 <div class="introductie clearfix"">
     <div class="spotlicht">
-        <div class="afbeelding"></div>
-        <div class="actief"></div>        
+        <div class="actief">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="40">
+              <polygon points="0,20 10,0 20,20 "
+              style="fill:red;">
+            </svg>                    
+        </div>        
         {%for speerpunt in speerpunten%}
-            <div class="speerpunt {%if loop.index==1%}focus{%endif%}" no="{{loop.index-1}}">
-                <div class="titel">
-                    <a href="{{speerpunt.url}}">{{speerpunt.titel}}</a>
-                </div>
+            <div class="speerpunt" no="{{loop.index}}">
                 <div class="afbeelding">
-                    <img src="{{speerpunt.afbeelding}}" alt="{{speerpunt.titel}}">
+                    {%if speerpunt.afbeeldingIsUrl() %}
+                        <img src="{{speerpunt.afbeelding}}" alt="{{speerpunt.titel}}">
+                    {%else%}
+                        <img src="{{path('file',{'filename':speerpunt.afbeelding})}}" alt="{{speerpunt.titel}}">
+                    {%endif%}
                 </div>
                 <div class="content {%if loop.index==1%}focus{%endif%}">
                     <span>{{speerpunt.content}}</span>
                 </div>
             </div>
         {%endfor%}
+        <ul class="menu">
+            {%for speerpunt in speerpunten%}
+                <li><a href="{{speerpunt.url}}">{{speerpunt.titel}}</a></li>
+            {%endfor%}
+        </ul>
     </div>
     <div class="promotie">
         <h3>Zeist</h3>

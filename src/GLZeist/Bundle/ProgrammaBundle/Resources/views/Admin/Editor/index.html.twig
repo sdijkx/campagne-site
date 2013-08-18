@@ -19,8 +19,7 @@
 </div>
 
 <script>
-    $(function(){
-        
+    require('jquery',function(){
         $( "#document div.paragrafen" ).droppable({scope:"paragraaf"});
         $( "#document div.paragraaf" ).droppable({scope:"paragraaf"});
         $( "#document div.paragraaf" ).draggable({ axis: "y",scope:"paragraaf" });
@@ -30,6 +29,5 @@
             ui.draggable.detach();
             $(this).insertAfter(ui.draggable);
         });
-  
     });
 </script>

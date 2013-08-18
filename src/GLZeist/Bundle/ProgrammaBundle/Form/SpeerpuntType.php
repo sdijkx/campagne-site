@@ -32,6 +32,7 @@ class SpeerpuntType extends AbstractType
             ->add('content')
             ->add('url')
             ->add('afbeelding')
+            ->add('file')
         ;
     }
 

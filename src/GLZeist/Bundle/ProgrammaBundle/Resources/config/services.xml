@@ -44,6 +44,7 @@
             <tag name="doctrine.event_listener" event="postUpdate" method="postUpdate" />
             <tag name="doctrine.event_listener" event="postPersist" method="postPersist" />
             <tag name="doctrine.event_listener" event="postRemove" method="postRemove" />
+            <tag name="doctrine.event_listener" event="preFlush" method="preFlush" />
         </service>
 
          

@@ -22,11 +22,13 @@ namespace GLZeist\Bundle\ProgrammaBundle\Entity;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use GLZeist\Bundle\ProgrammaBundle\Annotation as App;
 
 /**
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="GLZeist\Bundle\ProgrammaBundle\Repository\SpeerpuntRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 
 class Speerpunt {
@@ -68,6 +70,12 @@ class Speerpunt {
      */    
     private $url;
     
+    /**
+     * @Assert\File(maxSize="6000000",mimeTypes={"image/gif","image/png","image/jpg","image/jpeg"})
+     * @App\Image(width=612,height=215,filenameProperty="afbeelding")
+     */
+    public $file;    
+    
     public function getId() {
         return $this->id;
     }
@@ -99,6 +107,11 @@ class Speerpunt {
     public function setAfbeelding($afbeelding) {
         $this->afbeelding = $afbeelding;
     }
+    
+    public function afbeeldingIsUrl()
+    {
+        return preg_match("/\/+/", $this->afbeelding)!=0;
+    }
 
     public function getUrl() {
         return $this->url;
@@ -107,6 +120,12 @@ class Speerpunt {
     public function setUrl($url) {
         $this->url = $url;
     }
+    
+    public function getFile() {
+        return $this->file;
+    }
 
-
+    public function setFile($file) {
+        $this->file = $file;
+    }
 }
