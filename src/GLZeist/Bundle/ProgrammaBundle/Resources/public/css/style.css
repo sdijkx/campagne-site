@@ -103,7 +103,6 @@ a:visited {}
 #right-page { float:right;width:50%;border-top:solid #80C31C 12px; }
 #container { background-color: #FFF; margin: -12px auto 0 auto; padding:0; width:960px; border-left:8px solid #EEEEEE; border-right:8px solid #EEEEEE;}
 
-
 /*
     HEADER
 */
@@ -129,9 +128,7 @@ a:visited {}
     padding:3px;
 }
 
-
 #header:after{clear:both;content:"\0000a0"}
-
 
 /*
     NAVIGATION
@@ -178,14 +175,10 @@ a:visited {}
   color:               RGB(228,28,41);
 }
 
-
-
 /*
     FOOTER
 */
 #footer { background-color: #FFF;color:#303030;padding: 8px 10px; height:10%; }
-
-
 
 /*
     CONTENT
@@ -250,8 +243,6 @@ div.promotie > ul li {line-height:1.5em;font-size:1em;margin-bottom:5px;}
 
 
 /*ZOEK RESULTATEN */
-
-
 
 /*
 THEMA
@@ -433,5 +424,49 @@ div.lees-meer{ margin-top:10px;}
 }
 @media only screen and (max-width:767px)
 {
+    .list-entry div.image img {
+        width:180px;
+    }
+}
 
+@media only screen and (max-width:320px)
+{
+    #container {
+        padding:0;
+    }
+    #banner {
+        display:none;
+    }
+    #header {
+        height:67px;
+    }
+    #logo {
+        width:100%;
+        height:60px;
+    }
+    #logo img {
+        width:200px;
+    }
+    
+    #nav {
+        position:fixed;
+        bottom:0px;
+        background-color:#FFF;
+        border-top:3px solid #DCEEC6;
+        font-size:0.95em;
+        z-index:100;
+        margin:0;
+        border-bottom:none;
+        width:95%;
+    }
+    #nav ul li {
+        padding:2px;
+    }
+    .list-entry div.image img {
+        width:140px;
+    }
+    
+    div.thema-header {
+        width:auto;
+    }
 }

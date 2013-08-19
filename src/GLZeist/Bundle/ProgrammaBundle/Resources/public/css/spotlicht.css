@@ -55,12 +55,6 @@ div.spotlicht > div.speerpunt > div.content
 {
     display:block;
     position:absolute;
-    animation-name:rot_speerpunt;
-    animation-iteration-count:infinite;
-    animation-duration:20s;
-    -webkit-animation-name:rot_speerpunt;
-    -webkit-animation-iteration-count:infinite;
-    -webkit-animation-duration:20s;
 }
 
 div.spotlicht > div.speerpunt > div.afbeelding { left:0;top:0px;width:612px; height:215px;background-color:#FFF;text-align: center;vertical-align: middle;line-height: 215px;}
@@ -86,6 +80,17 @@ div.spotlicht > div.speerpunt[no="4"] {
 }
 
 
+div.spotlicht > div.speerpunt > div.afbeelding,
+div.spotlicht > div.speerpunt > div.content
+{
+    animation-name:rot_speerpunt;
+    animation-iteration-count:infinite;
+    animation-duration:20s;
+    -webkit-animation-name:rot_speerpunt;
+    -webkit-animation-iteration-count:infinite;
+    -webkit-animation-duration:20s;
+}
+    
 
 @keyframes rot_speerpunt {
     from { transform:translate(0px,0px);}
@@ -97,7 +102,7 @@ div.spotlicht > div.speerpunt[no="4"] {
     75% { transform:translate(-1845px,0px)}
     90% { transform:translate(-1845px,0px)}
     to { transform:translate(0px,0px)}
-    
+
 }
 
 @-webkit-keyframes rot_speerpunt {
@@ -134,4 +139,125 @@ div.spotlicht > div.speerpunt[no="4"] {
     75% {left:533px;}
     90% {left:533px;}
     100% {left:74px;}
+}
+@media only screen and (min-width:768px)
+{
+
+}
+@media only screen and (max-width:767px)
+{
+}
+
+@media only screen and (max-width:320px)
+{
+    div.spotlicht {
+        width:260px;
+        height:110px;
+    }
+    
+    div spotlicht ul.menu {display:none;}
+    
+    div.spotlicht div.actief { top:100px;}
+    
+    div.spotlicht > div.speerpunt {
+        position:absolute;
+        width:260px;
+        height:110px;
+        display:block;
+    }
+    
+ 
+
+    div.spotlicht > div.speerpunt > div.afbeelding { left:0;top:0px;width:260px; height:91px;background-color:#FFF;text-align: center;vertical-align: middle;line-height: 91px;}
+    div.spotlicht > div.speerpunt > div.afbeelding > img {vertical-align:middle;width:260px; height:91px;display:block;}
+    
+    
+    div.spotlicht > div.speerpunt > div.content span { font:0.95em/0.8em Georgia,"Times New Roman",serif }
+    
+    div.spotlicht > div.speerpunt[no="1"] {
+        left:0px;
+        top:0px;
+    }
+    div.spotlicht > div.speerpunt[no="2"] {
+        left:260px;
+        top:0px;
+    }
+    div.spotlicht > div.speerpunt[no="3"] {
+        left:520px;
+        top:0px;    
+    }
+    div.spotlicht > div.speerpunt[no="4"] {
+        left:780px;
+        top:0px;    
+    }
+    
+    div.spotlicht > div.actief { 
+        animation-duration:20s;
+        animation-name:rot_actief_phone;
+        animation-iteration-count:infinite;
+        -webkit-animation-name:rot_actief_phone;
+        -webkit-animation-iteration-count:infinite;
+        -webkit-animation-duration:20s;    
+    }
+    
+
+    div.spotlicht > div.speerpunt > div.afbeelding,
+    div.spotlicht > div.speerpunt > div.content
+    {
+        animation-name:rot_speerpunt_phone;
+        animation-iteration-count:infinite;
+        animation-duration:20s;
+        -webkit-animation-name:rot_speerpunt_phone;
+        -webkit-animation-iteration-count:infinite;
+        -webkit-animation-duration:20s;
+    }
+        
+    
+    @keyframes rot_speerpunt_phone {
+        from { transform:translate(0px,0px);}
+        10% { transform:translate(0px,0px);}
+        25% { transform:translate(-260px,0px);}
+        35% { transform:translate(-260px,0px)}
+        50% { transform:translate(-520px,0px)}
+        60% { transform:translate(-520px,0px)}
+        75% { transform:translate(-780px,0px)}
+        90% { transform:translate(-780px,0px)}
+        to { transform:translate(0px,0px)}
+    }
+
+    @-webkit-keyframes rot_speerpunt_phone {
+        from { -webkit-transform:translate(0px,0px);}
+        10% { -webkit-transform:translate(0px,0px);}
+        25% { -webkit-transform:translate(-260px,0px);}
+        35% { -webkit-transform:translate(-260px,0px)}
+        50% { -webkit-transform:translate(-520px,0px)}
+        60% { -webkit-transform:translate(-520px,0px)}
+        75% { -webkit-transform:translate(-780px,0px)}
+        90% { -webkit-transform:translate(-780px,0px)}
+        to { -webkit-transform:translate(0px,0px)}
+    }
+
+    @keyframes rot_actief_phone {
+         0% {left:22px}
+        10% {left:22px}
+        25% {left:87px}
+        35% {left:87px}
+        50% {left:153px}
+        60% {left:153px}
+        75% {left:218px;}
+        90% {left:218px;}
+        100% {left:22px;}
+    }
+    @-webkit-keyframes rot_actief_phone {
+         0% {left:22px}
+        10% {left:22px}
+        25% {left:87px}
+        35% {left:87px}
+        50% {left:153px}
+        60% {left:153px}
+        75% {left:218px;}
+        90% {left:218px;}
+        100% {left:22px;}
+    }
+   
 }
