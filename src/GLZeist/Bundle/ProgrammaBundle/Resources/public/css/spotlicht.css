@@ -140,12 +140,121 @@ div.spotlicht > div.speerpunt > div.content
     90% {left:533px;}
     100% {left:74px;}
 }
-@media only screen and (min-width:768px)
-{
 
-}
-@media only screen and (max-width:767px)
+@media only screen and (max-width:960px)
 {
+    div.spotlicht {
+        width:470px;
+        height:228px;
+        margin:0;
+    }
+    
+    div.spotlicht > ul.menu {top:176px;height:22px;}
+    div.spotlicht > ul.menu li {width:117px;}
+    
+    div.spotlicht div.actief { top:208px;}
+    
+    div.spotlicht > div.speerpunt {
+        position:absolute;
+        width:470px;
+        height:165px;
+        display:block;
+    }
+    
+ 
+
+    div.spotlicht > div.speerpunt > div.afbeelding { left:0;top:0px;width:470px; height:165px;background-color:#FFF;text-align: center;vertical-align: middle;line-height: 165px;}
+    div.spotlicht > div.speerpunt > div.afbeelding > img {vertical-align:middle;width:470px; height:165px;display:block;}
+    
+    
+    div.spotlicht > div.speerpunt > div.content span { font:1em/0.97em Georgia,"Times New Roman",serif }
+    
+    div.spotlicht > div.speerpunt[no="1"] {
+        left:0px;
+        top:0px;
+    }
+    div.spotlicht > div.speerpunt[no="2"] {
+        left:470px;
+        top:0px;
+    }
+    div.spotlicht > div.speerpunt[no="3"] {
+        left:940px;
+        top:0px;    
+    }
+    div.spotlicht > div.speerpunt[no="4"] {
+        left:1410px;
+        top:0px;    
+    }
+    
+    div.spotlicht > div.actief { 
+        animation-duration:20s;
+        animation-name:rot_actief_phone_landscape;
+        animation-iteration-count:infinite;
+        -webkit-animation-name:rot_actief_phone_landscape;
+        -webkit-animation-iteration-count:infinite;
+        -webkit-animation-duration:20s;    
+    }
+    
+
+    div.spotlicht > div.speerpunt > div.afbeelding,
+    div.spotlicht > div.speerpunt > div.content
+    {
+        animation-name:rot_speerpunt_phone_landscape;
+        animation-iteration-count:infinite;
+        animation-duration:20s;
+        -webkit-animation-name:rot_speerpunt_phone_landscape;
+        -webkit-animation-iteration-count:infinite;
+        -webkit-animation-duration:20s;
+    }
+        
+    
+    @keyframes rot_speerpunt_phone_landscape {
+        from { transform:translate(0px,0px);}
+        10% { transform:translate(0px,0px);}
+        25% { transform:translate(-470px,0px);}
+        35% { transform:translate(-470px,0px)}
+        50% { transform:translate(-940px,0px)}
+        60% { transform:translate(-940px,0px)}
+        75% { transform:translate(-1410px,0px)}
+        90% { transform:translate(-1410px,0px)}
+        to { transform:translate(0px,0px)}
+    }
+
+    @-webkit-keyframes rot_speerpunt_phone_landscape {
+        from { -webkit-transform:translate(0px,0px);}
+        10% { -webkit-transform:translate(0px,0px);}
+        25% { -webkit-transform:translate(-470px,0px);}
+        35% { -webkit-transform:translate(-470px,0px)}
+        50% { -webkit-transform:translate(-940px,0px)}
+        60% { -webkit-transform:translate(-940px,0px)}
+        75% { -webkit-transform:translate(-1410px,0px)}
+        90% { -webkit-transform:translate(-1410px,0px)}
+        to { -webkit-transform:translate(0px,0px)}
+    }
+
+    @keyframes rot_actief_phone_landscape {
+         0% {left:39px}
+        10% {left:39px}
+        25% {left:156px}
+        35% {left:156px}
+        50% {left:273px}
+        60% {left:273px}
+        75% {left:390px;}
+        90% {left:390px;}
+        100% {left:39px;}
+    }
+    @-webkit-keyframes rot_actief_phone_landscape {
+         0% {left:39px}
+        10% {left:39px}
+        25% {left:156px}
+        35% {left:156px}
+        50% {left:273px}
+        60% {left:273px}
+        75% {left:390px;}
+        90% {left:390px;}
+        100% {left:39px;}
+    }
+   
 }
 
 @media only screen and (max-width:320px)
@@ -153,6 +262,7 @@ div.spotlicht > div.speerpunt > div.content
     div.spotlicht {
         width:260px;
         height:110px;
+        margin:0;
     }
     
     div spotlicht ul.menu {display:none;}
@@ -164,6 +274,7 @@ div.spotlicht > div.speerpunt > div.content
         width:260px;
         height:110px;
         display:block;
+        
     }
     
  

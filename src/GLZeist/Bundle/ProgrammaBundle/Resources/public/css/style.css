@@ -281,6 +281,9 @@ THEMA LIST ENTRY
 
 /*PERSOON*/
 
+div.persoon {}
+div.persoon div.foto { display: none;}
+
 /*PERSOON LIST ENTRY*/
 .persoon-list-entry
 {
@@ -343,7 +346,6 @@ div.lees-meer{ margin-top:10px;}
     #search input[name="search"] {font-size:1.2em;}
     #search input[type="submit"] {font-size:1.2em;display:block;text-align-center;}
     #nav {width:100%;text-align:center;padding:10px 0 10px 0;font-size:120%;}
-    #select_menu_navigation {display:none} 
     
     #nav { margin: 0 0 10px 0;border-bottom:10px solid #DCEEC6;}
     #nav * {font-family:Georgia,"Times New Roman",Times,serif;font-size: 0.95em; }
@@ -416,6 +418,10 @@ div.lees-meer{ margin-top:10px;}
     .geplaatst { color:#666;font-style:italic;font-size:0.8em;}
     .meta {margin-bottom:3px;}    
     
+    /*PERSOON*/
+    div.persoon div.foto { display: block; float:right;width:30%;}
+    div.persoon div.foto img {width:95%;}
+    
 }
 
 @media only screen and (min-width:786px) and (max-width:959px)
@@ -433,6 +439,7 @@ div.lees-meer{ margin-top:10px;}
 {
     #container {
         padding:0;
+        margin-top:40px;
     }
     #banner {
         display:none;
@@ -450,22 +457,29 @@ div.lees-meer{ margin-top:10px;}
     
     #nav {
         position:fixed;
-        bottom:0px;
+        top:0px;
+        height:16px;
         background-color:#FFF;
-        border-top:3px solid #DCEEC6;
-        font-size:0.95em;
+        border-bottom:3px solid #DCEEC6;
+        border-top:none;
+        font-size:1em;
         z-index:100;
         margin:0;
-        border-bottom:none;
         width:95%;
     }
-    #nav ul li {
-        padding:2px;
-    }
+    #nav ul {display:none;}
+    #nav div.responsive {display:block;}
+    #nav select { padding:2px;}
     .list-entry div.image img {
         width:140px;
     }
     
+    div.introductie {
+        padding:3px;
+        margin:0;
+        text-align:center;
+    }
+
     div.thema-header {
         width:auto;
     }

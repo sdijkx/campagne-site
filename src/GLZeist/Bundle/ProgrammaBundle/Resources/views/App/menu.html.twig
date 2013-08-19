@@ -32,6 +32,13 @@
         {%set active= (current== url or app.request.get('_route')=='persoon') %}
         <option {%if active %}selected="selected"{%endif%} value="{{url}}">Personen</option>
     </select>
+    <script>
+        require(['jquery'],function(){
+            $('#select_menu_navigation').change(function(){
+                window.location=$(this).val();
+            });
+        });
+    </script>
 
 </div>
 
