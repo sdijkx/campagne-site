@@ -175,6 +175,9 @@ a:visited {}
   color:               RGB(228,28,41);
 }
 
+/*MOBILE NAVIGATION*/
+#mobile_nav { display: none;}
+
 /*
     FOOTER
 */
@@ -439,7 +442,7 @@ div.lees-meer{ margin-top:10px;}
 {
     #container {
         padding:0;
-        margin-top:40px;
+        margin-top:8px;
     }
     #banner {
         display:none;
@@ -450,26 +453,15 @@ div.lees-meer{ margin-top:10px;}
     #logo {
         width:100%;
         height:60px;
+        text-align:center;
     }
     #logo img {
         width:200px;
     }
     
-    #nav {
-        position:fixed;
-        top:0px;
-        height:16px;
-        background-color:#FFF;
-        border-bottom:3px solid #DCEEC6;
-        border-top:none;
-        font-size:1em;
-        z-index:100;
-        margin:0;
-        width:95%;
-    }
-    #nav ul {display:none;}
-    #nav div.responsive {display:block;}
-    #nav select { padding:2px;}
+    #nav {display:none;}
+    #mobile_nav {display:block;vertical-align:middle;text-align:center;padding-top:6px;}
+    #mobile_nav select { padding:2px;font-size:1.3em;font-family:Georgia,"Times New Roman",Times,serif;}
     .list-entry div.image img {
         width:140px;
     }
