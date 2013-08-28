@@ -1,42 +1,40 @@
+/*
+Custom font for webpage
+@media screen and (min-width:1000px) 
+{
+    body {
+        font-family: Georgia;
+    }
+}
+*/
 @media screen
 {
 
-.responsive {display:none;}
-
-* {
-    margin:0;
-    padding:0;
-    font-family: Verdana, Arial, Tahoma, Helvetica, sans-serif;
-}
-
 body {
+    font-family: Georgia;
     background-color:    RGB(255,255,255);
     background-color: #FFF;
     color: #303030;
-    font-size:           80%;
-    font-weight:         normal;
-    font-style:          normal;
     text-align:          left;
     margin:0;
 }
 
 h1,h2,h3,h4,h5,h6 {font-style:normal;text-align:left;}
-h1,h2,h3 {margin-bottom:10px;}
+h1,h2,h3 {margin:10px 0;}
 h1,h2 {color:#000;}
 
 h1 {
-  font-size:           1.4em;
+  font-size:           1.2em;
   font-weight:         bold;
 }
 
 h2 {
-  font-size:           1.1em;
+  font-size:           1em;
   font-weight:         bold;
   
 }
 
 h3 {
-  color:               RGB(0,0,0);
   font-size:           10pt;
   line-height:	       14pt;
   font-weight:         normal;
@@ -61,8 +59,9 @@ h6 {
   font-weight:         normal;
 }
 
-
-
+ul,ol,li {
+    margin:0;padding:0;
+}
 ul, li {
   color:               RGB(0,0,0);
   font-size:           10pt;
@@ -89,123 +88,59 @@ a { text-decoration:underline; color:#E41C29; }
 a:hover { text-decoration:none; }
 a:visited {}
 
+
+article { margin-left:10px;}
+
 /* GENERAL CLASSES */
 
-
-.clearfix {}
-.clearfix:after {clear:both;content:"\0000a0";height:0;display:block;}
+.thumb { float:right;}
 
 /*
-    CONTAINER
+    PAGE, CONTAINER
 */
+#page-header { background-color: #FFF;color:#303030;padding: 0 0; position:relative; height:162px; }
 #page-background {height:12px;}
 #left-page { float:left;width:50%;border-top:solid #FA0026 12px; }
 #right-page { float:right;width:50%;border-top:solid #80C31C 12px; }
-#container { background-color: #FFF; margin: -12px auto 0 auto; padding:0; width:960px; border-left:8px solid #EEEEEE; border-right:8px solid #EEEEEE;}
+#container { min-height:786px;background-color: #FFF; margin-top: -12px; border-left:8px solid #EEEEEE; border-right:8px solid #EEEEEE;}
 
 /*
-    HEADER
+    HEADER, BANNER LOGO, SEARCH
 */
-#header { background-color: #FFF;color:#303030;padding: 0 0; position:relative; height:162px; }
+
 
 #logo { text-align: left;position:absolute;left:0;top:0; width:310px;border-radius: 0 0 8px 0; height:100px; background-color:#FFF;;border-top: 12px solid #FA0026}
-
-#banner {width:960px;height:149px;text-align: left;position:absolute;left:0; background-color:grey;border-top: 12px solid #80C31C}
-
+#banner {width:1024px;height:149px;text-align: left;position:absolute;left:0; background-color:grey;border-top: 12px solid #80C31C}
 #search { position: absolute; right:0;top:0; background-color: #7EC416; padding: 12px 30px 20px 20px ; border-radius: 0 0 0 8px;}
-
-#search input[type=text] {
-    font-size:1.1em;
-    height:1.3em;
+#search_text {
+    font-size:1em;
+    font-family: Georgia;
 }
-
-#search span.icon-search { color:white; font-size:1.6em;}
-
-#search input[type=submit] {
-    font-size:1.2em;
-    height:1.6em;
+span.icon-search { color:white; font-size:1.2em;}
+#submit_search[type=submit] {
+    font-size:1em;
+    font-family: Georgia;
     color:#484848;
     padding:3px;
 }
 
-#header:after{clear:both;content:"\0000a0"}
 
 /*
     NAVIGATION
 */
 
+nav { margin: 0 10px;border-bottom:10px solid #DCEEC6;}
+ul.menu {list-style: none;border-bottom:6px solid #7FC31B;}
+li.menu-item {display: inline-block;padding:6px 8px 2px 8px;}
+a.menu-item-link {color:#000;text-decoration:none;}
+li.menu-item:hover,
+li.menu-item.actief {background-color:#7EC416;color:white;border-radius: 4px 4px 0 0;}
+li.menu-item:hover a,
+li.menu-item.actief a {color:#FFF;}
 
-#nav { margin: 0 10px;border-bottom:10px solid #DCEEC6;}
-#nav * {font-family:Georgia,"Times New Roman",Times,serif;font-size: 1.03em; }
-#nav ul {list-style: none;border-bottom:6px solid #7FC31B;}
-#nav ul li {display: inline-block;padding:6px 8px 2px 8px;}
-#nav ul li a {color:#000;text-decoration:none;}
-#nav ul li:hover,
-#nav ul li.actief {background-color:#7EC416;color:white;border-radius: 4px 4px 0 0;}
-#nav ul li:hover a,
-#nav ul li.actief a {color:#FFF;}
 
-#nav .menugroen:link {
-  color:               RGB(38,148,62);
-  text-align:          left;
-  text-decoration:     none;
-}
-#nav .menugroen:visited {
-  color:               RGB(38,148,62);
-}
-#nav .menugroen:hover {
-  color:               RGB(228,28,41);
-}
-#nav .menugroen:active {
-  color:               RGB(228,28,41);
-}
-
-.menurood:link {
-  color:               RGB(228,28,41);
-  text-align:          left;
-  text-decoration:     none;
-}
-.menurood:visited {
-  color:               RGB(228,28,41);
-}
-.menurood:hover {
-  color:               RGB(228,28,41);
-}
-.menurood:active {
-  color:               RGB(228,28,41);
-}
-
-/*MOBILE NAVIGATION*/
+/*MOBIELE NAVIGATIE*/
 #mobile_nav { display: none;}
-
-/*
-    FOOTER
-*/
-#footer { background-color: #FFF;color:#303030;padding: 8px 10px; height:10%; }
-
-/*
-    CONTENT
-*/
-#content {
-    position:relative;
-    float:left;
-    width:630px;
-    min-height:800px;
-    padding:10px;
-    border-right:1px dotted #7FB539;
-    
-}
-
-/*
-    RIGHTCOLUMN
-*/
-#rightcolumn {
-    position:relative;
-    float:left;
-    width:300px;
-    margin-top:20px;
-    padding-left:5px;
-}
 
 /* KRUIMELPAD */
 div.kruimelpad {
@@ -215,71 +150,61 @@ div.kruimelpad {
     color:#FA0026;
     font-weight: bold;
 }
-div.kruimelpad a {
+a.kruimelpad-link {
     text-decoration: underline;
 }
-div.kruimelpad a:visited {
+a.kruimelpad-link:visited {
     color:#FA0026;
 }
 
-/*LIST ENTRY*/
-.list-entry {position:relative;margin-bottom:10px;padding-bottom:3px;border-bottom:1px dotted #7FB539}
+/*LIST ITEM*/
+.list-item {position:relative;margin-bottom:10px;padding-bottom:3px;border-bottom:1px dotted #7FB539}
+.list-item:after {clear:both;content:"\0000a0";height:0;display:block;}
+.kernboodschap{ float:left;width:470px;margin-left: 10px;  }
+.trefwoorden {padding-top:3px;color:#666;}
+.geplaatst { color:#666;font-style:italic;}
+.meta {margin-bottom:3px;}
+.lees-meer{ margin-top:10px;}
 
-
-/*INTRODUCTIE*/
-
-div.introductie { margin: 10px;background-color:#EEEEEE;padding:2.3em 2em; }
-
-/*SPOTLICHT*/
-
-div.spotlicht,div.introductie div.promotie
+/*
+NIEUWS
+*/
+#meer-nieuws 
 {
-    float:left;
-    margin-top:10px;   
+    margin: 4px 10px 10px 10px;
+    border:none;
+    padding:6px;
+    font-family: Georgia;
+    font-size:0.8em;
+    width:100%;
+    
 }
-
-/* PROMOTIE */
-div.promotie {background-color:#FFF;padding:2em 1.5em 1.5em;border: 1px dotted #444;width:200px;}
-div.promotie > h3 {font:2em/1em Georgia,"Times New Roman",serif}
-div.promotie > ul {list-style:none;}
-div.promotie > ul li {line-height:1.5em;font-size:1em;margin-bottom:5px;}
-
-
-/*ZOEK RESULTATEN */
 
 /*
 THEMA
 */
-div.thema-header { font-size:1.3em;padding:20px 30px;background-color:#7EC416;color:#FFF;width:90%;margin:0 auto 20px auto;border-radius:10px 10px 0 0}
-div.thema-header > p {display:inline-block;vertical-align:middle;}
-div.thema { font-size:1em;}
+#thema-header { 
+    font-size:1.1em;
+    padding:20px 30px;
+    background-color:#7EC416;
+    color:#FFF;width:90%;
+    margin:10px auto 10px auto;
+    border-radius:10px 10px 0 0
+}
 
 /*
-THEMA LIST ENTRY
+TWITTER
 */
-.thema-list-entry div.tekst {
-    margin-bottom:5px;
-}
+.twitter { margin-left: 4px;}
 
 
 /*ITEM*/
-.item .header { height: auto;position: relative;}
-.item .header:after {clear:both;content:"\0000a0";height:0;display:block;}
-.item h1 {float:left;}
-.item h2 {margin-top:10px;}
-.item .tweet-button { float:right;}
-.item > div { font-style:normal;text-align:left; padding:3px 10px;}
-.item ul.links {list-style: none;} 
-
+.item {border-right: 1px dotted #7FB539;margin-right:6px;}
+.item-header { height: auto;position: relative;}
+.item-header:after {clear:both;content:"\0000a0";height:0;display:block;}
+.tweet-button { float:right;margin-right:10px}
+ul.links {list-style: none;}
 #video, #relaties, #trefwoorden, #afbeelding { margin-top: 10px; border-bottom: 1px dashed #7FB539}
-
-/*ITEM LIST ENTRY*/
-.item-list-entry {}
-.item-list-entry h2 {font-size:1.3em;}
-.item-list-entry div.thumb{ float:left;}
-.item-list-entry div.kernboodschap{ float:left;width:470px;margin-left: 10px;  }
-.item-list-entry div.trefwoorden {padding-top:3px;}
-.item-list-entry div.trefwoorden * { color:#666;  }
 
 
 /*PERSOON*/
@@ -287,41 +212,16 @@ THEMA LIST ENTRY
 div.persoon {}
 div.persoon div.foto { display: none;}
 
-/*PERSOON LIST ENTRY*/
-.persoon-list-entry
-{
-    
-}
-.persoon-list-entry div.thumb
-{
-    float:left;
-}
 
-.persoon-list-entry div.functie
-{
-    float:left;
-    margin-left:10px;
-}
-
-
-
-/* ALGEMEEN */
+/* HOOFDSTUK */
 .tekst p { margin:10px 0}
 .tekst ul {list-style:disc inside;}
-.geplaatst { color:#666;font-style:italic;}
-.meta {margin-bottom:3px;}
-div.lees-meer{ margin-top:10px;}
+
 }
 
 
 @media only screen and (max-width:959px)
 {
-    * {
-        margin:0;
-        padding:0;
-        font-family:Arial, Verdana, Tahoma, Helvetica, sans-serif;
-    }
-    
     h2 {
       font-size:           1.3em;
       font-weight:         normal;
@@ -332,56 +232,24 @@ div.lees-meer{ margin-top:10px;}
       font-size:           1.1em;
       line-height:	   1.2em;
       font-weight:         normal;
-    }
-    
-
-    
-
-    div.twitter {display:none;}
-    
+    }    
     #page-background {display:none;}
     #container {margin:0 auto;padding:10px;width:95%;border:none;}
-    #header {height:149px;}
+    header {height:149px;}
     #logo { position:absolute;top:0;left:0; text-align:left;border-top:none;}
     #banner {position:absolute;top:0px;border-top:none;width:100%;background:#FFF;overflow:hidden;}
     
     #search { width:100%;text-align:center;display:none;}
-    #search input[name="search"] {font-size:1.2em;}
-    #search input[type="submit"] {font-size:1.2em;display:block;text-align-center;}
-    #nav {width:100%;text-align:center;padding:10px 0 10px 0;font-size:120%;}
-    
-    #nav { margin: 0 0 10px 0;border-bottom:10px solid #DCEEC6;}
-    #nav * {font-family:Georgia,"Times New Roman",Times,serif;font-size: 0.95em; }
-    #nav ul {list-style: none;border:none;}
-    #nav ul li {display: inline-block;padding:6px 8px;}
-    #nav ul li a {color:#000;text-decoration:none;}
-    #nav ul li:hover,
-    #nav ul li.actief {background-color:#7EC416;color:white;border-radius: 4px 4px;}
-    #nav ul li:hover a,
-    #nav ul li.actief a {color:#FFF;}
+    #search_text {font-size:1.2em;}
+    #search submit {font-size:1.2em;display:block;text-align-center;}
+    nav {width:100%;text-align:center;padding:10px 0 10px 0;font-size:120%;}
+    nav { margin: 0 0 10px 0;border-bottom:10px solid #DCEEC6;}
+    ul.menu {list-style: none;border:none;}
+    li.menu-item {display: inline-block;padding:6px 8px;margin-bottom:6px;}
+    a.menu-item-link {color:#000;text-decoration:none;}
+    li.menu-item:hover,
+    li.menu-item.actief {background-color:#7EC416;color:white;border-radius: 4px 4px;}
 
-    #nav .menugroen:link {
-      color:               RGB(38,148,62);
-      text-align:          left;
-      text-decoration:     none;
-    }
-    #nav .menugroen:visited {
-      color:               RGB(38,148,62);
-    }
-    #nav .menugroen:hover {
-      color:               RGB(228,28,41);
-    }
-    #nav .menugroen:active {
-      color:               RGB(228,28,41);
-    }    
-    
-    #content {
-        width:95%;
-        border:none;
-    }
-    #rightcolumn {
-        display:none;
-    }
     
     /*LIST ENTRY*/
     .list-entry {position:relative;margin-bottom:10px;padding-bottom:3px;border-bottom:1px dotted #7FB539}
@@ -394,9 +262,6 @@ div.lees-meer{ margin-top:10px;}
         text-align:center;
     }
     
-    div.spotlicht { display:inline-block;float:none;}
-
-    div.promotie {display:none}
 
     /*ITEM*/
     .item .header { height: auto;position: relative;}
@@ -409,21 +274,11 @@ div.lees-meer{ margin-top:10px;}
 
     #video, #relaties, #trefwoorden, #afbeelding { margin-top: 10px; border-bottom: 1px dashed #7FB539}
 
-    /*ITEM LIST ENTRY*/
-    .item-list-entry {}
-    .item-list-entry h2 {font-size:1.0em;}
-    .item-list-entry div.thumb{ float:left;}
-    .item-list-entry div.kernboodschap{ float:left;margin-left: 10px;  }
-    .item-list-entry div.trefwoorden {padding-top:3px;font-size:1em;display:block;}
-    .item-list-entry div.trefwoorden * { color:#666;  }
     
     /* ALGEMEEN */
     .geplaatst { color:#666;font-style:italic;font-size:0.8em;}
     .meta {margin-bottom:3px;}    
     
-    /*PERSOON*/
-    div.persoon div.foto { display: block; float:right;width:30%;}
-    div.persoon div.foto img {width:95%;}
     
 }
 
@@ -447,7 +302,7 @@ div.lees-meer{ margin-top:10px;}
     #banner {
         display:none;
     }
-    #header {
+    #page-header {
         height:67px;
     }
     #logo {
@@ -459,9 +314,9 @@ div.lees-meer{ margin-top:10px;}
         width:200px;
     }
     
-    #nav {display:none;}
+    nav {display:none;font-size:100%;}
     #mobile_nav {display:block;vertical-align:middle;text-align:center;padding-top:6px;}
-    #mobile_nav select { padding:2px;font-size:1.3em;font-family:Georgia,"Times New Roman",Times,serif;}
+    #mobile_nav select { padding:2px;font-size:1.3em;}
     .list-entry div.image img {
         width:140px;
     }

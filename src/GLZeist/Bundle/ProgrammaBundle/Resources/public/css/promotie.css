@@ -1,0 +1,12 @@
+/* PROMOTIE */
+@media screen
+{
+    div.promotie {background-color:#FFF;padding:10px;border: 1px dotted #444;width:200px;margin:10px;}
+    h3.promotie {font-size:2em}
+    ul.promotie {list-style:none;}
+    li.promotie {line-height:1.5em;font-size:1em;margin-bottom:5px;}    
+}
+@media screen and (max-width:959px)
+{
+    div.promotie {display:none;}
+}

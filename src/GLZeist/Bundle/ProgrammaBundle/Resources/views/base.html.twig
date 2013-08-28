@@ -1,5 +1,4 @@
 {% import "GLZeistProgrammaBundle::macros.html.twig" as glzeist %}
-
 {%set pagetitle %}
     {{site.titel}} {%block title%}{%endblock%}
 {%endset%}
@@ -17,14 +16,17 @@
         <meta name="robots" content="index,follow">
 
         <title>{{pagetitle}}</title>
-        
-        
-        <link rel="stylesheet" href="{{asset('fontello/css/fontello.css')}}">
-        <!--[if IE 7]>
-            <link rel="stylesheet" href="{{asset('fontello/css/fontello-ie7.css')}}">
-        <![endif]-->
 
-        {% stylesheets '@GLZeistProgrammaBundle/Resources/public/css/*' %}
+        {% stylesheets 
+            '@GLZeistProgrammaBundle/Resources/public/css/grid.css' 
+            '@GLZeistProgrammaBundle/Resources/public/css/style.css' 
+            '@GLZeistProgrammaBundle/Resources/public/css/footer.css' 
+            '@GLZeistProgrammaBundle/Resources/public/css/spotlicht.css' 
+            '@GLZeistProgrammaBundle/Resources/public/css/promotie.css' 
+            filter='cssrewrite'
+            filter='yui_css'
+            output='css/main.css'
+        %}
             <link rel="stylesheet" href="{{ asset_url }}"/>
         {% endstylesheets %}
 
@@ -42,15 +44,15 @@
         {%endblock%}
     </head>
     <body>
-        <div id="mobile_nav">
+        <nav id="mobile_nav">
            {%include 'GLZeistProgrammaBundle:App:mobile_menu.html.twig'%}
+        </nav>
+        <div id="page-background">
+            <div id="left-page" class="col col-1-2">&nbsp;</div>
+            <div id="right-page" class="col col-1-2">&nbsp;</div>
         </div>
-        <div id="page-background" class="clearfix">
-            <div id="left-page">&nbsp;</div>
-            <div id="right-page">&nbsp;</div>
-        </div>
-        <div id="container" class="clearfix" style="">
-            <div id="header">
+        <div id="container" class="grid">
+            <header id="page-header" class="col">
                 <div id="banner">
                     <img src="{{ path('site_banner') }}" />
                 </div>
@@ -60,30 +62,65 @@
                 <div id="search">
                     <form action="{{path('glzeist_programma_app_search')}}" method="POST">
                         <span class="icon-search">&nbsp;</span>
-                        <input name="search" value="{%if search is defined%}{{search}}{%endif%}" type="text" />
-                        <input type="submit" value="Zoek"/>
+                        <input id="search_text" placeholder="Zoek op de site" name="search" value="{%if search is defined%}{{search}}{%endif%}" type="text" />
+                        <input id="submit_search" type="submit" value="Zoek"/>
                     </form>
                 </div>
-            </div>
-            <div id="nav">
+            </header>
+            <nav class="col">
                 {%include 'GLZeistProgrammaBundle:App:menu.html.twig'%}
-            </div>
+            </nav>
             {%if breadcrumb is defined%}
-                {{glzeist.kruimelpad(breadcrumb)}}
+                <div class="col">
+                    {{glzeist.kruimelpad(breadcrumb)}}
+                </div>
             {%endif%}
-            {%block introductie %}
-            {%endblock%}
-            <div id="content">
+            <div class="col">
+                {%block introductie %}
+                {%endblock%}
+            </div>
+            <div class="col col-2-3">
                 {%block content%}{%endblock%}
             </div>
-            <div id="rightcolumn">
+            <div class="col col-1-3">
                 {%block rightcolumn%}
-                {{glzeist.promotie_widget}}
-                {{glzeist.twitter_widget(site.twitter)}}
+                    {{glzeist.promotie_widget}}
+                    {{glzeist.twitter_widget(site.twitter)}}
                 {%endblock%}
             </div>
         </div>
-        <div id="footer" class="clearfix">
-        </div>
+        <footer id="page-footer">
+            <div class="grid">
+                <div class="col col-1-3">
+                    <h1 class="footer-link-list-title">programma</h1>
+                    <ul class="footer-link-list">
+                        {%for hoofdstuk in hoofdstukken() %}
+                            <li class="footer-link-item">
+                                {{glzeist.link(path('hoofdstuk',{slug:hoofdstuk.slug}),hoofdstuk.titel)}}
+                            </li>
+                        {%endfor%}
+                    </ul>
+                </div>
+                <div class="col col-1-3">
+                    <h1 class="footer-link-list-title">wie wij zijn</h1>
+                    <ul class="footer-link-list">
+                        {%for persoon in personen() %}
+                            <li class="footer-link-item">
+                                {{glzeist.link(path('persoon',{slug:persoon.slug}),persoon.naam)}}
+                            </li>
+                        {%endfor%}
+                    </ul>
+                </div>
+                <div class="col col-1-3">
+                    <h1 class="footer-link-list-title">groenlinks</h1>
+                    <ul class="footer-link-list">
+                        <li class="footer-link-item"><a href="http://www.groenlinks.nl" title="GroenLinks.nl">GroenLinks.nl</a></li>
+                        <li class="footer-link-item"><a href="http://standpunten.groenlinks.nl" title="Standpunten Groenlinks">Standpunten</a></li>
+                        <li class="footer-link-item"><a href="http://tweedekamer.groenlinks.nl" title="Tweedekamer fractie">Tweedekamer fractie</a></li>
+                        <li class="footer-link-item"><a href="http://actief.groenlinks.nl" title="Actief.nl">Actief</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

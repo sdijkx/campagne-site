@@ -5,15 +5,15 @@
 {%endblock%}
 
 {%block content%}
-
-{%for hoofdstuk in hoofdstukken%}
-    <div class="hoofdstuk-list-entry list-entry clearfix">
-        <h2 class="titel">
-            <a title="{{hoofdstuk.titel}}" href="{{path('hoofdstuk',{slug:hoofdstuk.slug})}}">{{hoofdstuk.titel}}</a>
-        </h2>
-    </div>
-{%endfor%}
-
+<section>
+    {%for hoofdstuk in hoofdstukken%}
+        <article class="list-item">
+            <h2 class="titel">
+                <a title="{{hoofdstuk.titel}}" href="{{path('hoofdstuk',{slug:hoofdstuk.slug})}}">{{hoofdstuk.titel}}</a>
+            </h2>
+        </article>
+    {%endfor%}
+</section>
 
 {%endblock%}
 

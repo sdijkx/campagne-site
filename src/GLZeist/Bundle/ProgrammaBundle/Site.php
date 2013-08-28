@@ -90,7 +90,7 @@ class Site
         $filename=$banner->getFileInfo()->getRealPath();
         $dest=$this->getDirectory().DIRECTORY_SEPARATOR.'banner.jpg';
         $type=$scaler->getType($filename);
-        $scaler->scale($filename, $dest, $type, 960, 149);
+        $scaler->scale($filename, $dest, $type, 1024, 149);
         $this->banner=new \Symfony\Component\HttpFoundation\File\File($dest);
     }
     

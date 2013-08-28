@@ -106,7 +106,6 @@ class SiteController extends Controller
                 }
                 $site->update($data);
                 $this->get('session')->getFlashBag()->add('notice','De instellingen zijn bijgewerkt');
-                return $this->redirect($this->generateUrl('admin_site_edit'));
             }
             catch(\Exception $e)
             {
@@ -115,13 +114,14 @@ class SiteController extends Controller
         }
         else
         {
-                $this->get('session')->getFlashBag()->add('error','Het formulier bevat fouten');                
+            $errors=array_values($form->getErrors());
+            foreach($errors as $error)
+            {
+                $this->get('session')->getFlashBag()->add('error',$error->getMessage());                
+                
+            }
         }
-
-        return array(
-            'site'      => $site,
-            'form'   => $form->createView()
-        );        
+        return $this->redirect($this->generateUrl('admin_site_edit'));
     }
     
     private function codeToMessage($code)

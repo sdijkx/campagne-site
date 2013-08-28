@@ -36,8 +36,9 @@ class RSSController extends Controller
     public function indexAction(Request $request)
     {
         $limit=$request->get("limit",0);
+        $offset=$request->get("offset",0);
         $rss=$this->get('gl_zeist_programma.rss');
-        return array('items' => $rss->getItems($limit));
+        return array('items' => $rss->getItems($limit,$offset));
     }
 }
 

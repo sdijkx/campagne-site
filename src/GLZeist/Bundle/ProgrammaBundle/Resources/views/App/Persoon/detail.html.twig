@@ -4,18 +4,13 @@
 
 {%block content%}
 
-<div id="binnenvak" class="persoon">
-    <div class="header">
-        <h1>{{persoon.naam}}</h1>
-    </div>
+<article class="persoon">
+    <h1>{{persoon.naam}}</h1>
     <h2>{{persoon.functie}}</h2>
-    <div class="foto">
-        <img src="{{path('file',{filename:persoon.imagefile})}}" />
-    </div>
-    <div>
+    <p>
         {{persoon.personalia|raw}}
-    </div>
-</div>
+    </p>
+</article>
 
 {%endblock%}
 

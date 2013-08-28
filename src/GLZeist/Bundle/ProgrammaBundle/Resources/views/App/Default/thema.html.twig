@@ -5,21 +5,17 @@
 {%endblock%}
 
 {%block content%}
-
-<div class="thema-header">
-    <p>{{thema.tekst|raw}}</p>
+<div id="thema-header">
+    {{thema.tekst|raw}}
 </div>
-
 {%if items|length>0 %}
     <h1>Verwante onderwerpen</h1>
-    <div class="thema">
+    <section>
         {%for item in items%}
             {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig' %}
         {%endfor%}
-    </div>
+    </section>
 {%endif%}
-
-
 
 {%endblock%}
 

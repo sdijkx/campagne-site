@@ -6,15 +6,31 @@
         {{glzeist.introductie(speerpunten,hoofdstukken)}}
     {%endif%}
 {%endblock%}
+
 {%block rightcolumn%}
     {{glzeist.twitter_widget}}
 {%endblock%}
-{%block content%}
-    {%for item in items%}
-        {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig' %}
-    {%endfor%}
-    {%for item in nieuws%}
-        {%include 'GLZeistProgrammaBundle:App/Default:includes/nieuws-list-entry.html.twig' %}
-    {%endfor%}
 
+{%block content%}
+    <section id="items">
+        {%for item in items%}
+            {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig' %}
+        {%endfor%}
+    </items>
+    <section id="nieuws">
+    </section>
+    <button id="meer-nieuws">Meer nieuws</button>
+    <script>
+        require(['jquery'],function(){
+            var offset=0;
+            $('#nieuws').load("{{path('rss',{limit:4})}}");
+            $('#meer-nieuws').click(function(e){
+                offset+=4;
+                var url="{{path('rss')}}?limit=4&offset="+offset;
+                $.get(url,function(data){
+                    $('#nieuws').append(data);
+                });
+            });
+        });
+    </script>
 {%endblock%}

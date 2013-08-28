@@ -26,7 +26,7 @@ class RSS
         $this->feed=$feed;
     }
     
-    public function getItems($limit)
+    public function getItems($limit,$offset=0)
     {
         $results=array();
         
@@ -35,7 +35,7 @@ class RSS
         $channel=$rss->getElementsByTagName('channel')->item(0);
         $itemList=$rss->getElementsByTagName('item');
         
-        for($i=0;$i<$itemList->length && ($limit==0 || $i<$limit);$i++)
+        for($i=$offset;$i<$itemList->length && ($limit==0 || ($i-$offset)<$limit);$i++)
         {
             $item=$itemList->item($i);
             

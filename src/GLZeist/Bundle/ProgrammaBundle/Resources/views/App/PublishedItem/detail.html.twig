@@ -15,13 +15,13 @@
 
 {%block content%}
 
-<div id="binnenvak" class="item">
-    <div class="header">
+<article class="item">
+    {%if item.tweet %}
+        {{glzeist.tweet(item.tweet)}}
+    {%endif%}
+    <header class="item-header">
         <h1>{{item.titel}}</h1>
-        {%if item.tweet %}
-            {{glzeist.tweet(item.tweet)}}
-        {%endif%}
-    </div>
+    </header>
     <div>
         {{item.kernboodschap|raw}}
     </div>
@@ -62,7 +62,7 @@
         </div>
     {%endif%}
 
-</div>
+</article>
 
 {%endblock%}
 

@@ -40,8 +40,7 @@ class DefaultController extends Controller
         $items = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findAllForHomePage();
         $hoofdstukken = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->findAll();
         $rss=$this->get('gl_zeist_programma.rss');
-        $nieuws=$rss->getItems(5);
-        return array('items' => $items,'speerpunten' => $speerpunten,'hoofdstukken'=>$hoofdstukken,'nieuws' => $nieuws);
+        return array('items' => $items,'speerpunten' => $speerpunten,'hoofdstukken'=>$hoofdstukken);
     }
     
     /**

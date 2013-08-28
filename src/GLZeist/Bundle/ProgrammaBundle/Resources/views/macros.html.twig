@@ -23,7 +23,7 @@
         <div class="kruimelpad">
             {%for crumb in breadcrumb%}
                 {%if not loop.last%}
-                    <a href="{{crumb.url}}">{{crumb.name}}</a>&nbsp;&raquo;&nbsp;
+                    <a class="kruimelpad-link" href="{{crumb.url}}">{{crumb.name}}</a>&nbsp;&raquo;&nbsp;
                 {%else%}
                     {{crumb.name}}
                 {%endif%}
@@ -36,11 +36,12 @@
     <span class="link">&rsaquo;&nbsp;<a href={{url}} title="{{titel}}">{{titel}}</a></span>
 {%endmacro%}
 
+
 {%macro introductie(speerpunten,hoofdstukken) %}
 {%import _self as _ %}
-<div class="introductie clearfix"">
+<div id="introductie">
     <div class="spotlicht">
-        <div class="actief">
+        <div class="spotlicht-actief">
             <script>
                 if(document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Shape", "1.0"))
                 {
@@ -54,32 +55,27 @@
         </div>        
         {%for speerpunt in speerpunten%}
             <div class="speerpunt" no="{{loop.index}}">
-                <div class="afbeelding">
+                <div class="speerpunt-afbeelding">
                     {%if speerpunt.afbeeldingIsUrl() %}
                         <img src="{{speerpunt.afbeelding}}" alt="{{speerpunt.titel}}">
                     {%else%}
                         <img src="{{path('file',{'filename':speerpunt.afbeelding})}}" alt="{{speerpunt.titel}}">
                     {%endif%}
                 </div>
-                <div class="content {%if loop.index==1%}focus{%endif%}">
-                    <span>{{speerpunt.content}}</span>
+                <div class="speerpunt-content {%if loop.index==1%}focus{%endif%}">
+                    <span>{{speerpunt.content}}</span><br/>
+                    <span><a class="speerpunt-link" href="{{speerpunt.url}}">&rarr;&nbsp;{{speerpunt.titel}}</a></span>
                 </div>
             </div>
         {%endfor%}
-        <ul class="menu">
+        <ul class="speerpunt-menu">
             {%for speerpunt in speerpunten%}
-                <li><a href="{{speerpunt.url}}">{{speerpunt.titel}}</a></li>
+                <li class="speerpunt-menu-item"><a class="speerpunt-menu-item-link" href="{{speerpunt.url}}">{{speerpunt.titel}}</a></li>
             {%endfor%}
         </ul>
     </div>
-    <div class="promotie">
-        <h3>Zeist</h3>
-        <ul>
-            {%for hoofdstuk in hoofdstukken %}
-                <li>{{_.link(path('hoofdstuk',{slug:hoofdstuk.slug}),hoofdstuk.titel)}}</li>
-            {%endfor%}
-        </ul>
-    </div>
+    {%import _self as _ %}
+    {{_.promotie_widget}}
 
 </div>
 {%endmacro%}
@@ -87,18 +83,20 @@
 {%macro twitter_widget(search) %}
 <div class="twitter">
     <a class="twitter-timeline"  href="https://twitter.com/search?q={{search|url_encode}}"  data-widget-id="334766773385691136">Tweets about "zeist groenlinks"</a>
-    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    </a>
+</div>
 {%endmacro%}
 
 {%macro promotie_widget() %}
     {%import _self as _ %}
-    <div class="promotie">
-        <h3>Zeist</h3>
-        <ul>
+     <div class="promotie">
+        <h3 class="promotie">Zeist</h3>
+        <ul class="promotie">
             {%for hoofdstuk in hoofdstukken() %}
-                <li>{{_.link(path('hoofdstuk',{slug:hoofdstuk.slug}),hoofdstuk.titel)}}</li>
+                <li class="promotie">{{_.link(path('hoofdstuk',{slug:hoofdstuk.slug}),hoofdstuk.titel)}}</li>
             {%endfor%}
         </ul>
     </div>
+
 {%endmacro%}

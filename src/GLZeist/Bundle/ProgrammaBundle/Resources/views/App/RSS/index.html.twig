@@ -1,11 +1,17 @@
 {% for item in items %}
-    <h1>{{item.title}}</h1>
-    <p>{{item.description|raw}}</p>
-    <p style="color:red">{{item.teaser|raw}}</p>
-    {%if item.image is defined %}
-        <img src="{{item.image}}" alt="{{item.title}}"/>
-    {%endif%}
-    {% if item.pubDate %}
-        <p>{{item.pubDate|date('d-m-Y')}}</p>
-    {%endif%}
+    <article class="list-item">
+        <h2 class="titel">
+            <a href="{{item.link}}"">{{item.title}}</a>
+        </h2>
+        <div class="meta"><span class="geplaatst">{{item.pubDate|date('d-m-Y')}}</span></div>
+        <div>
+        {%if item['dc:image'] is defined %}
+            <div class="thumb">
+                <img width=200 src="{{item['dc:image']}}" />
+            </div>
+        {%endif%}
+        <div class="description">
+            {{item.description|raw}}
+        </div>
+    </article>
 {%endfor%}

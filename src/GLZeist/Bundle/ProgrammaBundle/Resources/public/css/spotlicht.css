@@ -1,3 +1,15 @@
+/*INTRODUCTIE*/
+
+#introductie { margin: 10px;background-color:#EEEEEE;padding:2.3em 2em; }
+#introductie:after {clear:both;content:"\0000a0";height:0;display:block;}
+/*SPOTLICHT*/
+
+div.spotlicht,div.promotie
+{
+    float:left;
+    margin-top:10px;   
+}
+
 div.spotlicht {  
     width:612px;
     height:270px;
@@ -7,8 +19,7 @@ div.spotlicht {
     overflow:hidden;
     background-color: #FFF;
 }
-div.spotlicht > h2 { font: 2em/1em Georgia,"Times New Roman",serif;}
-div.spotlicht > ul.menu
+ul.speerpunt-menu
 {
     margin:0;
     padding:0;
@@ -18,19 +29,19 @@ div.spotlicht > ul.menu
     background-color: #FFF;
     z-index: 3;
 }
-div.spotlicht > ul.menu li {
+li.speerpunt-menu-item {
     width:153px;
     height:30px;
     float:left;
     text-align: center;
     background-color: #FFF; 
 }
-div.spotlicht > ul.menu li a {
+a.speerpunt-menu-item-link {
     paddiing:1.3em;
     color:#E41C29;
     text-decoration: none;
 }
-div.spotlicht > div.actief { 
+div.spotlicht-actief { 
     position:absolute;
     left:74px;
     top:250px;
@@ -44,44 +55,66 @@ div.spotlicht > div.actief {
     -webkit-animation-iteration-count:infinite;
     -webkit-animation-duration:20s;    
 }
-div.spotlicht > div.speerpunt {
+div.speerpunt {
     position:absolute;
     width:612px;
     height:320px;
     display:block;
 }
-div.spotlicht > div.speerpunt > div.afbeelding,
-div.spotlicht > div.speerpunt > div.content
+div.speerpunt-afbeelding,
+div.speerpunt-content
 {
     display:block;
     position:absolute;
 }
 
-div.spotlicht > div.speerpunt > div.afbeelding { left:0;top:0px;width:612px; height:215px;background-color:#FFF;text-align: center;vertical-align: middle;line-height: 215px;}
-div.spotlicht > div.speerpunt > div.afbeelding > img {vertical-align:middle;width:612px; height:215px;display:block;}
-div.spotlicht > div.speerpunt > div.content { left:10px;top:10px;z-index:1;}
-div.spotlicht > div.speerpunt > div.content span {font:2em/1em Georgia,"Times New Roman",serif;background-color:#FFF;padding:3px;line-height:1.5em;}
+div.speerpunt-afbeelding { 
+    left:0;
+    top:0px;
+    width:612px; 
+    height:215px;
+    background-color:#FFF;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 215px;
+}
+div.speerpunt-afbeelding > img {
+    vertical-align:middle;
+    width:612px; 
+    height:215px;
+    display:block;
+}
+div.speerpunt-content { 
+    left:10px;
+    top:10px;
+    z-index:1;
+}
+div.speerpunt-content span {
+    font:2em;
+    background-color:#FFF;
+    padding:3px;
+    line-height:1.5em;
+}
 
-div.spotlicht > div.speerpunt[no="1"] {
+div.speerpunt[no="1"] {
     left:0px;
     top:0px;
 }
-div.spotlicht > div.speerpunt[no="2"] {
+div.speerpunt[no="2"] {
     left:615px;
     top:0px;
 }
-div.spotlicht > div.speerpunt[no="3"] {
+div.speerpunt[no="3"] {
     left:1230px;
     top:0px;    
 }
-div.spotlicht > div.speerpunt[no="4"] {
+ div.speerpunt[no="4"] {
     left:1845px;
     top:0px;    
 }
 
-
-div.spotlicht > div.speerpunt > div.afbeelding,
-div.spotlicht > div.speerpunt > div.content
+div.speerpunt-afbeelding,
+div.speerpunt-content
 {
     animation-name:rot_speerpunt;
     animation-iteration-count:infinite;
@@ -149,44 +182,51 @@ div.spotlicht > div.speerpunt > div.content
         margin:0;
     }
     
-    div.spotlicht > ul.menu {top:176px;height:22px;}
-    div.spotlicht > ul.menu li {width:117px;}
+    ul.speerpunt-menu {top:176px;height:22px;}
+    ul.speerpunt-menu li {width:117px;}
     
-    div.spotlicht div.actief { top:208px;}
+    div.spotlicht-actief { top:208px;}
     
-    div.spotlicht > div.speerpunt {
+    div.speerpunt {
         position:absolute;
         width:470px;
         height:165px;
         display:block;
     }
-    
- 
 
-    div.spotlicht > div.speerpunt > div.afbeelding { left:0;top:0px;width:470px; height:165px;background-color:#FFF;text-align: center;vertical-align: middle;line-height: 165px;}
-    div.spotlicht > div.speerpunt > div.afbeelding > img {vertical-align:middle;width:470px; height:165px;display:block;}
+    div.speerpunt-afbeelding { 
+        left:0;
+        top:0;
+        width:470px; 
+        height:165px;
+        background-color:#FFF;
+        text-align: center;
+        vertical-align: middle;l
+        ine-height: 165px;
+    }
+    div.speerpunt-afbeelding > img {vertical-align:middle;width:470px; height:165px;display:block;}
     
     
-    div.spotlicht > div.speerpunt > div.content span { font:1em/0.97em Georgia,"Times New Roman",serif }
+    div.speerpunt-content > span { font-size:1em }
     
-    div.spotlicht > div.speerpunt[no="1"] {
+    div.speerpunt[no="1"] {
         left:0px;
         top:0px;
     }
-    div.spotlicht > div.speerpunt[no="2"] {
+    div.speerpunt[no="2"] {
         left:470px;
         top:0px;
     }
-    div.spotlicht > div.speerpunt[no="3"] {
+    div.speerpunt[no="3"] {
         left:940px;
         top:0px;    
     }
-    div.spotlicht > div.speerpunt[no="4"] {
+    div.speerpunt[no="4"] {
         left:1410px;
         top:0px;    
     }
     
-    div.spotlicht > div.actief { 
+    div.spotlicht-actief { 
         animation-duration:20s;
         animation-name:rot_actief_phone_landscape;
         animation-iteration-count:infinite;
@@ -196,8 +236,8 @@ div.spotlicht > div.speerpunt > div.content
     }
     
 
-    div.spotlicht > div.speerpunt > div.afbeelding,
-    div.spotlicht > div.speerpunt > div.content
+    div.speerpunt-afbeelding,
+    div.speerpunt-content
     {
         animation-name:rot_speerpunt_phone_landscape;
         animation-iteration-count:infinite;
@@ -259,50 +299,51 @@ div.spotlicht > div.speerpunt > div.content
 
 @media only screen and (max-width:320px)
 {
+    #introductie {padding:10px;width:263px;}
     div.spotlicht {
         width:260px;
         height:130px;
         margin:0;
     }
     
-    div spotlicht ul.menu {display:none;}
+    ul.speerpunt-menu {display:none;}
     
-    div.spotlicht > ul.menu {top:95px;height:22px;}
-    div.spotlicht > ul.menu li {width:65px;height:22px;font-size:0.8em;}
+    ul.speerpunt-menu {top:95px;height:22px;}
+    li.speerpunt-menu-item {width:65px;height:22px;font-size:0.8em;}
     
-    div.spotlicht div.actief { top:117px;}
+    div.spotlicht-actief { top:117px;}
     
-    div.spotlicht > div.speerpunt {
+    div.speerpunt {
         position:absolute;
         width:260px;
         height:130px;
         display:block;
     }
 
-    div.spotlicht > div.speerpunt > div.afbeelding { left:0;top:0px;width:260px; height:91px;background-color:#FFF;text-align: center;vertical-align: middle;line-height: 91px;}
-    div.spotlicht > div.speerpunt > div.afbeelding > img {vertical-align:middle;width:260px; height:91px;display:block;}
+    div.speerpunt-afbeelding { left:0;top:0px;width:260px; height:91px;background-color:#FFF;text-align: center;vertical-align: middle;line-height: 91px;}
+    div.speerpunt-afbeelding > img {vertical-align:middle;width:260px; height:91px;display:block;}
     
     
-    div.spotlicht > div.speerpunt > div.content span { font:0.95em/0.8em Georgia,"Times New Roman",serif }
+    div.speerpunt-content > span { font-size:0.95em; }
     
-    div.spotlicht > div.speerpunt[no="1"] {
+    div.speerpunt[no="1"] {
         left:0px;
         top:0px;
     }
-    div.spotlicht > div.speerpunt[no="2"] {
+    div.speerpunt[no="2"] {
         left:260px;
         top:0px;
     }
-    div.spotlicht > div.speerpunt[no="3"] {
+    div.speerpunt[no="3"] {
         left:520px;
         top:0px;    
     }
-    div.spotlicht > div.speerpunt[no="4"] {
+    div.speerpunt[no="4"] {
         left:780px;
         top:0px;    
     }
     
-    div.spotlicht > div.actief { 
+    div.spotlicht-actief { 
         animation-duration:20s;
         animation-name:rot_actief_phone;
         animation-iteration-count:infinite;
@@ -312,8 +353,8 @@ div.spotlicht > div.speerpunt > div.content
     }
     
 
-    div.spotlicht > div.speerpunt > div.afbeelding,
-    div.spotlicht > div.speerpunt > div.content
+    div.speerpunt-afbeelding,
+    div.speerpunt-content
     {
         animation-name:rot_speerpunt_phone;
         animation-iteration-count:infinite;
