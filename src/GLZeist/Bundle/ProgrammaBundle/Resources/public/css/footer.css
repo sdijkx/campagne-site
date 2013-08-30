@@ -1,5 +1,5 @@
 
 footer { background-color:#DCEEC6;padding-bottom:40px;}
 h1.footer-link-list-title {color:#333;margin-left:10px;}
-ul.footer-link-list {list-style: none outside none;margin-left:10px;}
-li.footer-link-list-item {}
+ul.footer-link-list {list-style: none outside;margin-left:0;}
+li.footer-link-item {list-style: inherit;margin-left:inherit;line-height:1.2em;margin-bottom:4px;}

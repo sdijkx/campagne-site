@@ -32,9 +32,12 @@ ul.speerpunt-menu
 li.speerpunt-menu-item {
     width:153px;
     height:30px;
+    margin:0;
+    padding:0;
     float:left;
     text-align: center;
     background-color: #FFF; 
+    list-style: inherit;
 }
 a.speerpunt-menu-item-link {
     paddiing:1.3em;
