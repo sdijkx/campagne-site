@@ -136,7 +136,7 @@ class DefaultController extends Controller
         $mimeType=$guesser->guess($path);
         ob_clean();
         header("Cache-Control: public"); // HTTP/1.1
-        header("Expires: "+date('%r',strtotime('+12 hours'))); // Date in the past        
+        header("Expires: ".date('r',strtotime('+24 hours'))); // Date in the past        
         header('Content-type: '.$mimeType);
         header('Content-Disposition: attachment; filename="'.$filename.'"');
         readfile($path);
@@ -159,7 +159,7 @@ class DefaultController extends Controller
         $mimeType=$guesser->guess($path);
         ob_clean();
         header("Cache-Control: public"); // HTTP/1.1
-        header("Expires: "+date('%r',strtotime('+12 hours'))); // Date in the past                
+        header("Expires: ".date('r',strtotime('+24 hours'))); // Date in the past                
         header('Content-type: '.$mimeType);
         readfile($path);
         exit;

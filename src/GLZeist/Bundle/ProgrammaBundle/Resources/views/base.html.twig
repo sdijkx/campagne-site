@@ -9,6 +9,7 @@
 <!--[if IE 8]>    <html class="ie8" lang="{{app.request.locale}}"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="{{app.request.locale}}"> <!--<![endif]-->
     <head>
+        <meta http-equiv="Cache-control" content="public">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
         <meta name="owner" content="GroenLinks Zeist">
@@ -23,7 +24,6 @@
             '@GLZeistProgrammaBundle/Resources/public/css/footer.css' 
             '@GLZeistProgrammaBundle/Resources/public/css/spotlicht.css' 
             '@GLZeistProgrammaBundle/Resources/public/css/promotie.css' 
-            filter='cssrewrite'
             output='css/main.css'
         %}
             <link rel="stylesheet" href="{{ asset_url }}"/>
@@ -53,7 +53,6 @@
         <div id="container" class="grid">
             <header id="page-header" class="col">
                 <div id="banner">
-                    <img src="{{ path('site_banner') }}" />
                 </div>
                 <div id="logo">
                     <img src="{{ asset('bundles/glzeistprogramma/images/logo.png') }}" />

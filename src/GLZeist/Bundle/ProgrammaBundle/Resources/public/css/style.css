@@ -88,8 +88,6 @@ a { text-decoration:underline; color:#E41C29; }
 a:hover { text-decoration:none; }
 a:visited {}
 
-
-
 article { margin-left:10px;}
 
 /* GENERAL CLASSES */
@@ -111,7 +109,7 @@ article { margin-left:10px;}
 
 
 #logo { text-align: left;position:absolute;left:0;top:0; width:310px;border-radius: 0 0 8px 0; height:100px; background-color:#FFF;;border-top: 12px solid #FA0026}
-#banner {width:1024px;height:149px;text-align: left;position:absolute;left:0; background-color:grey;border-top: 12px solid #80C31C}
+#banner {background-image:url('../site/banner');width:1024px;height:149px;text-align: left;position:absolute;left:0; background-color:grey;border-top: 12px solid #80C31C}
 #search { position: absolute; right:0;top:0; background-color: #7EC416; padding: 12px 30px 20px 20px ; border-radius: 0 0 0 8px;}
 #search_text {
     font-size:1em;
