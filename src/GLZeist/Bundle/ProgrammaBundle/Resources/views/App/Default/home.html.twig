@@ -18,14 +18,17 @@
         {%endfor%}
     </items>
     <section id="nieuws">
+        <div class="laden">&nbsp;</div>
     </section>
     <div id="nieuws-laden" class="laden" style="display:none;"> &nbsp;</div>
-    <button id="meer-nieuws">Meer nieuws</button>
+    <button id="meer-nieuws" style="display:none;">Meer nieuws</button>
     <div>&nbsp;</div>
     <script>
         require(['jquery'],function(){
             var offset=0;
-            $('#nieuws').load("{{path('rss',{limit:4})}}");
+            $('#nieuws').load("{{path('rss',{limit:4})}}", function() {
+                $('#meer-nieuws').toggle();
+            });
             $('#meer-nieuws').click(function(e){
                 $('#meer-nieuws').toggle();
                 $('#nieuws-laden').toggle();
