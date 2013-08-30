@@ -19,16 +19,22 @@
     </items>
     <section id="nieuws">
     </section>
+    <div id="nieuws-laden" class="laden" style="display:none;"> &nbsp;</div>
     <button id="meer-nieuws">Meer nieuws</button>
+    <div>&nbsp;</div>
     <script>
         require(['jquery'],function(){
             var offset=0;
             $('#nieuws').load("{{path('rss',{limit:4})}}");
             $('#meer-nieuws').click(function(e){
+                $('#meer-nieuws').toggle();
+                $('#nieuws-laden').toggle();
                 offset+=4;
                 var url="{{path('rss')}}?limit=4&offset="+offset;
                 $.get(url,function(data){
+                    $('#nieuws-laden').toggle();
                     $('#nieuws').append(data);
+                    $('#meer-nieuws').toggle();
                 });
             });
         });

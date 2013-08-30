@@ -164,6 +164,7 @@ a.kruimelpad-link:visited {
 .geplaatst { color:#666;font-style:italic;}
 .meta {margin-bottom:3px;}
 .lees-meer{ margin-top:10px;}
+.laden { background: transparent url('/images/spinner.gif') no-repeat center;height:25px}
 
 /*
 NIEUWS
