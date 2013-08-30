@@ -77,12 +77,9 @@ div.speerpunt-afbeelding {
     width:612px; 
     height:215px;
     background-color:#FFF;
-    text-align: center;
-    vertical-align: middle;
     line-height: 215px;
 }
 div.speerpunt-afbeelding > img {
-    vertical-align:middle;
     width:612px; 
     height:215px;
     display:block;
@@ -92,6 +89,7 @@ div.speerpunt-content {
     top:10px;
     z-index:1;
 }
+
 div.speerpunt-content span {
     font:2em;
     background-color:#FFF;
@@ -203,14 +201,15 @@ div.speerpunt-content
         width:470px; 
         height:165px;
         background-color:#FFF;
-        text-align: center;
-        vertical-align: middle;l
-        ine-height: 165px;
     }
-    div.speerpunt-afbeelding > img {vertical-align:middle;width:470px; height:165px;display:block;}
+    div.speerpunt-afbeelding > img {
+        width:470px; 
+        height:165px;
+        display:block;
+    }
     
     
-    div.speerpunt-content > span { font-size:1em }
+    div.speerpunt-content { font-size:1em }
     
     div.speerpunt[no="1"] {
         left:0px;
@@ -310,11 +309,7 @@ div.speerpunt-content
     }
     
     ul.speerpunt-menu {display:none;}
-    
-    ul.speerpunt-menu {top:95px;height:22px;}
-    li.speerpunt-menu-item {width:65px;height:22px;font-size:0.8em;}
-    
-    div.spotlicht-actief { top:117px;}
+    div.spotlicht-actief { display:none;}
     
     div.speerpunt {
         position:absolute;
@@ -323,11 +318,27 @@ div.speerpunt-content
         display:block;
     }
 
-    div.speerpunt-afbeelding { left:0;top:0px;width:260px; height:91px;background-color:#FFF;text-align: center;vertical-align: middle;line-height: 91px;}
-    div.speerpunt-afbeelding > img {vertical-align:middle;width:260px; height:91px;display:block;}
+    div.speerpunt-afbeelding { 
+        left:0;
+        top:0;
+        width:260px; 
+        height:91px;
+        background-color:#FFF;
+    }
+    div.speerpunt-afbeelding > img {
+        width:260px; 
+        height:91px;
+        display:block;
+    }
     
     
-    div.speerpunt-content > span { font-size:0.95em; }
+    
+    
+    div.speerpunt-content { 
+        top:92px; 
+        width:260px; 
+        font-size:0.95em; 
+    }
     
     div.speerpunt[no="1"] {
         left:0px;
