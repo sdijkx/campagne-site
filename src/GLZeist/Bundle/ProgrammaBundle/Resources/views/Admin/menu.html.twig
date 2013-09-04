@@ -1,25 +1,25 @@
 {% if app.user is not empty %}
-    <ul class="right">
-        <li>Welkom {{app.user.username}}</li>
-        <li><a href="{{path('glzeist_programma_admin_user_logout')}}">Afmelden</a></li>
+    <ul class="right menu">
+        <li class="menu-item">Welkom {{app.user.username}}</li>
+        <li class="menu-item"><a class="menu-item-link" href="{{path('glzeist_programma_admin_user_logout')}}">Afmelden</a></li>
     </ul>
-    <ul class="left">
+    <ul class="left menu">
         {#
-        <li><a href="{{path('hoofdstuk')}}">Hoofdstukken</a></li>
-        <li><a href="{{path('paragraaf')}}">Paragrafen</a></li>
-        <li><a href="{{path('media')}}">Media</a></li>
+        <li class="menu-item"><a class="menu-item-link" href="{{path('hoofdstuk')}}">Hoofdstukken</a></li>
+        <li class="menu-item"><a class="menu-item-link" href="{{path('paragraaf')}}">Paragrafen</a></li>
+        <li class="menu-item"><a class="menu-item-link" href="{{path('media')}}">Media</a></li>
         #}
-        <li><a href="{{path('admin_item')}}">Items</a></li>
+        <li class="menu-item"><a class="menu-item-link" href="{{path('admin_item')}}">Items</a></li>
         {%if is_moderator() %}
-            <li><a href="{{path('admin_trefwoord')}}">Trefwoorden</a></li>
-            <li><a href="{{path('admin_thema')}}">Thema's</a></li>
-            <li><a href="{{path('admin_persoon')}}">Personen</a></li>
-            <li><a href="{{path('admin_speerpunt')}}">Speerpunten</a></li>
+            <li class="menu-item"><a class="menu-item-link" href="{{path('admin_trefwoord')}}">Trefwoorden</a></li>
+            <li class="menu-item"><a class="menu-item-link" href="{{path('admin_thema')}}">Thema's</a></li>
+            <li class="menu-item"><a class="menu-item-link" href="{{path('admin_persoon')}}">Personen</a></li>
+            <li class="menu-item"><a class="menu-item-link" href="{{path('admin_speerpunt')}}">Speerpunten</a></li>
         {%endif%}
         {%if is_admin() %}
-            <li><a href="{{path('admin_hoofdstuk')}}">Hoofdstukken</a></li>
-            <li><a href="{{path('admin_user')}}">Gebruikers</a></li>
-            <li><a href="{{path('admin_site_edit')}}">Instellingen</a></li>
+            <li class="menu-item"><a class="menu-item-link" href="{{path('admin_hoofdstuk')}}">Hoofdstukken</a></li>
+            <li class="menu-item"><a class="menu-item-link" href="{{path('admin_user')}}">Gebruikers</a></li>
+            <li class="menu-item"><a class="menu-item-link" href="{{path('admin_site_edit')}}">Instellingen</a></li>
         {%endif%}
     </ul>
 {%endif%}

@@ -15,23 +15,10 @@
 
         <script type="text/javascript" data-main="{{asset('lib/app.js')}}" src="{{asset('lib/require.js')}}"></script>
 
-        <!--
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="{{asset('lib/ckeditor/ckeditor.js')}}"></script>
-        
-        
-        {% javascripts '@GLZeistProgrammaBundle/Resources/public/admin/js/*' %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-
-        -->
-
-
     </head>
     <body>
-        <header id="header" class="clearfix">
-            <nav>
+        <header id="header" class="grid">
+            <nav class="col">
                 {%include 'GLZeistProgrammaBundle:Admin:menu.html.twig' %}
             </nav>
         </header>
@@ -44,10 +31,10 @@
                 {% endfor %}
             {% endfor %}
         {% endif %}        
-        <div id="container" class="clearfix">
+        <div id="container" class="grid">
             {%block content%}{%endblock%}
         </div>
-        <footer id="footer" class="clearfix">
+        <footer id="footer">
         </footer>
         <script>
             require(['jquery'], function() {

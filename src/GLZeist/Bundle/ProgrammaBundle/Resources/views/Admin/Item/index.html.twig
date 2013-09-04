@@ -1,7 +1,7 @@
 {% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
 {%block content%}
 <h1>Item overzicht</h1>
-<ul  class="actions clearfix">
+<ul class="actions">
     <li>
         <a href="{{ path('item_new') }}">
             Nieuw item toevoegen
@@ -10,72 +10,82 @@
 </ul>
 <div>
     <form method="GET">    
-        <div>
+        <fieldset>
             <input type="text" name="search" value="{{search}}"/>
-            <button type="submit"><span class="icon-search">&nbsp;</span></button>
-            <button type="submit" onclick="javascript:this.form.elements[0].value='';this.form.submit()">
+            <button type="submit" title="Zoeken"><span class="icon-search">&nbsp;</span></button>
+            <button type="submit" title="Verwijder zoekcriteria" onclick="javascript:this.form.elements[0].value='';this.form.submit()">
                 <span class="icon-cancel">&nbsp;</span>
             </button>
-        </div>
-        <label>Sorteer</label>&nbsp;<select name="orderby" onchange="javascript:this.form.submit();">
-            {%for field,name in fields%}
-                <option {%if orderBy==field %}selected="selected"{%endif%} value="{{field}}">{{name}}</option>
-            {%endfor%}
-        </select>
-        <input type="radio" name="sortorder" value="ASC" {%if sortOrder == 'ASC' %} checked="checked" {%endif%} onchange="javascript:this.form.submit();"/> 
-        <label>Oplopend</label>
-        <input type="radio" name="sortorder" value="DESC" {%if sortOrder == 'DESC' %} checked="checked" {%endif%} onchange="javascript:this.form.submit();" />
-        <label>Aflopend</label>
+        </fieldset>
+        <fieldset>
+            <input type="radio" name="state" value="all" {%if state == 'all' %} checked="checked" {%endif%} onchange="javascript:this.form.submit();"/> 
+            <label>Alle</label>
+            <input type="radio" name="state" value="published" {%if state == 'published' %} checked="checked" {%endif%} onchange="javascript:this.form.submit();"/> 
+            <label>Gepubliceerd</label>
+            <input type="radio" name="state" value="changed" {%if state == 'changed' %} checked="checked" {%endif%} onchange="javascript:this.form.submit();"/> 
+            <label>Gewijzigd na laatste publicatie</label>
+            <input type="radio" name="state" value="unpublished" {%if state == 'unpublished' %} checked="checked" {%endif%} onchange="javascript:this.form.submit();"/> 
+            <label>Niet gepubliceerd</label>
+        </fieldset>
+        <fieldset>
+            <label>Sorteer</label>&nbsp;<select name="orderby" onchange="javascript:this.form.submit();">
+                {%for field,name in fields%}
+                    <option {%if orderBy==field %}selected="selected"{%endif%} value="{{field}}">{{name}}</option>
+                {%endfor%}
+            </select>
+            <input type="radio" name="sortorder" value="ASC" {%if sortOrder == 'ASC' %} checked="checked" {%endif%} onchange="javascript:this.form.submit();"/> 
+            <label>Oplopend</label>
+            <input type="radio" name="sortorder" value="DESC" {%if sortOrder == 'DESC' %} checked="checked" {%endif%} onchange="javascript:this.form.submit();" />
+            <label>Aflopend</label>
+        </fieldset>
     </form>
 </div>
 {{macros.paging(page,pageCount,'admin_item',{search:search,orderby:orderBy,page:page})}}
-<div class="results">
+<div class="grid">
     {%if entities|length == 0 %}
         <h3>Geen resultaten</h3>
     {%endif%}
 
     {% for entity in entities %}
-        <div class="item entry clearfix">
+        <div class="col entry">
+            <ul class="actions">
+                <li>
+                    <a title="Bewerk" href="{{ path('item_edit', { 'id': entity.id }) }}"><span class="icon-pencil">&nbsp;</span></a>
+                </li>
+            </ul>
+            <div class="thumb">
+                {%if entity.thumbfile %}
+                    <img src="{{path('file',{filename:entity.thumbfile})}}" />
+                {%else%}
+                    &nbsp;
+                {%endif%}
+            </div>
+
             <h2>{{ entity.titel }} - <i>{{entity.thema.titel}}</i></h2>
-            <div class="extra">
+            <div class="col">
                 {%if entity.gewijzigdNaPublicatie %}
                     <div class="notice"><strong>Gewijzigd na laatste publicatie</strong></div>
                 {%elseif entity.gepubliceerd %}
                     <div class="notice"><strong>Gepubliceerd</strong></div>
                 {%elseif entity.aangevraagd %}
                     <div class="notice"><strong>Publicatie aangevraagd</strong></div>
+                {%else%}
+                    <div class="notice"><strong>Niet gepubliceerd</strong></div>
                 {%endif%}
                 {%if entity.gepubliceerd %}
-                    <div><label>Laatste publicatie:</label>&nbsp;{{entity.publishedItem.gepubliceerdOp|date('d-m-Y H:i:s')}}</div>
-                    <br/>
+                    <div><span class="label">Laatste publicatie:</span>&nbsp;{{entity.publishedItem.gepubliceerdOp|date('d-m-Y H:i:s')}}</div>
                 {%endif%}
-
             </div>
-
-            <div class="content clearfix" >
-                <ul class="actions" style="float:left;margin-top:0;">
-                    <li>
-                        <a title="Bewerk" href="{{ path('item_edit', { 'id': entity.id }) }}"><span class="icon-pencil">&nbsp;</span></a>
-                    </li>
-                </ul>
-                <div class="description">
-                    <div>{{ entity.kernboodschap|raw }}</div>
+            <div class="col">
+                <div><span class="label">Auteur:</span>&nbsp;{{entity.gemaaktDoor.username}}</div>
+                <div><span class="label">Laatst gewijzigd:</span>&nbsp;{{entity.gewijzigdOp|date('d-m-Y H:i:s')}}</div>
+                <div><span class="label">Gemaakt:</span>&nbsp;{{entity.gemaaktOp|date('d-m-Y H:i:s')}}</div>
+            </div>
+            {%if entity.kernboodschap %}
+                <div class="content" >
+                    {{ entity.kernboodschap|raw }}
                 </div>
-                <div class="thumb">
-                    {%if entity.thumbfile %}
-                        <img src="{{path('file',{filename:entity.thumbfile})}}" />
-                    {%else%}
-                        &nbsp;
-                    {%endif%}
-                </div>
-            </div>
-            <div class="info">
-
-                <div><label>Auteur:</label>&nbsp;{{entity.gemaaktDoor.username}}</div>
-                <div><label>Laatst gewijzigd:</label>&nbsp;{{entity.gewijzigdOp|date('d-m-Y H:i:s')}}</div>
-                <div><label>Gemaakt:</label>&nbsp;{{entity.gemaaktOp|date('d-m-Y H:i:s')}}</div>
-
-            </div>
+            {%endif%}
         </div>
     {% endfor %}
 </div>

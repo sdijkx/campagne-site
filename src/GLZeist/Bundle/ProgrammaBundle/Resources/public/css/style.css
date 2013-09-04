@@ -155,6 +155,8 @@ a.kruimelpad-link {
 a.kruimelpad-link:visited {
     color:#FA0026;
 }
+/*HEADER*/
+h1.header {margin-left:10px;}
 
 /*LIST ITEM*/
 .list-item {position:relative;margin-bottom:10px;padding-bottom:3px;border-bottom:1px dotted #7FB539}

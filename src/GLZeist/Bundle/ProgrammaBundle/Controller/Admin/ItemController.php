@@ -49,6 +49,7 @@ class ItemController extends Controller
         $orderBy=$this->getRequest()->get('orderby','i.gewijzigdOp');
         $sortOrder=$this->getRequest()->get('sortorder','DESC');
         $search=$this->getRequest()->get('search',null);
+        $state=$this->getRequest()->get('state','all');
         $page=$this->getRequest()->get('page',1);
         
         $limit=$this->getRequest()->get('limit',10);
@@ -57,18 +58,38 @@ class ItemController extends Controller
         
 
         
-        $fields=array('i.titel' => 'Titel','i.kernboodschap' => 'Kernboodschap','i.tweet' => 'Tweet','i.gewijzigdOp' => 'Datum');
+        $fields=array('i.titel' => 'Titel','i.kernboodschap' => 'Kernboodschap','i.tweet' => 'Tweet','i.gewijzigdOp' => 'Gewijzigd op');
 
         $qb=$em->createQueryBuilder();
         $qb
             ->select('i')
             ->from('GLZeistProgrammaBundle:Item','i')
+            ->leftJoin('i.publishedItem','p')
             ->orderBy($orderBy,$sortOrder);
+
         if(!empty($search))
         {
             $qb->andWhere('i.titel LIKE :search OR i.kernboodschap LIKE :search OR i.hoofdtekst LIKE :search OR i.tweet LIKE :search');
             $qb->setParameter('search',$search);
         }
+
+        if(!empty($state))
+        {
+            if($state=='published')
+            {
+                $qb->andWhere('i.gewijzigdOp<=p.gepubliceerdOp');
+            }
+            elseif($state=='unpublished')
+            {
+                $qb->andWhere('i.publishedItem IS NULL ');
+            }
+            elseif($state=='changed')
+            {
+                $qb->andWhere('i.gewijzigdOp>p.gepubliceerdOp');
+            }
+            
+        }
+        
         if(!$securityContext->isGranted('ROLE_MODERATOR'))
         {
             $qb->andWhere('i.gemaaktDoor=:user');
@@ -100,6 +121,7 @@ class ItemController extends Controller
             'search' => $search,
             'orderBy'=>$orderBy,
             'sortOrder' => $sortOrder,
+            'state' => $state,
             'pageCount' => $pageCount,
             'page' => $page,
             'pages' => $pages
