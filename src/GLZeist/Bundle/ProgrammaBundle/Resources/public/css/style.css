@@ -203,10 +203,10 @@ TWITTER
 
 
 /*ITEM*/
-.item {border-right: 1px dotted #7FB539;margin-right:6px;}
+.item {border-right: 1px dotted #7FB539;margin-right:6px;position:relative;}
 .item-header { height: auto;position: relative;}
 .item-header:after {clear:both;content:"\0000a0";height:0;display:block;}
-.tweet-button { float:right;margin-right:10px}
+.tweet-button { position:absolute;right: 15px;z-index:2}
 ul.links {list-style: none;}
 #video, #relaties, #trefwoorden, #afbeelding { margin-top: 10px; border-bottom: 1px dashed #7FB539}
 
@@ -241,8 +241,7 @@ div.persoon div.foto { display: none;}
     #container {margin:0 auto;padding:10px;width:95%;border:none;}
     header {height:149px;}
     #logo { position:absolute;top:0;left:0; text-align:left;border-top:none;}
-    #banner {position:absolute;top:0px;border-top:none;width:100%;background:#FFF;overflow:hidden;}
-    
+    #banner {position:absolute;top:0px;border-top:none;width:100%;overflow:hidden;}
     #search { width:100%;text-align:center;display:none;}
     #search_text {font-size:1.2em;}
     #search submit {font-size:1.2em;display:block;text-align-center;}
@@ -268,13 +267,8 @@ div.persoon div.foto { display: none;}
     
 
     /*ITEM*/
-    .item .header { height: auto;position: relative;}
-    .item .header:after {clear:both;content:"\0000a0";height:0;display:block;}
-    .item h1 {float:left;}
-    .item h2 {margin-top:10px;}
-    .item .tweet-button { float:right;}
-    .item > div { font-style:normal;text-align:left; padding:3px 10px;}
-    .item ul.links {list-style: none;} 
+    .item-header { height: auto;position: relative;}
+    .item-header:after {clear:both;content:"\0000a0";height:0;display:block;}
 
     #video, #relaties, #trefwoorden, #afbeelding { margin-top: 10px; border-bottom: 1px dashed #7FB539}
 

@@ -40,7 +40,7 @@
         </fieldset>
     </form>
 </div>
-{{macros.paging(page,pageCount,'admin_item',{search:search,orderby:orderBy,page:page})}}
+{{macros.paging(page,pageCount,'admin_item',{search:search,orderby:orderBy,page:page,state:state})}}
 <div class="grid">
     {%if entities|length == 0 %}
         <h3>Geen resultaten</h3>

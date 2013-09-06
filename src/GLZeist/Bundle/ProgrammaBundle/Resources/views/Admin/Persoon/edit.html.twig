@@ -26,8 +26,11 @@
     </div>
 </form>
 
+
 <script>
-    CKEDITOR.replace('glzeist_bundle_programmabundle_persoontype_personalia');
+    require(["ckeditor/ckeditor"], function() {
+        CKEDITOR.replace('glzeist_bundle_programmabundle_persoontype_personalia');
+    });
 </script>
 
 {%endblock%}

@@ -1,14 +1,6 @@
 {% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
 {%block content%}
 <h1>Thema toevoegen</h1>
-
-<form action="{{ path('thema_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit">Toevoegen</button>
-    </p>
-</form>
-
 <ul class="record_actions">
     <li>
         <a href="{{ path('admin_thema') }}">
@@ -16,4 +8,16 @@
         </a>
     </li>
 </ul>
+<form action="{{ path('thema_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Toevoegen</button>
+    </p>
+</form>
+<script>
+    require(["ckeditor/ckeditor"], function() {
+        CKEDITOR.replace('glzeist_bundle_programmabundle_thematype_tekst');
+    });
+</script>
+
 {%endblock%}

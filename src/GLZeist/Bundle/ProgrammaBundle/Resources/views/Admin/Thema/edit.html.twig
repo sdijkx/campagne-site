@@ -20,7 +20,8 @@
 </form>
 
 <script>
-    CKEDITOR.replace('glzeist_bundle_programmabundle_thematype_tekst');
+    require(["ckeditor/ckeditor"], function() {
+        CKEDITOR.replace('glzeist_bundle_programmabundle_thematype_tekst');
+    });
 </script>
-
 {%endblock%}
