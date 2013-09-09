@@ -84,7 +84,6 @@ class DefaultController extends Controller
             'trefwoord'=>$trefwoord,
             'items'=>$items, 
             'limit'=>$limit,
-            'moreitems'=>$this->moreitems($items,$limit),
             'breadcrumb'=>array(
                 array(
                     'name' => $trefwoord->getTrefwoord()

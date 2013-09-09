@@ -1,15 +1,27 @@
 {% extends "GLZeistProgrammaBundle::base.html.twig" %} 
 {%block title%}Trefwoord - {{trefwoord.trefwoord}}{%endblock%}
 {%block content%}
-<div class="trefwoord">
-    {%for item in items%}
-        {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig' %}
-    {%endfor%}
-</div>
+
+<section id="items" class="col">
+    <h1 class="header">{{site.titel}}</h1>
+</section>
+
 
 
 {%endblock%}
 
 {%block rightcontent%}
 
+{%endblock%}
+
+{%block script%}
+<script>
+    require(['jquery'],function(){
+        var url="{{path('item_list_trefwoord',{slug:trefwoord.slug,limit:10})}}";
+        $.get(url,function(data){
+            $('#items').removeClass('laden');
+            $('#items').append(data);
+        });
+    });
+</script>
 {%endblock%}
