@@ -21,6 +21,7 @@ namespace GLZeist\Bundle\ProgrammaBundle\Controller\App;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 
@@ -28,6 +29,7 @@ class PersoonController extends Controller
 {
     /**
      * @Route("/personen", name="persoon_index")
+     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -37,6 +39,7 @@ class PersoonController extends Controller
     }    
     /**
      * @Route("/persoon/{slug}", name="persoon")
+     * @Method("GET")
      * @Template()
      */
     public function detailAction($slug)

@@ -3,7 +3,7 @@
         <a href="{{path('item',{thema:item.thema.slug,slug:item.slug})}}"">{{item.titel}}</a>
     </h2>
     <div class="meta"><span class="geplaatst">{{item.gepubliceerdOp|date('d-m-Y')}}</span></div>
-    <div class="grid">
+    <div>
         {%if item.thumbfile %}
             <div class="thumb">
                 <img src="{{path('file',{filename:item.thumbfile})}}" />

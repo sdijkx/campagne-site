@@ -12,36 +12,29 @@
 {%endblock%}
 
 {%block content%}
-    <section id="items">
-        {%for item in items%}
-            {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig' %}
-        {%endfor%}
+    
+    <section id="items" class="col-1-2">
+        <h1 class="header">{{site.titel}}</h1>
     </section>
-    <h1 class="header">Nieuws</h1>
-    <section id="nieuws">
-        <div class="laden">&nbsp;</div>
+    <section id="nieuws" class="laden col-1-2">
+        <h1 class="header">Nieuws</h1>
     </section>
-    <div id="nieuws-laden" class="laden" style="display:none;"> &nbsp;</div>
-    <button id="meer-nieuws" style="display:none;">Meer nieuws</button>
-    <div>&nbsp;</div>
     <script>
         require(['jquery'],function(){
-            var offset=0;
-            $('#nieuws').load("{{path('rss',{limit:4})}}", function() {
-                $('#meer-nieuws').toggle();
-            });
-            $('#meer-nieuws').click(function(e){
-                $('#meer-nieuws').toggle();
-                $('#nieuws-laden').toggle();
-                offset+=4;
-                var url="{{path('rss')}}?limit=4&offset="+offset;
-                $.get(url,function(data){
-                    $('#nieuws-laden').toggle();
-                    $('#nieuws').append(data);
-                    $('#meer-nieuws').toggle();
-                });
+            var url="{{path('rss',{limit:3})}}";
+            $.get(url,function(data){
+                $('#nieuws').removeClass('laden');
+                $('#nieuws').append(data);
             });
         });
+        require(['jquery'],function(){
+            var url="{{path('item_list_home',{limit:4})}}";
+            $.get(url,function(data){
+                $('#items').removeClass('laden');
+                $('#items').append(data);
+            });
+        });
+
     </script>
 {%endblock%}
 

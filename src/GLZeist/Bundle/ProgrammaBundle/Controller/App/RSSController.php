@@ -21,6 +21,7 @@ namespace GLZeist\Bundle\ProgrammaBundle\Controller\App;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use GLZeist\Bundle\ProgrammaBundle\RSS;
 
@@ -30,15 +31,16 @@ class RSSController extends Controller
 
     /**
      * @Route("/rss", name="rss")
+     * @Method("GET")
      * @Template()
      */
     
     public function indexAction(Request $request)
     {
-        $limit=$request->get("limit",0);
+        $limit=$request->get("limit",3);
         $offset=$request->get("offset",0);
         $rss=$this->get('gl_zeist_programma.rss');
-        return array('items' => $rss->getItems($limit,$offset));
+        return array('items' => $rss->getItems($limit,$offset),'limit'=>$limit,'offset'=>($offset+$limit));
     }
 }
 

@@ -35,7 +35,12 @@ class RSS
         $channel=$rss->getElementsByTagName('channel')->item(0);
         $itemList=$rss->getElementsByTagName('item');
         
-        for($i=$offset;$i<$itemList->length && ($limit==0 || ($i-$offset)<$limit);$i++)
+        if($limit==0)
+        {
+            $limit=-1;
+        }
+        
+        for($i=$offset;$i<$itemList->length && ($limit!=0);$i++,$limit--)
         {
             $item=$itemList->item($i);
             

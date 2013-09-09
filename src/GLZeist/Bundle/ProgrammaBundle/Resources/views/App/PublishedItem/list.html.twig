@@ -1,0 +1,6 @@
+{%for item in moreItems.items%}
+    {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig' %}
+{%endfor%}
+{%if moreItems.more %}
+    <a href="{{moreItems.path}}" class="meer-laden">Meer..</a>
+{%endif%}

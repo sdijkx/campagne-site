@@ -1,0 +1,11 @@
+{% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block title%}Thema's{%endblock%}
+
+{%block content%}
+<ul class="thema_index">
+{%for thema in list%}
+    <li><a href="{{path('thema',{slug:thema.slug})}}" title="{{thema.titel}}">{{thema.titel}}</a></li>
+{%endfor%}
+</ul>
+
+{%endblock%}

@@ -165,24 +165,12 @@ h1.header {margin-left:10px;}
 .trefwoorden {padding-top:3px;color:#666;}
 .geplaatst { color:#666;font-style:italic;}
 .meta {margin-bottom:3px;}
-.lees-meer{ margin-top:10px;}
-.laden { background: transparent url('/images/spinner.gif') no-repeat center;height:25px}
 
 /*
 NIEUWS
 */
-#meer-nieuws 
-{
-    margin: 4px 10px 10px 10px;
-    border:none;
-    padding:6px;
-    font-family: Georgia;
-    font-size:0.8em;
-    width:100%;
-    background-color: #EAEAEA;
-    cursor: pointer;
-    
-}
+#nieuws { min-height:300px;}
+#items {min-height:300px}
 
 /*
 THEMA

@@ -10,11 +10,18 @@
     {%set active= (current== url) %}
     {{menu.menu_item(url,'Home',active)}}
 
+    {#
+    {%set url=path('thema_index') %}
+    {%set active= (current== url) %}
+    {{menu.menu_item(url,'Thema\'s',active)}}
+    #}
+
     {%for entity in themas()%}
         {%set url=path('thema',{slug:entity.slug}) %}
         {%set active= (thema is defined and entity.slug==thema.slug ) %}
         {{menu.menu_item(url,entity.titel,active)}}
     {%endfor%}
+
     {%set url=path('hoofdstuk_index') %}
     {%set active= (current== url or app.request.get('_route')=='hoofdstuk') %}
     {{menu.menu_item(url,'Programma',active)}}

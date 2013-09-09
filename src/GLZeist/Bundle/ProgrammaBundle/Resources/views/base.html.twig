@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Cache-control" content="public">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0">
         <meta name="owner" content="GroenLinks Zeist">
         <meta name="author" content="GroenLinks Zeist">
         <meta name="robots" content="index,follow">
@@ -21,6 +21,7 @@
         {% stylesheets 
             '@GLZeistProgrammaBundle/Resources/public/css/grid.css' 
             '@GLZeistProgrammaBundle/Resources/public/css/style.css' 
+            '@GLZeistProgrammaBundle/Resources/public/css/meer-laden.css' 
             '@GLZeistProgrammaBundle/Resources/public/css/footer.css' 
             '@GLZeistProgrammaBundle/Resources/public/css/spotlicht.css' 
             '@GLZeistProgrammaBundle/Resources/public/css/promotie.css' 
@@ -120,5 +121,21 @@
                 </div>
             </div>
         </footer>
+        <script>
+            require(['jquery'],function(){
+                $('body').delegate('.meer-laden','click',function(){
+                    var el=$(this);
+                    var url=el.attr('href');
+                    el.html('&nbsp;');
+                    el.addClass('laden');
+                    $.get(url,function(data){
+                        el.hide();
+                        el.before(data);
+                        el.remove();
+                    });
+                    return false;
+                });
+            });
+        </script>
     </body>
 </html>

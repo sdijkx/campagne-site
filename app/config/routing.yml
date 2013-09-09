@@ -3,9 +3,29 @@ gl_zeist_admin:
     type:     annotation
     prefix:   /admin
     
+gl_zeist_thema:
+    resource: "@GLZeistProgrammaBundle/Controller/App/ThemaController.php"
+    type:     annotation    
+    
+gl_zeist_hoofdstuk:
+    resource: "@GLZeistProgrammaBundle/Controller/App/HoofdstukController.php"
+    type:     annotation    
+    
+gl_zeist_persoon:
+    resource: "@GLZeistProgrammaBundle/Controller/App/PersoonController.php"
+    type:     annotation    
+        
 gl_zeist:
-    resource: "@GLZeistProgrammaBundle/Controller/App"
+    resource: "@GLZeistProgrammaBundle/Controller/App/DefaultController.php"
     type:     annotation
+    
+gl_zeist_published:
+    resource: "@GLZeistProgrammaBundle/Controller/App/PublishedItemController.php"
+    type:     annotation    
+    
+gl_zeist_rss:
+    resource: "@GLZeistProgrammaBundle/Controller/App/RSSController.php"
+    type:     annotation    
   
 
 admin_login_check:

@@ -24,51 +24,41 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class HoofdstukController extends Controller {
+use GLZeist\Bundle\ProgrammaBundle\Entity\Speerpunt;
+
+class ThemaController extends Controller
+{
 
     /**
-     * @Route("/hoofdstuk/", name="hoofdstuk_index")
+     * @Route("/thema", name="thema_index")
      * @Method("GET")
      * @Template()
      */
     public function indexAction()
     {
-        $hoofdstukken = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->findAll();
+        $list = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Thema')->findAll(null,array('thema'));
         return array(
-            'hoofdstukken'=>$hoofdstukken,
-            'breadcrumb'=>array(
-                array(
-                    'name' => 'Hoofdstukken'
-                )
-            )
+            'list'=>$list
         );
-    }    
+    }
     
     /**
-     * @Route("/hoofdstuk/{slug}", name="hoofdstuk")
+     * @Route("/thema/{slug}", name="thema")
      * @Method("GET")
      * @Template()
      */
-    public function hoofdstukAction($slug)
+    public function themaAction($slug)
     {
-        $hoofdstuk = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->findOneBySlug($slug);
-        if (!$hoofdstuk) 
+        $thema = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Thema')->findOneBySlug($slug);
+        if (!$thema) 
         {
             throw $this->createNotFoundException();        
         }
+        $items=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findByThema($slug,10);
         return array(
-            'hoofdstuk'=>$hoofdstuk,
-            'breadcrumb'=>array(
-                array(
-                    'name' => 'Hoofdstukken',
-                    'url' => $this->generateUrl('hoofdstuk_index')
-                )
-                ,
-                array(
-                    'name' => $hoofdstuk->getTitel()
-                )
-            )
+            'thema'=>$thema,
+            'items'=>$items,
         );
-    }    
-
+    }
+    
 }

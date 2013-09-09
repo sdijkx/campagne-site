@@ -21,6 +21,7 @@ namespace GLZeist\Bundle\ProgrammaBundle\Controller\App;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use GLZeist\Bundle\ProgrammaBundle\Entity\Speerpunt;
@@ -29,6 +30,7 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/", name="home")
+     * @Method("GET")
      * @Template()
      */
     public function homeAction()
@@ -37,14 +39,13 @@ class DefaultController extends Controller
         //$speerpunten = array();
         
         $speerpunten=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Speerpunt')->findRandomForHomePage();
-        $items = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findAllForHomePage();
         $hoofdstukken = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->findAll();
-        $rss=$this->get('gl_zeist_programma.rss');
-        return array('items' => $items,'speerpunten' => $speerpunten,'hoofdstukken'=>$hoofdstukken);
+        return array('speerpunten' => $speerpunten,'hoofdstukken'=>$hoofdstukken);
     }
     
     /**
      * @Route("/zoeken", name="glzeist_programma_app_search" )
+     * @Method("GET")
      * @Template()
      */
     
@@ -64,42 +65,10 @@ class DefaultController extends Controller
             );
     }
     
-    private function moreitems($results,$limit)
-    {
-        if(!is_null($results) && count($results)>$limit)
-        {
-            array_pop($results);
-            return true;
-        }
-         else 
-        {
-             return false;
-        }        
-    }
-    
-    /**
-     * @Route("/thema/{slug}", name="thema")
-     * @Template()
-     */
-    public function themaAction($slug)
-    {
-        $thema = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Thema')->findOneBySlug($slug);
-        if (!$thema) 
-        {
-            throw $this->createNotFoundException();        
-        }
-        $limit=$this->getRequest()->get('limit',10);
-        $items=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findByThema($thema,array('gepubliceerdOp'=>'DESC'),$limit+1);
-        return array(
-            'thema'=>$thema,
-            'items'=>$items,
-            'limit'=>$limit,
-            'moreitems'=>$this->moreitems($items,$limit)
-        );
-    }
-    
+        
     /**
      * @Route("/trefwoord/{slug}", name="trefwoord")
+     * @Method("GET") 
      * @Template()
      */
     public function trefwoordAction($slug)
@@ -127,6 +96,7 @@ class DefaultController extends Controller
     
     /**
      * @Route("/file/{filename}",name="file") 
+     * @Method("GET")
      */
     public function fileAction($filename)
     {
@@ -146,6 +116,7 @@ class DefaultController extends Controller
     
     /**
      * @Route("/site/banner",name="site_banner") 
+     * @Method("GET")
      */
     public function bannerAction()
     {

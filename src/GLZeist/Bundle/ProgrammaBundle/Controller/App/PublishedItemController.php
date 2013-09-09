@@ -21,14 +21,67 @@ namespace GLZeist\Bundle\ProgrammaBundle\Controller\App;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 
 class PublishedItemController extends Controller
 {
+    
+    /**
+     * @Route("/home/items",name="item_list_home")
+     * @Method("GET")
+     * @Template("GLZeistProgrammaBundle:App:PublishedItem/list.html.twig")
+     */    
+    public function homeAction(Request $request)
+    {
+        $limit=$request->get('limit',5);
+        $offset=$request->get('offset',0);
+        $items = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findByHomePage($limit,$offset);
+        $count = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->countByHomePage($limit,$offset);
+        $path=$this->generateUrl('item_list_home',array('limit'=>$limit,'offset'=> $limit+$offset));
+        $moreItems=new \GLZeist\Bundle\ProgrammaBundle\MoreItems($items, $count, $limit, $offset,$path);
+        return array('moreItems'=>$moreItems);
+
         
+    }
+    
+    /**
+     * @Route("/thema/{slug}/items",name="item_list_thema")
+     * @Method("GET")
+     * @Template("GLZeistProgrammaBundle:App:PublishedItem/list.html.twig")
+     */    
+    public function themaAction(Request $request,$slug)
+    {
+        $limit=$request->get('limit',5);
+        $offset=$request->get('offset',0);
+        $count=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->countByThema($slug);
+        $items = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findByThema($slug,$limit,$offset);
+        $path=$this->generateUrl('item_list_thema',array('slug'=>$slug,'limit'=>$limit,'offset'=> $limit+$offset));
+        $moreItems=new \GLZeist\Bundle\ProgrammaBundle\MoreItems($items, $count, $limit, $offset,$path);
+        return array('moreItems'=>$moreItems);
+    }
+
+    /**
+     * @Route("/trefwoord/{slug}/items",name="item_list_trefwoord")
+     * @Method("GET")
+     * @Template("GLZeistProgrammaBundle:App:PublishedItem/list.html.twig")
+     */    
+    public function trefwoordAction(Request $request,$slug)
+    {
+        $limit=$request->get('limit',5);
+        $offset=$request->get('offset',0);
+        $items = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findByTrefwoord($slug,$limit,$offset);
+        $count = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->countByTrefwoord($slug,$limit,$offset);
+        $path=$this->generateUrl('item_list_trefwoord',array('slug'=>$slug,'limit'=>$limit,'offset'=> $limit+$offset));
+        $moreItems=new \GLZeist\Bundle\ProgrammaBundle\MoreItems($items, $count, $limit, $offset,$path);
+        return array('moreItems'=>$moreItems);
+    }
+    
     
     /**
      * @Route("/{thema}/{slug}",name="item")
+     * @Method("GET")
      * @Template()
      */
     public function detailAction($thema,$slug)
@@ -52,8 +105,4 @@ class PublishedItemController extends Controller
             )
         );
     }
-    
-    
-    
-    
 }
