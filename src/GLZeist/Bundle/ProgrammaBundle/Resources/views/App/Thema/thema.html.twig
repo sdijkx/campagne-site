@@ -8,17 +8,24 @@
 <div id="thema-header">
     {{thema.tekst|raw}}
 </div>
-{%if items|length>0 %}
+<section id="items">
     <h1>Verwante onderwerpen</h1>
-    <section>
-        {%for item in items%}
-            {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig' %}
-        {%endfor%}
-    </section>
-{%endif%}
+</section>
 
 {%endblock%}
 
 {%block rightcontent%}
 
+{%endblock%}
+
+{%block script%}
+<script>
+    require(['jquery'],function(){
+        var url="{{path('item_list_thema',{slug:thema.slug,limit:10})}}";
+        $.get(url,function(data){
+            $('#items').removeClass('laden');
+            $('#items').append(data);
+        });
+    });
+</script>
 {%endblock%}

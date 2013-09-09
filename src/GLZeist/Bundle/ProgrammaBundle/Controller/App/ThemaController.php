@@ -54,10 +54,8 @@ class ThemaController extends Controller
         {
             throw $this->createNotFoundException();        
         }
-        $items=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findByThema($slug,10);
         return array(
-            'thema'=>$thema,
-            'items'=>$items,
+            'thema'=>$thema
         );
     }
     
