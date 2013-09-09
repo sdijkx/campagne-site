@@ -68,8 +68,14 @@ ul, li {
   font-weight:         normal;
   font-style:          normal;
   margin-left: 0.5em;
-  list-style: disc outside;
 }
+ul {
+  list-style: disc outside;    
+}
+li {
+    list-style: inherit;
+}
+
 
 ol {
   color:               darkblue;
@@ -179,8 +185,8 @@ THEMA
     font-size:1.1em;
     padding:20px 30px;
     background-color:#7EC416;
-    color:#FFF;width:90%;
-    margin:10px auto 10px auto;
+    color:#FFF;
+    margin:10px auto;
     border-radius:10px 10px 0 0
 }
 
@@ -313,7 +319,7 @@ div.persoon div.foto { display: none;}
         text-align:center;
     }
 
-    div.thema-header {
+    #thema-header {
         width:auto;
     }
 }

@@ -1,7 +1,7 @@
 
 @media screen 
 {
-    .grid {position:rleative;max-width: 1024px;min-width:320px;margin: 0 auto;}
+    .grid {position:rleative;max-width: 1024px;min-width:300px;margin: 0 auto;}
     .grid:after {clear:both;content:"\0000a0";height:0;display:block;}
     .col {width:100%;margin:0;padding:0;}
 }
