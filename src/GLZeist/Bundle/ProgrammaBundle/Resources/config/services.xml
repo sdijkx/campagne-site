@@ -23,12 +23,7 @@
 
         <service id="gl_zeist_programma.menu" class="%gl_zeist_programma.menu.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
-            <call method="setRequest">
-                <argument type="service" id="request" on-invalid="null" strict="false" />
-            </call>            
-            <call method="setRouter">
-                <argument type="service" id="router" on-invalid="null" strict="false" />
-            </call>            
+            <argument type="service" id="service_container" />
         </service>                
 
         <service id="gl_zeist_programma.site" class="%gl_zeist_programma.site.class%">

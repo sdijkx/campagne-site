@@ -1,6 +1,6 @@
 {%set current = app.request.baseUrl ~ app.request.pathInfo %}
 <select>
-    {%for menuItem in site.menu.generateItems%}
+    {%for menuItem in site.menu.items%}
         <option {%if menuItem.actief %}selected="selected"{%endif%} value="{{menuItem.url}}">{{menuItem.titel}}</option>
     {%endfor%}
 </select>

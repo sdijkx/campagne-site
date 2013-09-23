@@ -24,44 +24,43 @@ use \Doctrine\ORM\EntityManager;
 
 class Menu {
 
-    private $router;
-    private $request;
     private $em;
-    private $url;
     private $items;
     
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em,$container)
     {
         $this->em=$em;
-    }
-    
-    public function setRequest(Request $request) {
-        $this->request = $request;
+        $this->container=$container;
         $this->items=array();
     }
-    
-    public function setRouter($router) {
-        $this->router = $router;
-    }
-        
-    public function generateItems()
+            
+    private function generateItems()
     {
-        if(count($this->items)==0)
+        $router=$this->container->get('router');
+        $this->items=array();
+        $this->add($router->generate('home'),'Home');
+        foreach($this->getHoofdstukken() as $hoofdstuk)
         {
-            $this->url=$this->request->getBaseUrl().$this->request->getPathInfo();
-            $this->add($this->router->generate('home'),'Home');
-            foreach($this->getHoofdstukken() as $hoofdstuk)
-            {
-                $this->add($this->router->generate('hoofdstuk',array('slug'=>$hoofdstuk->getSlug())),$hoofdstuk->getTitel());    
-            }
-            $this->add($this->router->generate('kandidaat_index'),'Kandidaten');
+            $this->add($router->generate('hoofdstuk',array('slug'=>$hoofdstuk->getSlug())),$hoofdstuk->getTitel());    
         }
+        $this->add($router->generate('kandidaat_index'),'Kandidaten');
         return $this->items;
     }
         
     private function add($url,$titel)
     {
-        $this->items[]=array('url' => $url,'titel' => $titel,'actief' => ($url==$this->url));
+        $this->items[]=array('url' => $url,'titel' => $titel,'actief' => false);
+    }
+    
+    private function maakActief($url)
+    {
+        foreach($this->items as $key => $item)
+        {
+            if($item['url']==$url)
+            {
+                $this->items[$key]['actief']=true;
+            }
+        }
     }
     
     private function getHoofdstukken()
@@ -71,6 +70,12 @@ class Menu {
     
     public function getItems()
     {
+        if(count($this->items)==0)
+        {
+            $this->generateItems();
+        }
+        $request=$this->container->get('request');    
+        $this->maakActief($request->getBaseUrl().$request->getPathInfo());
         return $this->items;
     }
 }

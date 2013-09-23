@@ -5,7 +5,7 @@
 {% import _self as menu %}
 
 <ul class="menu">
-    {%for menuItem in site.menu.generateItems%}
+    {%for menuItem in site.menu.items%}
         {{menu.menu_item(menuItem.url,menuItem.titel,menuItem.actief)}}
     {%endfor%}
 </ul>
