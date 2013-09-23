@@ -13,17 +13,27 @@
         <parameter key="gl_zeist_programma.fulltext_search_service.class">GLZeist\Bundle\ProgrammaBundle\FullTextSearchService</parameter>                
         <parameter key="gl_zeist_programma.rss.class">GLZeist\Bundle\ProgrammaBundle\RSS</parameter>                
         <parameter key="gl_zeist_programma.site.class">GLZeist\Bundle\ProgrammaBundle\Site</parameter>                
+        <parameter key="gl_zeist_programma.menu.class">GLZeist\Bundle\ProgrammaBundle\Menu</parameter>                        
         <parameter key="upload_dir">%kernel.root_dir%/uploads</parameter>
         <parameter key="site_dir">%kernel.root_dir%/site</parameter>
         <parameter key="rss_feed">http://zeist.groenlinks.nl/rss</parameter>
     </parameters>
-    
-            
 
     <services>
 
+        <service id="gl_zeist_programma.menu" class="%gl_zeist_programma.menu.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <call method="setRequest">
+                <argument type="service" id="request" on-invalid="null" strict="false" />
+            </call>            
+            <call method="setRouter">
+                <argument type="service" id="router" on-invalid="null" strict="false" />
+            </call>            
+        </service>                
+
         <service id="gl_zeist_programma.site" class="%gl_zeist_programma.site.class%">
             <argument>%site_dir%/settings.yml</argument>
+            <argument type="service" id="gl_zeist_programma.menu" />
         </service>
         
         <service id="gl_zeist_programma.rss" class="%gl_zeist_programma.rss.class%">
@@ -78,7 +88,6 @@
             <argument type="service" id="mailer" />
             <argument type="service" id="templating" />
         </service>
-        
         
         
     </services>

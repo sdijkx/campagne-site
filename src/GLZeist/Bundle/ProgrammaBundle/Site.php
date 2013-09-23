@@ -29,10 +29,12 @@ class Site
     private $ondertitel;
     private $filename;
     private $twitter;
+    private $menu;
 
-    public function __construct($filename)
+    public function __construct($filename, Menu $menu)
     {
         $this->filename=$filename;
+        $this->menu=$menu;
         $this->load();
     }
     
@@ -150,5 +152,10 @@ class Site
         return dirname($this->filename);
     }
     
+    public function getMenu() {
+        return $this->menu;
+    }
+
+
 
 }

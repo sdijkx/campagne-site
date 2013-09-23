@@ -78,7 +78,7 @@
             <h2>Samenhangende items</h2>
             <h3>
             {%for relatie in item.relaties %}
-                {{glzeist.link(path('item',{thema:relatie.thema.slug,slug:relatie.slug}),relatie.titel)}}
+                {{glzeist.link(path('item',{hoofdstuk:relatie.hoofdstuk.slug,slug:relatie.slug}),relatie.titel)}}
                <br>
             {%endfor%}
             </h3>

@@ -65,26 +65,19 @@ class Hoofdstuk
      * @ORM\Column(name="tekst", type="text", nullable=true)
      */
     private $tekst;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Thema")
-     */
-    private $themas;
-    
     
     /**
-     * @ORM\OneToMany(targetEntity="Paragraaf",cascade={"all"},mappedBy="hoofdstuk")
+     * @var string
+     *
+     * @ORM\Column(name="samenvatting", type="text", nullable=true)
      */
-    private $paragrafen;
+    private $samenvatting;
+    
     
     
     public function __construct()
     {
-        $this->paragrafen=new \Doctrine\Common\Collections\ArrayCollection();
-        $this->themas=new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
-    
     
 
 
@@ -144,25 +137,16 @@ class Hoofdstuk
     public function setTekst($tekst) {
         $this->tekst = $tekst;
     }
-
-    public function getThemas() {
-        return $this->themas;
-    }
-
-    public function setThemas($themas) {
-        $this->themas = $themas;
-    }
-
-            
-    public function getParagrafen() {
-        return $this->paragrafen;
-    }
-
-    public function setParagrafen($paragrafen) {
-        $this->paragrafen = $paragrafen;
-    }
-
     
+    public function getSamenvatting() {
+        return $this->samenvatting;
+    }
+
+    public function setSamenvatting($samenvatting) {
+        $this->samenvatting = $samenvatting;
+    }
+
+        
     
     public function __toString()
     {

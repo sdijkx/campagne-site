@@ -1,17 +1,8 @@
 {%set current = app.request.baseUrl ~ app.request.pathInfo %}
-
- <select>
-    {%set url=path('home') %}
-    {%set active= (current== url) %}
-    <option {%if active %}selected="selected"{%endif%} value="{{url}}">Home</option>
-    {%for entity in themas()%}
-        {%set url=path('thema',{slug:entity.slug}) %}
-        {%set active= (thema is defined and entity.slug==thema.slug ) %}
-        <option {%if active %}selected="selected"{%endif%} value="{{url}}">{{entity.titel}}</option>
+<select>
+    {%for menuItem in site.menu.generateItems%}
+        <option {%if menuItem.actief %}selected="selected"{%endif%} value="{{menuItem.url}}">{{menuItem.titel}}</option>
     {%endfor%}
-    {%set url=path('persoon_index') %}
-    {%set active= (current== url or app.request.get('_route')=='persoon') %}
-    <option {%if active %}selected="selected"{%endif%} value="{{url}}">Personen</option>
 </select>
 <script>
     require(['jquery'],function(){

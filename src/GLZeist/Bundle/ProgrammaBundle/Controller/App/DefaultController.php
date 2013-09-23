@@ -45,7 +45,7 @@ class DefaultController extends Controller
     
     /**
      * @Route("/zoeken", name="glzeist_programma_app_search" )
-     * @Method("GET")
+     * @Method("POST")
      * @Template()
      */
     

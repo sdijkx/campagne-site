@@ -25,7 +25,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form:
       resources:
-        - 'GLZeistProgrammaBundle:Form:fields.html.twig'    
+        - 'GLZeistProgrammaBundle:Form:fields.html.twig'            
 
 # Assetic Configuration
 assetic:

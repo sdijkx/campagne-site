@@ -91,21 +91,21 @@
         <footer id="page-footer">
             <div class="grid">
                 <div class="col col-1-3">
-                    <h1 class="footer-link-list-title">programma</h1>
+                    <h1 class="footer-link-list-title">thema's</h1>
                     <ul class="footer-link-list">
-                        {%for hoofdstuk in hoofdstukken() %}
+                        {%for thema in themas() %}
                             <li class="footer-link-item">
-                                {{glzeist.link(path('hoofdstuk',{slug:hoofdstuk.slug}),hoofdstuk.titel)}}
+                                {{glzeist.link(path('thema',{slug:thema.slug}),thema.titel)}}
                             </li>
                         {%endfor%}
                     </ul>
                 </div>
                 <div class="col col-1-3">
-                    <h1 class="footer-link-list-title">wie wij zijn</h1>
+                    <h1 class="footer-link-list-title">kandidaten</h1>
                     <ul class="footer-link-list">
-                        {%for persoon in personen() %}
+                        {%for kandidaat in kandidaten() %}
                             <li class="footer-link-item">
-                                {{glzeist.link(path('persoon',{slug:persoon.slug}),persoon.naam)}}
+                                {{glzeist.link(path('kandidaat',{slug:kandidaat.slug}),kandidaat.naam)}}
                             </li>
                         {%endfor%}
                     </ul>

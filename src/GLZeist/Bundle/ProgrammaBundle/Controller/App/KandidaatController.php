@@ -25,39 +25,39 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 
-class PersoonController extends Controller 
+class KandidaatController extends Controller 
 {
     /**
-     * @Route("/personen", name="persoon_index")
+     * @Route("/kandidaten", name="kandidaat_index")
      * @Method("GET")
      * @Template()
      */
     public function indexAction()
     {
-        $personen = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Persoon')->findAll();
-        return array('personen' => $personen);
+        $kandidaten = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Kandidaat')->findAll(array(),array('plek'));
+        return array('kandidaten' => $kandidaten);
     }    
     /**
-     * @Route("/persoon/{slug}", name="persoon")
+     * @Route("/kandidaat/{slug}", name="kandidaat")
      * @Method("GET")
      * @Template()
      */
     public function detailAction($slug)
     {
-        $persoon = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Persoon')->findOneBySlug($slug);
-        if(is_null($persoon))
+        $kandidaat = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Kandidaat')->findOneBySlug($slug);
+        if(is_null($kandidaat))
         {
             throw $this->createNotFoundException();
         }
         return array(
-            'persoon' => $persoon,
+            'kandidaat' => $kandidaat,
             'breadcrumb'=>array(
                 array(
-                    'url' => $this->generateUrl('persoon_index'),
-                    'name' => 'Personen'
+                    'url' => $this->generateUrl('kandidaat_index'),
+                    'name' => 'Kandidaten'
                 ),
                 array(
-                    'name' => $persoon->getNaam()
+                    'name' => $kandidaat->getNaam()
                 )
             )
             

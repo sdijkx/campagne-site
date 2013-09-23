@@ -80,29 +80,49 @@ class PublishedItemController extends Controller
     
     
     /**
-     * @Route("/{thema}/{slug}",name="item")
+     * @Route("/{hoofdstuk}/{slug}",name="item")
      * @Method("GET")
      * @Template()
      */
-    public function detailAction($thema,$slug)
+    public function detailAction($hoofdstuk,$slug)
     {
         $item = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findOneBySlug($slug);
         if (!$item) 
         {
             throw $this->createNotFoundException();        
         }
+        $breadcrumb=$this->createBreadcrumb($item);
         return array(
             'item'=>$item,
-            'thema'=> $item->getThema(),
-            'breadcrumb'=>array(
+            'hoofdstuk'=> $item->getHoofdstuk(),
+            'breadcrumb'=> $breadcrumb
+        );
+    }
+    private function createBreadcrumb($item)
+    {
+        if($item->getHoofdstuk())
+        {
+            return array(
                 array(
-                    'url' => $this->generateUrl('thema',array('slug'=>$thema)),
+                    'url' => $this->generateUrl('hoofdstuk',array('slug'=>$hoofdstuk)),
                     'name' => $item->getThema()->getTitel()
                 ),
                 array(
                     'name' => $item->getTitel()
                 )
-            )
-        );
+            );            
+        }
+        else
+        {
+            return array(
+                array(
+                    'url' => $this->generateUrl('home'),
+                    'name' => 'Home'
+                ),
+                array(
+                    'name' => $item->getTitel()
+                )
+            );            
+        }
     }
 }

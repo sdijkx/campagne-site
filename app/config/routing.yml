@@ -11,8 +11,8 @@ gl_zeist_hoofdstuk:
     resource: "@GLZeistProgrammaBundle/Controller/App/HoofdstukController.php"
     type:     annotation    
     
-gl_zeist_persoon:
-    resource: "@GLZeistProgrammaBundle/Controller/App/PersoonController.php"
+gl_zeist_kandidaat:
+    resource: "@GLZeistProgrammaBundle/Controller/App/KandidaatController.php"
     type:     annotation    
         
 gl_zeist:

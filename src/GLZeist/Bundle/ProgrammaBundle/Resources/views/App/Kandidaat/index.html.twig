@@ -1,0 +1,10 @@
+{% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block title%}Personen{%endblock%}
+{%block content%}
+    <section>
+        <h1>Kandidatenlijst</h1>
+        {%for kandidaat in kandidaten%}
+            {%include 'GLZeistProgrammaBundle:App/Default:includes/kandidaat-list-entry.html.twig'%}
+        {%endfor%}
+    </section>
+{%endblock%}

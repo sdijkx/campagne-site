@@ -26,12 +26,12 @@ use GLZeist\Bundle\ProgrammaBundle\Searchable;
 use GLZeist\Bundle\ProgrammaBundle\Annotation as App;
 
 /**
- * Persoon
+ * Kandidaat
  *
  * @ORM\Entity
  */
 
-class Persoon
+class Kandidaat
 {
     /**
      * @ORM\Column(name="id", type="integer")
@@ -41,17 +41,16 @@ class Persoon
     private $id;
     
     /**
+     * @ORM\Column(name="plek", type="integer", unique=true, nullable=true)
+     */
+    private $plek;
+    
+    
+    /**
      *
      * @ORM\Column(type="string",nullable=true)
      */        
     private $naam;
-
-    /**
-     *
-     * @ORM\Column(type="string",nullable=true)
-     */    
-    
-    private $functie;
 
     /**
      *
@@ -90,7 +89,15 @@ class Persoon
     public function setId($id) {
         $this->id = $id;
     }
+    
+    public function getPlek() {
+        return $this->plek;
+    }
 
+    public function setPlek($plek) {
+        $this->plek = $plek;
+    }
+    
     public function getNaam() {
         return $this->naam;
     }
@@ -99,13 +106,6 @@ class Persoon
         $this->naam = $naam;
     }
 
-    public function getFunctie() {
-        return $this->functie;
-    }
-
-    public function setFunctie($functie) {
-        $this->functie = $functie;
-    }
     public function getPersonalia() {
         return $this->personalia;
     }

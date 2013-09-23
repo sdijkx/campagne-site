@@ -49,13 +49,18 @@ class FullTextSearchService
         $rsm->addFieldResult('t', 'thema_slug', 'slug');
         $rsm->addFieldResult('t', 'thema_tekst', 'tekst');
         
+        $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Hoofdstuk', 'h','hoofdstuk');            
+        $rsm->addFieldResult('h', 'hoofdstuk_id', 'id');
+        $rsm->addFieldResult('h', 'hoofdstuk_titel', 'titel');
+        $rsm->addFieldResult('h', 'hoofdstuk_slug', 'slug');
+        $rsm->addFieldResult('h', 'hoofdstuk_samenvatting', 'tekst');
+        
                 
-        $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Persoon', 'p','persoon');            
-        $rsm->addFieldResult('p', 'persoon_id', 'id');
-        $rsm->addFieldResult('p', 'naam', 'naam');
-        $rsm->addFieldResult('p', 'functie', 'functie');
-        $rsm->addFieldResult('p', 'persoon_slug', 'slug');
-        $rsm->addFieldResult('p', 'persoon_thumbfile', 'thumbfile');
+        $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Kandidaat', 'k','kandidaat');            
+        $rsm->addFieldResult('k', 'kandidaat_id', 'id');
+        $rsm->addFieldResult('k', 'naam', 'naam');
+        $rsm->addFieldResult('k', 'kandidaat_slug', 'slug');
+        $rsm->addFieldResult('k', 'kandidaat_thumbfile', 'thumbfile');
 
         $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\PublishedItem', 'i','item');
         $rsm->addJoinedEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Thema', 'i_t','i','thema');
@@ -89,24 +94,27 @@ class FullTextSearchService
                 t.titel as thema_titel,
                 t.tekst as thema_tekst,
                 t.slug as thema_slug,
-                p.id as persoon_id,
-                p.naam,
-                p.functie,
-                p.slug as persoon_slug,
-                p.thumbfile as persoon_thumbfile,
+                h.id as hoofdstuk_id,
+                h.titel as hoofdstuk_titel,
+                h.tekst as hoofdstuk_tekst,
+                h.slug as hoofdstuk_slug,        
+                k.id as kandidaat_id,
+                k.naam,
+                k.slug as kandidaat_slug,
+                k.thumbfile as kandidaat_thumbfile,
                 MATCH(s.keywords) AGAINST('{$search}' IN BOOLEAN MODE) + MATCH(s.search_text) AGAINST('{$search}') AS relevance 
              FROM 
                 item_search AS s 
                 LEFT JOIN PublishedItem AS i ON s.object_id = i.id AND s.object_type='item'
                 LEFT JOIN Thema AS i_t ON i_t.id=i.thema_id
                 LEFT JOIN Thema AS t ON s.object_id=t.id AND s.object_type='thema'
-                LEFT JOIN Persoon AS p ON s.object_id=p.id AND s.object_type='persoon'
+                LEFT JOIN Hoofdstuk AS h ON s.object_id=h.id AND s.object_type='hoofdstuk'
+                LEFT JOIN Kandidaat AS k ON s.object_id=k.id AND s.object_type='kandidaat'
                 WHERE 
                     MATCH(s.search_text) AGAINST('{$search}' IN BOOLEAN MODE) OR
                     MATCH(s.keywords) AGAINST('{$search}' IN BOOLEAN MODE) 
                 ORDER BY relevance DESC, gepubliceerdOp DESC ".
                 ($limit>0?" LIMIT {$limit} ":" ");
-
 
         $query = $em->createNativeQuery($sql, $rsm);
         

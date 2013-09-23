@@ -23,27 +23,27 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PersoonType extends AbstractType
+class KandidaatType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('naam')
-            ->add('functie')
+            ->add('plek')
             ->add('personalia', 'textarea',array('required'=>false,'attr'=>array('class'=>'large')))
-            ->add('file')
+            ->add('file','file',array('label'=>'Foto'));
         ;
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'GLZeist\Bundle\ProgrammaBundle\Entity\Persoon'
+            'data_class' => 'GLZeist\Bundle\ProgrammaBundle\Entity\Kandidaat'
         ));
     }
 
     public function getName()
     {
-        return 'glzeist_bundle_programmabundle_persoontype';
+        return 'glzeist_bundle_programmabundle_kandidaattype';
     }
 }

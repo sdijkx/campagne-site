@@ -41,7 +41,7 @@ class AppExtension extends \Twig_Extension
         return array(
             'themas' => new \Twig_Function_Method($this,'getThemas'),
             'hoofdstukken' => new \Twig_Function_Method($this,'getHoofdstukken'),
-            'personen' => new \Twig_Function_Method($this,'getPersonen'),
+            'kandidaten' => new \Twig_Function_Method($this,'getKandidaten'),
             'is_moderator' => new \Twig_Function_Method($this,'isModerator'),
             'is_admin' => new \Twig_Function_Method($this,'isAdmin')
             
@@ -62,9 +62,9 @@ class AppExtension extends \Twig_Extension
         return $this->em->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->findAll();
     }
 
-    public function getPersonen()
+    public function getKandidaten()
     {
-        return $this->em->getRepository('GLZeistProgrammaBundle:Persoon')->findAll();
+        return $this->em->getRepository('GLZeistProgrammaBundle:Kandidaat')->findAll();
     }
     
     

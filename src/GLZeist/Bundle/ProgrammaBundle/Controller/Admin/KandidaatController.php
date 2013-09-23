@@ -24,29 +24,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use GLZeist\Bundle\ProgrammaBundle\Entity\Persoon;
-use GLZeist\Bundle\ProgrammaBundle\Form\PersoonType;
+use GLZeist\Bundle\ProgrammaBundle\Entity\Kandidaat;
+use GLZeist\Bundle\ProgrammaBundle\Form\KandidaatType;
 use GLZeist\Bundle\ProgrammaBundle\Annotation\Granted;
 
 /**
- * Persoon controller.
+ * Kandidaat controller.
  * @Granted(role="ROLE_MODERATOR")
- * @Route("/persoon")
+ * @Route("/kandidaat")
  */
 
-class PersoonController extends Controller 
+class KandidaatController extends Controller 
 {
     /**
      * Lists all Item entities.
      *
-     * @Route("/", name="admin_persoon")
+     * @Route("/", name="admin_kandidaat")
      * @Template()
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('GLZeistProgrammaBundle:Persoon')->createQueryBuilder('p')->orderBy('p.naam','ASC')->getQuery()->getResult();
+        $entities = $em->getRepository('GLZeistProgrammaBundle:Kandidaat')->createQueryBuilder('k')->orderBy('k.plek','ASC')->getQuery()->getResult();
 
         return array(
             'entities' => $entities,
@@ -55,13 +55,13 @@ class PersoonController extends Controller
     
     /**
      *
-     * @Route("/new", name="admin_new_persoon")
+     * @Route("/new", name="admin_new_kandidaat")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Persoon();
-        $form   = $this->createForm(new PersoonType(), $entity);
+        $entity = new Kandidaat();
+        $form   = $this->createForm(new KandidaatType(), $entity);
 
         return array(
             'entity' => $entity,
@@ -71,14 +71,14 @@ class PersoonController extends Controller
     
     /**
      *
-     * @Route("/create", name="admin_create_persoon")
+     * @Route("/create", name="admin_create_kandidaat")
      * @Method("POST")
-     * @Template()
+     * @Template("GLZeistProgrammaBundle:Admin:Kandidaat/new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity  = new \GLZeist\Bundle\ProgrammaBundle\Entity\Persoon();
-        $form = $this->createForm(new PersoonType(), $entity);
+        $entity  = new \GLZeist\Bundle\ProgrammaBundle\Entity\Kandidaat();
+        $form = $this->createForm(new KandidaatType(), $entity);
         $form->bind($request);
 
         if ($form->isValid()) {
@@ -88,12 +88,12 @@ class PersoonController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
-                $this->get('session')->getFlashBag()->add('notice','De persoon is toegevoegd');
-                return $this->redirect($this->generateUrl('admin_persoon', array('id' => $entity->getId())));
+                $this->get('session')->getFlashBag()->add('notice','De kandidaat is toegevoegd');
+                return $this->redirect($this->generateUrl('admin_kandidaat', array('id' => $entity->getId())));
             }
             catch(\Exception $e)
             {
-                $this->get('session')->getFlashBag()->add('error','De persoon kan niet worden toegevoegd');
+                $this->get('session')->getFlashBag()->add('error','De kandidaat kan niet worden toegevoegd');
             }
         }
 
@@ -105,20 +105,20 @@ class PersoonController extends Controller
     
     /**
      *
-     * @Route("/{id}/edit", name="admin_edit_persoon")
+     * @Route("/{id}/edit", name="admin_edit_kandidaat")
      * @Template()
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('GLZeistProgrammaBundle:Persoon')->find($id);
+        $entity = $em->getRepository('GLZeistProgrammaBundle:Kandidaat')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Persoon entity.');
+            throw $this->createNotFoundException('Unable to find Kandidaat entity.');
         }
 
-        $editForm = $this->createForm(new PersoonType(), $entity);
+        $editForm = $this->createForm(new KandidaatType(), $entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -130,22 +130,22 @@ class PersoonController extends Controller
     
     /**
      *
-     * @Route("/{id}/update", name="admin_update_persoon")
+     * @Route("/{id}/update", name="admin_update_kandidaat")
      * @Method("POST")
-     * @Template("GLZeistProgrammaBundle:Persoon:edit.html.twig")
+     * @Template("GLZeistProgrammaBundle:Admin:Kandidaat/edit.html.twig")
      */
     public function updateAction(Request $request,$id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('GLZeistProgrammaBundle:Persoon')->find($id);
+        $entity = $em->getRepository('GLZeistProgrammaBundle:Kandidaat')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Persoon entity.');
+            throw $this->createNotFoundException('Unable to find Kandidaat entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new PersoonType(), $entity);
+        $editForm = $this->createForm(new KandidaatType(), $entity);
         $editForm->bind($request);
 
         if ($editForm->isValid()) {
@@ -161,13 +161,13 @@ class PersoonController extends Controller
                 $em->persist($entity);
                 $em->flush();
                 
-                $this->get('session')->getFlashBag()->add('error','De persoon is opgeslagen');                
+                $this->get('session')->getFlashBag()->add('notice','De kandidaat is opgeslagen');                
 
-                return $this->redirect($this->generateUrl('admin_edit_persoon', array('id' => $id)));
+                return $this->redirect($this->generateUrl('admin_edit_kandidaat', array('id' => $id)));
             }
             catch(\Exception $e)
             {
-                $this->get('session')->getFlashBag()->add('error','De persoon kan niet worden opgeslagen');                
+                $this->get('session')->getFlashBag()->add('error','De kandidaat kan niet worden opgeslagen');                
             }
         }
 
@@ -181,7 +181,7 @@ class PersoonController extends Controller
     
     /**
      *
-     * @Route("/{id}/delete", name="admin_delete_persoon")
+     * @Route("/{id}/delete", name="admin_delete_kandidaat")
      * @Method("POST")
      * @Template()
      */
@@ -192,26 +192,26 @@ class PersoonController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('GLZeistProgrammaBundle:Persoon')->find($id);
+            $entity = $em->getRepository('GLZeistProgrammaBundle:Kandidaat')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Persoon entity.');
+                throw $this->createNotFoundException('Unable to find Kandidaat entity.');
             }
             
             try
             {
                 $em->remove($entity);
                 $em->flush();
-                $this->get('session')->getFlashBag()->add('notice','De persoon is verwijderd');                
-                return $this->redirect($this->generateUrl('admin_persoon'));        
+                $this->get('session')->getFlashBag()->add('notice','De kandidaat is verwijderd');                
+                return $this->redirect($this->generateUrl('admin_kandidaat'));        
             }
             catch(\Exception $e)
             {
-                $this->get('session')->getFlashBag()->add('error','De persoon kan niet worden verwijderd');                                
+                $this->get('session')->getFlashBag()->add('error','De kandidaat kan niet worden verwijderd');                                
             }
         }
 
-        return $this->redirect($this->generateUrl('admin_edit_persoon',array('id'=>$id)));        
+        return $this->redirect($this->generateUrl('admin_edit_kandidaat',array('id'=>$id)));        
     }
     
     private function createDeleteForm($id)

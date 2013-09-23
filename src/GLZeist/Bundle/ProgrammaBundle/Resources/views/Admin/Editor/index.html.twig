@@ -7,27 +7,6 @@
 {% for entity in entities %}
     <div class="hoofdstuk">
         <h3>{{entity.titel}}</h3>
-        <div class="paragrafen">
-            {% for paragraaf in entity.paragrafen %}
-                <div class="paragraaf">
-                    {{paragraaf.titel}}
-                </div>
-            {%endfor%}
-        </div>
     </div>
 {%endfor%}
 </div>
-
-<script>
-    require('jquery',function(){
-        $( "#document div.paragrafen" ).droppable({scope:"paragraaf"});
-        $( "#document div.paragraaf" ).droppable({scope:"paragraaf"});
-        $( "#document div.paragraaf" ).draggable({ axis: "y",scope:"paragraaf" });
-
-
-        $( "#document div.paragraaf" ).on("drop",function(event,ui){
-            ui.draggable.detach();
-            $(this).insertAfter(ui.draggable);
-        });
-    });
-</script>

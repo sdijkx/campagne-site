@@ -56,12 +56,14 @@ class HoofdstukController extends Controller {
         {
             throw $this->createNotFoundException();        
         }
+        $items= $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findByHoofdstuk($hoofdstuk);
         return array(
             'hoofdstuk'=>$hoofdstuk,
+            'items' => $items,
             'breadcrumb'=>array(
                 array(
-                    'name' => 'Hoofdstukken',
-                    'url' => $this->generateUrl('hoofdstuk_index')
+                    'name' => 'Home',
+                    'url' => $this->generateUrl('home')
                 )
                 ,
                 array(

@@ -8,15 +8,19 @@
             {%for key, result in results%}
                 {%if result['item'] is defined and result['item'] is not empty %}
                     {%set item=result['item'] %}
-                    {%include 'GLZeistProgrammaBundle:App/Default:includes/item-list-entry.html.twig'%}
+                    {%include 'GLZeistProgrammaBundle:App/PublishedItem:item-list-entry.html.twig'%}
                 {%endif%}
                 {%if result['thema'] is defined and result['thema'] is not empty %}
                     {%set thema=result['thema'] %}
                     {%include 'GLZeistProgrammaBundle:App/Default:includes/thema-list-entry.html.twig'%}
                 {%endif%}
-                {%if result['persoon'] is defined and result['persoon'] is not empty %}
-                    {%set persoon=result['persoon'] %}
-                    {%include 'GLZeistProgrammaBundle:App/Default:includes/persoon-list-entry.html.twig'%}
+                {%if result['kandidaat'] is defined and result['kandidaat'] is not empty %}
+                    {%set kandidaat=result['kandidaat'] %}
+                    {%include 'GLZeistProgrammaBundle:App/Default:includes/kandidaat-list-entry.html.twig'%}
+                {%endif%}
+                {%if result['hoofdstuk'] is defined and result['hoofdstuk'] is not empty %}
+                    {%set hoofdstuk=result['hoofdstuk'] %}
+                    {%include 'GLZeistProgrammaBundle:App/Default:includes/hoofdstuk-list-entry.html.twig'%}
                 {%endif%}
             {%endfor%}
         </section>

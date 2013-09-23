@@ -12,14 +12,15 @@
 
 <form action="{{ path('hoofdstuk_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit">Wijzigen</button>
-    </p>
+    <div class="form_actions">
+        <button type="submit">Opslaan</button>
+    </div>
 </form>
 
 <script>
     require(["ckeditor/ckeditor"], function() {
         CKEDITOR.replace('glzeist_bundle_programmabundle_hoofdstuktype_tekst');
+        CKEDITOR.replace('glzeist_bundle_programmabundle_hoofdstuktype_samenvatting');
     });
 </script>
 

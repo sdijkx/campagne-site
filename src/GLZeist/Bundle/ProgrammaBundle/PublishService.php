@@ -91,8 +91,8 @@ class PublishService {
             $publishedItem->setImagefile($item->getImagefile());
             $publishedItem->setThumbfile($item->getThumbfile());
 
+            $publishedItem->setHoofdstuk($item->getHoofdstuk());
             $publishedItem->setThema($item->getThema());
-            $publishedItem->setParagraaf($item->getParagraaf());
 
             $publishedItem->getRelaties()->clear();
             foreach($item->getRelaties() as $relatie)

@@ -6,26 +6,27 @@
 
 {%block content%}
 
+<div id="hoofdstuk-header">
+    <h1 id="hoofdstuk-titel">{{hoofdstuk.titel}}</h1>
+    {{hoofdstuk.samenvatting|raw}}
+</div>
+
 <article class="tekst">
-    <h1>{{hoofdstuk.titel}}</h1>
+    
     <p>
     {{hoofdstuk.tekst|raw}}
-    </p>
-    <h2>Thema's</h2>
-    <p>
-        {%if hoofdstuk.themas|length >0 %}
-            <div class="themas">
-            {% for thema in hoofdstuk.themas %}
-                <div>{{glzeist.link(path('thema',{slug:thema.slug}),thema.titel)}}</div>
-            {%endfor%}
-            </div>
-        {%endif%}
     </p>
 </article>
 
 
 {%endblock%}
 
-{%block rightcontent%}
-
+{%block rightcolumn%}
+    <ul class="links">
+    {%for item in items%}
+        <li class="link-item">{{glzeist.link(path('item',{hoofdstuk:item.hoofdstuk,slug:item.slug}),item.titel)}}</li>
+    {%endfor%}
+    </ul>
+    <br/>
+    {{glzeist.twitter_widget(site.twitter)}}
 {%endblock%}

@@ -1,0 +1,24 @@
+{% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+
+{%block title%}{{kandidaat.naam}}{%endblock%}
+
+{%block content%}
+
+<article class="kandidaat">
+    <h1>{{kandidaat.naam}}</h1>
+    <p>
+        {{kandidaat.personalia|raw}}
+    </p>
+</article>
+
+{%endblock%}
+
+{%block rightcolumn%}
+    {%if kandidaat.imagefile %}
+        <div id="afbeelding">
+            <div class="image">
+                <img src="{{path('file',{filename:kandidaat.imagefile})}}" />
+            </div>
+        </div>
+    {%endif%}
+{%endblock%}

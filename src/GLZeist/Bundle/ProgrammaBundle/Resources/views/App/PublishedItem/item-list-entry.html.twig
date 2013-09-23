@@ -1,6 +1,11 @@
 <article class="list-item">
     <h2 class="list-item-titel">
-        <a href="{{path('item',{thema:item.thema.slug,slug:item.slug})}}"">{{item.titel}}</a>
+        {%if item.hoofdstuk %}
+            {% set url=path('item',{hoofdstuk:item.hoofdstuk.slug,slug:item.slug})%}
+        {%else%}
+            {% set url=path('item',{hoofdstuk:'items',slug:item.slug})%}
+        {%endif%}
+        <a href="{{url}}"">{{item.titel}}</a>
     </h2>
     <div class="meta"><span class="geplaatst">{{item.gepubliceerdOp|date('d-m-Y')}}</span></div>
     <div>

@@ -1,32 +1,12 @@
-{%macro menu_item(url,titel,active) %}
-    <li class="menu-item{%if active %} actief{%endif%}"><a class="menu-item-link" href="{{url}}">{{titel}}</a> </li>
+{%macro menu_item(url,titel,actief) %}
+    <li class="menu-item{%if actief %} actief{%endif%}"><a class="menu-item-link" href="{{url}}">{{titel}}</a> </li>
 {%endmacro%}
 
 {% import _self as menu %}
 
-{%set current = app.request.baseUrl ~ app.request.pathInfo %}
 <ul class="menu">
-    {%set url=path('home') %}
-    {%set active= (current== url) %}
-    {{menu.menu_item(url,'Home',active)}}
-
-    {#
-    {%set url=path('thema_index') %}
-    {%set active= (current== url) %}
-    {{menu.menu_item(url,'Thema\'s',active)}}
-    #}
-
-    {%for entity in themas()%}
-        {%set url=path('thema',{slug:entity.slug}) %}
-        {%set active= (thema is defined and entity.slug==thema.slug ) %}
-        {{menu.menu_item(url,entity.titel,active)}}
+    {%for menuItem in site.menu.generateItems%}
+        {{menu.menu_item(menuItem.url,menuItem.titel,menuItem.actief)}}
     {%endfor%}
-
-    {%set url=path('hoofdstuk_index') %}
-    {%set active= (current== url or app.request.get('_route')=='hoofdstuk') %}
-    {{menu.menu_item(url,'Programma',active)}}
-    {%set url=path('persoon_index') %}
-    {%set active= (current== url or app.request.get('_route')=='persoon') %}
-    {{menu.menu_item(url,'Wie wij zijn',active)}}
 </ul>
 

@@ -1,17 +1,17 @@
 {% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
 {%block content%}
-<h1>Bewerk Persoon</h1>
+<h1>Bewerk Kandidaat</h1>
 <ul class="record_actions">
     <li>
-        <a href="{{ path('admin_persoon') }}">
+        <a href="{{ path('admin_kandidaat') }}">
             Terug naar het overzicht
         </a>
     </li>
     <li>
-        {{macros.delete_form('admin_delete_persoon',delete_form,entity)}}
+        {{macros.delete_form('admin_delete_kandidaat',delete_form,entity)}}
     </li>
 </ul>
-<form action="{{ path('admin_update_persoon', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<form action="{{ path('admin_update_kandidaat', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
     {{ form_widget(edit_form) }}
     <div class="form_row">
         <label>Afbeedling</label>
@@ -29,7 +29,7 @@
 
 <script>
     require(["ckeditor/ckeditor"], function() {
-        CKEDITOR.replace('glzeist_bundle_programmabundle_persoontype_personalia');
+        CKEDITOR.replace('glzeist_bundle_programmabundle_kandidaattype_personalia');
     });
 </script>
 

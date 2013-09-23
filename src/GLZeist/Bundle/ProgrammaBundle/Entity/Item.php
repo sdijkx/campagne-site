@@ -151,15 +151,17 @@ class Item
     private $trefwoorden;
         
     /**
-     * @ORM\ManyToOne(targetEntity="Paragraaf",inversedBy="paragraaf")
-     */
-    private $paragraaf;
-    
-    /**
      * @ORM\ManyToOne(targetEntity="Thema")
      * @ORM\OrderBy({"thema"="ASC"})
      */
     private $thema;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Hoofdstuk")
+     * @ORM\OrderBy({"titel"="ASC"})
+     */
+    private $hoofdstuk;
+    
     
     /**
      * @ORM\ManyToMany(targetEntity="Item")
@@ -438,14 +440,6 @@ class Item
         $this->homepage = $homepage;
     }
     
-    public function getParagraaf() {
-        return $this->paragraaf;
-    }
-
-    public function setParagraaf($paragraaf) {
-        $this->paragraaf = $paragraaf;
-    }
-
     public function getThema() {
         return $this->thema;
     }
@@ -454,6 +448,14 @@ class Item
         $this->thema = $thema;
     }
     
+    public function getHoofdstuk() {
+        return $this->hoofdstuk;
+    }
+
+    public function setHoofdstuk($hoofdstuk) {
+        $this->hoofdstuk = $hoofdstuk;
+    }
+
     public function getPublishedItem() {
         return $this->publishedItem;
     }

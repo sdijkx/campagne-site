@@ -27,7 +27,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use GLZeist\Bundle\ProgrammaBundle\Annotation\Granted;
 
 /**
- * Persoon controller.
+ * Published items controller.
  * @Granted(role="ROLE_MODERATOR")
  * @Route("/gepubliceerd")
  */

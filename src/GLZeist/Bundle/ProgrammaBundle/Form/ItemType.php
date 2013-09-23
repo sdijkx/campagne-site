@@ -47,6 +47,7 @@ class ItemType extends AbstractType
                             return $repos->createQueryBuilder('t')->orderBy('t.trefwoord','ASC'); 
                             
                             }))
+            ->add('hoofdstuk','entity',array('expanded'=>true,'class' => 'GLZeistProgrammaBundle:Hoofdstuk'))
             ->add('thema','entity',array('expanded'=>true,'class' => 'GLZeistProgrammaBundle:Thema'))
             ->add('links','collection',array('type'=> new LinkType(),
                 'prototype'=>true,
