@@ -191,4 +191,28 @@ class HoofdstukController extends Controller
             ->getForm()
         ;
     }
+    
+    /**
+     * Finds and displays a Hoofdstuk entity.
+     *
+     * @Method("GET")
+     * @Route("/{id}/preview", name="admin_hoofdstuk_preview")
+     * @Template("GLZeistProgrammaBundle:App:Hoofdstuk/hoofdstuk.html.twig")
+     */
+    
+    public function previewAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->findOneById($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Hoofdstuk entity.');
+        }
+        return array(
+            'hoofdstuk'      => $entity,
+            'items' => $em->getRepository('GLZeistProgrammaBundle:Item')->findByHoofdstuk($entity)
+        );
+        
+    }
 }

@@ -12,7 +12,6 @@
 </div>
 
 <article class="tekst">
-    
     <p>
     {{hoofdstuk.tekst|raw}}
     </p>
@@ -22,11 +21,14 @@
 {%endblock%}
 
 {%block rightcolumn%}
-    <ul class="links">
-    {%for item in items%}
-        <li class="link-item">{{glzeist.link(path('item',{hoofdstuk:item.hoofdstuk,slug:item.slug}),item.titel)}}</li>
-    {%endfor%}
-    </ul>
-    <br/>
+    {%if items|length > 0 %}
+        <h1>Onderwerpen</h1>
+        <ul class="links">
+        {%for item in items%}
+            <li class="link-item">{{glzeist.link(path('item',{hoofdstuk:item.hoofdstuk,slug:item.slug}),item.titel)}}</li>
+        {%endfor%}
+        </ul>
+        <br/>
+    {% endif %}
     {{glzeist.twitter_widget(site.twitter)}}
 {%endblock%}

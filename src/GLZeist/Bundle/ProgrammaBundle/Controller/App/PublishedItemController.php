@@ -100,7 +100,8 @@ class PublishedItemController extends Controller
     }
     private function createBreadcrumb($item)
     {
-        if($item->getHoofdstuk())
+        $hoofdstuk=$item->getHoofdstuk();
+        if($hoofdstuk)
         {
             return array(
                 array(
