@@ -31,7 +31,7 @@ class KandidaatType extends AbstractType
             ->add('naam')
             ->add('plek')
             ->add('personalia', 'textarea',array('required'=>false,'attr'=>array('class'=>'large')))
-            ->add('file','file',array('label'=>'Foto'));
+            ->add('file','file',array('required'=>false,'label'=>'Foto'));
         ;
     }
 
