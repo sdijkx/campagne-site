@@ -10,7 +10,7 @@
             <span>({{kandidaat.kern}})</span>
         {%endif%}</h1>
     <p>
-        {%if kandidaat.personalia %}
+        {%if kandidaat.akkoord and kandidaat.personalia %}
             {{kandidaat.personalia|raw}}
         {%elseif kandidaat.kandidaatWilPersonaliaAanleveren %}
             (Een korte kennismaking met deze kandidaat volgt) 

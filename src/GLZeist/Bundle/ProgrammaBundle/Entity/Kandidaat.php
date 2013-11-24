@@ -126,10 +126,6 @@ class Kandidaat
     }
 
     public function getPersonalia() {
-        if(!$this->akkoord)
-        {
-            return null;
-        }        
         return $this->personalia;
     }
     
