@@ -42,7 +42,7 @@ class Hoofdstuk
     /**
      * @var int
      *
-     * @ORM\Column(name="volgnummer", type="int")
+     * @ORM\Column(name="volgnummer", type="integer")
      */
     private $volgnummer;
 
