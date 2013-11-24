@@ -37,7 +37,24 @@ class KandidaatType extends AbstractType
                     'Huis ter Heide' => 'Huis ter Heide',
                     'Zeist' => 'Zeist'
                 ),
-                'required'=>false))                                
+                'required'=>false))
+            ->add('akkoord','choice',array(
+                'choices' => array(
+                    1 => 'Akkoord' , 
+                    0 => 'Niet akkoord'
+                    ), 
+                'empty_value' => 'Geen akkoord ontvangen',
+                'required' => false 
+            ))
+            ->add('kandidaatWilPersonaliaAanleveren','choice',array(
+                'label' => 'De kandidaat wil personalia aanleveren',
+                'choices' => array(
+                    1 => 'Ja' , 
+                    0 => 'Nee'
+                    ), 
+                'empty_value' => 'Onbekend',
+                'required' => false 
+            ))
             ->add('personalia', 'textarea',array('required'=>false,'attr'=>array('class'=>'large')))
             ->add('file','file',array('required'=>false,'label'=>'Foto'));
         ;

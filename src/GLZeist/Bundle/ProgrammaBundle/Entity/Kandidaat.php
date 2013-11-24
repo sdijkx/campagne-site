@@ -45,7 +45,6 @@ class Kandidaat
      */
     private $plek;
     
-    
     /**
      *
      * @ORM\Column(type="string",nullable=true)
@@ -57,6 +56,19 @@ class Kandidaat
      * @ORM\Column(type="text",nullable=true)
      */    
     private $personalia;
+    
+    /**
+     *
+     * @ORM\Column(type="boolean",nullable=true)
+     */    
+    private $akkoord;
+
+    /**
+     *
+     * @ORM\Column(type="boolean",nullable=true)
+     */    
+    private $kandidaatWilPersonaliaAanleveren;
+    
     
     /**
      *
@@ -114,13 +126,35 @@ class Kandidaat
     }
 
     public function getPersonalia() {
+        if(!$this->akkoord)
+        {
+            return null;
+        }        
         return $this->personalia;
     }
+    
 
     public function setPersonalia($personalia) {
         $this->personalia = $personalia;
     }
     
+    public function getAkkoord() {
+        return $this->akkoord;
+    }
+
+    public function setAkkoord($akkoord) {
+        $this->akkoord = $akkoord;
+    }
+    
+    public function getKandidaatWilPersonaliaAanleveren() {
+        return $this->kandidaatWilPersonaliaAanleveren;
+    }
+
+    public function setKandidaatWilPersonaliaAanleveren($kandidaatWilPersonaliaAanleveren) {
+        $this->kandidaatWilPersonaliaAanleveren = $kandidaatWilPersonaliaAanleveren;
+    }
+
+        
     public function getKern() {
         return $this->kern;
     }
