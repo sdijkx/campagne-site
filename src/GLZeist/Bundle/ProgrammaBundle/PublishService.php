@@ -186,14 +186,14 @@ class PublishService {
             throw new \Exception('Er is een fout opgetreden, de aanvraag kan niet worden opgeslagen');
         }
         
-        try
-        {
-            $this->sendRequestToModerators($entity);
-        }
-        catch(\Exception $e)
-        {
-            throw new \Exception('Er is een fout opgetreden, de aanvraag is mogelijk niet verzonden naar de redacteuren');
-        }
+//        try
+//        {
+//            $this->sendRequestToModerators($entity);
+//        }
+//        catch(\Exception $e)
+//        {
+//            throw new \Exception('Er is een fout opgetreden, de aanvraag is mogelijk niet verzonden naar de redacteuren');
+//        }
         
     }
     
