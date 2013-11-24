@@ -59,6 +59,13 @@ class Kandidaat
     private $personalia;
     
     /**
+     *
+     * @ORM\Column(type="string",nullable=true)
+     */        
+    private $kern;
+    
+    
+    /**
      * @Gedmo\Slug(fields={"naam"})
      * @ORM\Column(length=128, unique=true)
      */
@@ -114,6 +121,14 @@ class Kandidaat
         $this->personalia = $personalia;
     }
     
+    public function getKern() {
+        return $this->kern;
+    }
+
+    public function setKern($kern) {
+        $this->kern = $kern;
+    }
+        
     public function getSlug() {
         return $this->slug;
     }

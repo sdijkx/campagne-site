@@ -5,7 +5,10 @@
 {%block content%}
 
 <article class="kandidaat">
-    <h1>{{kandidaat.naam}}</h1>
+    <h1>{{kandidaat.naam}} 
+        {%if kandidaat.kern %}
+            <span>({{kandidaat.kern}})</span>
+        {%endif%}</h1>
     <p>
         {{kandidaat.personalia|raw}}
     </p>

@@ -16,6 +16,7 @@
             <th class="edit"></th>
             <th>Plek</th>
             <th>Naam</th>
+            <th>Kern</th>
             <th></th>
         </tr>
     </thead>
@@ -27,6 +28,7 @@
             </td>
             <td>{{ entity.plek }}</td>
             <td>{{ entity.naam }}</td>
+            <td>{{ entity.kern }}</td>
             <td>
                 {%if entity.thumbfile %}
                     <img src="{{path('file',{filename:entity.thumbfile})}}" />

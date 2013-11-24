@@ -30,6 +30,14 @@ class KandidaatType extends AbstractType
         $builder
             ->add('naam')
             ->add('plek')
+            ->add('kern','choice',array(
+                'choices'=>array(
+                    'Austerlitz' => 'Austerlitz',
+                    'Den Dolder' => 'Den Dolder',
+                    'Huis ter Heide' => 'Huis ter Heide',
+                    'Zeist' => 'Zeist'
+                ),
+                'required'=>false))                                
             ->add('personalia', 'textarea',array('required'=>false,'attr'=>array('class'=>'large')))
             ->add('file','file',array('required'=>false,'label'=>'Foto'));
         ;

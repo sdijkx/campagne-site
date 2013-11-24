@@ -1,6 +1,9 @@
 <article class="list-item">
     <h2 class="naam">
         <a title="{{kandidaat.naam}}" href="{{path('kandidaat',{slug:kandidaat.slug})}}">{{kandidaat.naam}}</a>
+        {%if kandidaat.kern %}
+            <span>({{kandidaat.kern}})</span>
+        {%endif%}
     </h2>
     {%if kandidaat.thumbfile %}
         <div class="thumb">
