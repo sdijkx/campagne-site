@@ -17,6 +17,8 @@
             <th>Plek</th>
             <th>Naam</th>
             <th>Kern</th>
+            <th>Akkoord</th>
+            <th>Wil personalia aanleveren</th>
             <th></th>
         </tr>
     </thead>
@@ -29,6 +31,8 @@
             <td>{{ entity.plek }}</td>
             <td>{{ entity.naam }}</td>
             <td>{{ entity.kern }}</td>
+            <td>{{ entity.akkoord?'Ja': (entity.akkoord is null ? 'Onbekend' : 'Nee') }}</td>
+            <td>{{ entity.kandidaatWilPersonaliaAanleveren ? 'Ja' : (entity.kandidaatWilPersonaliaAanleveren is null? 'Onbekend' : 'Nee') }}</td>
             <td>
                 {%if entity.thumbfile %}
                     <img src="{{path('file',{filename:entity.thumbfile})}}" />
