@@ -40,6 +40,13 @@ class Hoofdstuk
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="volgnummer", type="int")
+     */
+    private $volgnummer;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="titel", type="string", length=255)
@@ -80,7 +87,15 @@ class Hoofdstuk
     }
     
 
+    public function getVolgnummer() {
+        return $this->volgnummer;
+    }
 
+    public function setVolgnummer($volgnummer) {
+        $this->volgnummer = $volgnummer;
+    }
+
+    
     /**
      * Get id
      *
