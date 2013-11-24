@@ -26,7 +26,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Hoofdstuk
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="GLZeist\Bundle\ProgrammaBundle\Repository\HoofdstukRepository")
  */
 class Hoofdstuk
 {

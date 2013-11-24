@@ -28,6 +28,7 @@ class HoofdstukType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('volgnummer')
             ->add('titel')
             ->add('metaDescription','textarea',array('required'=>false))                
             ->add('samenvatting')             
