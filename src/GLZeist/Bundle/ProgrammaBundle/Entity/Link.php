@@ -55,6 +55,11 @@ class Link
      * @ORM\ManyToOne(targetEntity="Item",inversedBy="links")
      */
     private $item;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="PublishedItem",inversedBy="links")
+     */
+    private $publishedItem;
     
     
     public function __construct()
@@ -93,6 +98,13 @@ class Link
     public function setItem($item) {
         $this->item = $item;
     }
+    
+    public function getPublishedItem() {
+        return $this->publishedItem;
+    }
 
+    public function setPublishedItem($publishedItem) {
+        $this->publishedItem = $publishedItem;
+    }
 
 }

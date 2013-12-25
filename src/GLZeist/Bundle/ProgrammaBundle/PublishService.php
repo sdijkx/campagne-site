@@ -102,14 +102,21 @@ class PublishService {
                     $publishedItem->getRelaties()->add($relatie->getPublishedItem());
                 }
             }
-
-            $publishedItem->getLinks()->clear();
+            //remove the links
+            foreach($publishedItem->getLinks() as $link)
+            {
+                $publishedItem->getLinks()->removeElement($link);
+                $this->em->remove($link);
+                $this->em->flush();
+            }
+            //copy the links from the item
             foreach($item->getLinks() as $link)
             {
                 //copy link
                 $copy=new Entity\Link();
                 $copy->setTitel($link->getTitel());
                 $copy->setUrl($link->getUrl());
+                $copy->setPublishedItem($publishedItem);
                 $publishedItem->getLinks()->add($copy);
             }
 
@@ -135,37 +142,38 @@ class PublishService {
             $this->logger->err("Er is een fout: {$e->getMessage()} opgetreden, item {$item->getSlug()} is niet gepubliceerd");
             throw new \Exception('Er is een fout opgetreden, het item kan niet worden gepubliceerd '.$e->getMessage());
         }
-        
-        try
-        {
-            $this->sendIsPublished($item);
-        }
-        catch(\Exception $e)
-        {
-            $this->logger->err("Er is een fout: {$e->getMessage()} opgetreden, voor item {$item->getSlug()} is geen notificatie naar de eigenaar verzonden");
-            throw new \Exception('Er is een fout opgetreden, het item is gepubliceerd maar de eigenaar heeft geen bevestiging ontvangen');
-        }
-        
     }
-    
-    private function sendIsPublished(Entity\Item $entity)
-    {
-        $message = \Swift_Message::newInstance()
-            ->setSubject('GLZeist item gepubliceerd')
-            ->setFrom('noreply@groenlinkszeist.nl')
-            ->setTo($entity->getGemaaktDoor()->getEmail())
-            ->setBody(
-                $this->templating->render(
-                    'GLZeistProgrammaBundle:Admin:Item/publicatie_bevestiging.email.txt.twig',
-                    array(
-                        'item' => $entity
-                        )
-                )
-            )
-        ;            
-        $this->mailer->send($message);
         
-    }
+//        try
+//        {
+//            $this->sendIsPublished($item);
+//        }
+//        catch(\Exception $e)
+//        {
+//            $this->logger->err("Er is een fout: {$e->getMessage()} opgetreden, voor item {$item->getSlug()} is geen notificatie naar de eigenaar verzonden");
+//            throw new \Exception('Er is een fout opgetreden, het item is gepubliceerd maar de eigenaar heeft geen bevestiging ontvangen');
+//        }
+//        
+//    }
+//    
+//    private function sendIsPublished(Entity\Item $entity)
+//    {
+//        $message = \Swift_Message::newInstance()
+//            ->setSubject('GLZeist item gepubliceerd')
+//            ->setFrom('noreply@groenlinkszeist.nl')
+//            ->setTo($entity->getGemaaktDoor()->getEmail())
+//            ->setBody(
+//                $this->templating->render(
+//                    'GLZeistProgrammaBundle:Admin:Item/publicatie_bevestiging.email.txt.twig',
+//                    array(
+//                        'item' => $entity
+//                        )
+//                )
+//            )
+//        ;            
+//        $this->mailer->send($message);
+//        
+//    }
     
     
     public function requestPublication(Entity\Item $entity)

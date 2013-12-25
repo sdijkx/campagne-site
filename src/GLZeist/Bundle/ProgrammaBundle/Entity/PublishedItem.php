@@ -147,7 +147,7 @@ class PublishedItem
     private $relaties;
     
     /**
-     * @ORM\OneToMany(targetEntity="Link",mappedBy="item",cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Link",mappedBy="publishedItem",cascade={"all"})
      */
     private $links;
     
