@@ -40,7 +40,7 @@ class RSSController extends Controller
         $limit=$request->get("limit",3);
         $offset=$request->get("offset",0);
         $rss=$this->get('gl_zeist_programma.rss');
-        return array('items' => $rss->getItems($limit,$offset),'limit'=>$limit,'offset'=>($offset+$limit));
+        return array('items' => $rss->getItems($limit,$offset,'//item[not(category) and not(title[.=\'2 Joke Leenders\'])]'),'limit'=>$limit,'offset'=>($offset+$limit));
     }
 }
 

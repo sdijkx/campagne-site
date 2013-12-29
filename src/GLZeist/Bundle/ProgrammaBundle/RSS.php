@@ -26,14 +26,27 @@ class RSS
         $this->feed=$feed;
     }
     
-    public function getItems($limit,$offset=0)
+    public function getItems($limit,$offset=0,$filter=null)
     {
         $results=array();
         
         $rss=new \DOMDocument();
         $rss->load($this->feed);
         $channel=$rss->getElementsByTagName('channel')->item(0);
-        $itemList=$rss->getElementsByTagName('item');
+
+        if($filter!=null) {
+            $query=new \DOMXPath($rss);
+            $itemList=$query->evaluate($filter);
+        }
+        else
+        {
+            $itemList=$rss->getElementsByTagName('item');
+           
+        }
+        
+        if(empty($itemList)) {
+            return $results;
+        }
         
         if($limit==0)
         {
@@ -43,6 +56,7 @@ class RSS
         for($i=$offset;$i<$itemList->length && ($limit!=0);$i++,$limit--)
         {
             $item=$itemList->item($i);
+            
             
             $children=$item->childNodes;
             
