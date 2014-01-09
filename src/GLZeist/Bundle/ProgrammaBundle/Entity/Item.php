@@ -113,7 +113,15 @@ class Item
      * @App\Image(width=300,height=280,filenameProperty="imagefile")
      * @App\Image(width=120,height=92,filenameProperty="thumbfile")
      */
-    public $file;
+    private $file;
+    
+    
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Afbeelding",mappedBy="item",cascade={"all"})
+     * @ORM\JoinColumn(nullable=true,onDelete="SET NULL")
+     */
+    private $afbeeldingen;
     
     /**
      * @Gedmo\Slug(fields={"titel"})
@@ -190,6 +198,7 @@ class Item
         $this->trefwoorden=new \Doctrine\Common\Collections\ArrayCollection();
         $this->relaties=new \Doctrine\Common\Collections\ArrayCollection();
         $this->links=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->afbeeldingen= new \Doctrine\Common\Collections\ArrayCollection();
         $this->gepubliceerd=false;
         $this->gemaaktOp=new \DateTime();
         $this->gewijzigdOp=clone $this->gemaaktOp;
@@ -373,7 +382,19 @@ class Item
         $this->thumbfile = $thumbfile;
     }
 
-    
+    public function getAfbeeldingen() {
+        return $this->afbeeldingen;
+    }
+
+    public function setAfbeeldingen($afbeeldingen) {
+        foreach($afbeeldingen as $afbeelding)
+        {
+            $afbeelding->setItem($this);
+        }
+        $this->afbeeldingen = $afbeeldingen;
+    }
+
+        
     public function getFile() {
         return $this->file;
     }

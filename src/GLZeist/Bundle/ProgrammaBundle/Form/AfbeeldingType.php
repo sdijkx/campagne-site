@@ -16,46 +16,33 @@
     along with GroenLinks Zeist Campagnesite.  If not, see <http://www.gnu.org/licenses/>.
     
 */
+namespace GLZeist\Bundle\ProgrammaBundle\Form;
 
-namespace GLZeist\Bundle\ProgrammaBundle\Entity\Media;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+class AfbeeldingType extends AbstractType {
 
-use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\ORM\Mapping as ORM;
-use GLZeist\Bundle\ProgrammaBundle\Entity\Media;
-
-/**
- * Hoofdstuk
- *
- * @ORM\Table()
- * @ORM\Entity
- */
-class Image extends Media
-{
-
-    public $file;    
-
-    public function getImagefile() {
-        return $this->imagefile;
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('titel')
+            ->add('file')
+        ;
     }
 
-    public function setImagefile($imagefile) {
-        $this->imagefile = $imagefile;
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'GLZeist\Bundle\ProgrammaBundle\Entity\Afbeelding'
+        ));
     }
 
-    public function getThumbfile() {
-        return $this->thumbfile;
+    public function getName()
+    {
+        return 'glzeist_bundle_programmabundle_afbeeldingtype';
     }
-
-    public function setThumbfile($thumbfile) {
-        $this->thumbfile = $thumbfile;
-    }
-
-    public function getFile() {
-        return $this->file;
-    }
-
-    public function setFile($file) {
-        $this->file = $file;
-    }
+    
+    
 }

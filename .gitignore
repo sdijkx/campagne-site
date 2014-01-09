@@ -8,3 +8,4 @@
 /app/config/parameters.yml
 /app/keys/*
 /app/site/settings.yml
+/web/bestanden/*

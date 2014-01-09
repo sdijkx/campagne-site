@@ -47,10 +47,20 @@
             <input type=submit value="Opslaan" />
         </div>
     </div>
+
+    {% form_theme form.links 'GLZeistProgrammaBundle:Admin/Item:links_collection_widget.html.twig' %}
     <div class="form_row">
         {{ form_label(form.links) }}
         {{ form_widget(form.links) }}
     </div>
+
+    {% form_theme form.afbeeldingen 'GLZeistProgrammaBundle:Admin/Item:afbeeldingen_collection_widget.html.twig' %}
+
+    <div class="form_row">
+        {{ form_label(form.afbeeldingen) }}
+        {{ form_widget(form.afbeeldingen) }}
+    </div>
+
 
     {{ form_row(form.trefwoorden) }}
     {{ form_row(form.relaties) }}
@@ -88,27 +98,6 @@
         }).keyup();
         var linkCount = 0;
 
-        $('div.collection a.add').click(function() {
-            var collection = $(this).parent('div.collection');
-            var list = $('div.items',collection);
-
-            var newWidget = list.attr('data-prototype');
-
-            newWidget = newWidget.replace(/__name__label__/g, '');
-            newWidget = newWidget.replace(/__name__/g, linkCount);
-            linkCount++;
-
-            var newDiv = jQuery(newWidget);
-            newDiv.appendTo(list);
-
-            return false;
-        });
-
-
-        $('div.collection').on('click','a.remove', function(){
-            $(this).parent().remove();
-            return false;
-        });
     });
 
 </script>

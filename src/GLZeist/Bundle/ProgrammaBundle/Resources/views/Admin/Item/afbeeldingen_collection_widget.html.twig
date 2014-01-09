@@ -1,0 +1,102 @@
+{% block collection_widget %}
+    {% spaceless %}
+    <div id="{{form.name}}" class="collection">
+        {% if prototype is defined %}
+            {% set attr = attr|merge({'data-prototype': block('collection_item_widget') }) %}
+        {% endif %}
+        <div class="prototype" {{ block('widget_container_attributes') }}>
+        {{ form_errors(form) }}
+        <table class="edit-afbeeldingen">
+            <thead>
+                <th>Afbeelding</th>
+                <th>Titel</th>
+                <th>Bestand</th>
+                <th></th>
+            </thead>
+            <tbody>
+            {% for rows in form %}
+                <tr>
+                    {% set fieldNum = 1 %}
+                    <td>
+                        <div class="upload_image">
+                            <img src="{{path('file',{filename:rows.vars.value.thumbfile})}}" />
+                        </div>
+                    </td>
+                    {% for row in rows %}
+                        <td>
+                        <div class="field{{ fieldNum }}">
+                            {{ form_widget(row, { 'attr': { 'class': 'test' }}) }}
+                        </div>
+                        </td>
+                        {% set fieldNum = fieldNum + 1 %}
+                    {% endfor %}
+                    <td>
+                        <a class="remove button" title="Verwijderen" href="#">
+                            <span>Verwijderen</span>
+                        </a>
+                        <div class="clear"></div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {{ form_rest(form) }}
+    </div>
+    <div class="clear"></div>
+        <a class="add button" title="Toevoegen" href="#">
+            <span>Toevoegen</span>
+        </a>
+    </div>
+    <div class="clear"></div>
+    {% endspaceless %}
+
+    <script>
+        require(["jquery"], function() {
+            var itemCount = '{{ form | length }}';
+
+            $('#{{form.name}}.collection a.add').click(function() {
+                var collection = $(this).parent('div.collection');
+                var list = $('table > tbody',collection);
+
+                var newWidget = $('div.prototype',collection).attr('data-prototype');
+
+                newWidget = newWidget.replace(/__name__label__/g, '');
+                newWidget = newWidget.replace(/__name__/g, itemCount++);
+
+
+                var newDiv = jQuery(newWidget);
+                newDiv.appendTo(list);
+
+                return false;
+            });
+
+
+            $('#{{form.name}}.collection').on('click','a.remove', function(){
+                $(this).parents('tr').remove();
+                return false;
+            });
+        });
+    </script>
+
+{% endblock collection_widget %}
+ 
+{% block collection_item_widget %}
+{% spaceless %}
+    <tr>
+        <td></td>
+        {% set fieldNum = 1 %}
+        {% for row in prototype %}
+            <td class="field{{ fieldNum }}">
+                {{ form_widget(row, { 'attr': { 'class': 'test' }}) }}
+            </div>
+            {% set fieldNum = fieldNum + 1 %}
+        {% endfor %}
+        <td>
+            <a class="remove button" title="Remove" href="javascript:void()">
+                <span>Verwijderen</span>
+            </a>
+            <div class="clear"></div>
+        </td>
+    </tr>
+{% endspaceless %}
+{% endblock collection_item_widget %}

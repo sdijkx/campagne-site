@@ -219,3 +219,8 @@ div.flash.warning {
 }
 #login div.form_row { border:none;}
 #login div.form_row label{ vertical-align: baseline;}
+
+
+.edit-link { border:1px solid #AAA; margin:3px 3px 8px 3px;border-radius:3px; }
+table.edit-afbeeldingen { border-spacing: 3px; border:1px solid #AAA; border-radius: 3px; }
+table.edit-afbeeldingen thead  { background-color: #464646; color:#FFF;   }

@@ -11,8 +11,8 @@ Custom font for webpage
 {
 
 body {
-    font-family: Georgia;
-    font-size:10pt;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size:11pt;
     background-color:    RGB(255,255,255);
     background-color: #FFF;
     color: #303030;
@@ -94,7 +94,7 @@ a { text-decoration:underline; color:#E41C29; }
 a:hover { text-decoration:none; }
 a:visited {}
 
-article { margin-left:10px;}
+article { margin-left:10px; margin-right: 10px;}
 
 
 /* GENERAL CLASSES */
@@ -119,13 +119,11 @@ article { margin-left:10px;}
 #banner {background-image:url('../site/banner');width:1024px;height:149px;text-align: left;position:absolute;left:0; background-color:grey;border-top: 12px solid #80C31C}
 #search { position: absolute; right:0;top:0; background-color: #7EC416; padding: 12px 30px 20px 20px ; border-radius: 0 0 0 8px;}
 #search_text {
-    font-size:1em;
-    font-family: Georgia;
+    font-size:0.8em;
 }
 span.icon-search { color:white; font-size:1.2em;}
 #submit_search[type=submit] {
     font-size:1em;
-    font-family: Georgia;
     color:#484848;
     padding:3px;
 }
@@ -135,7 +133,14 @@ span.icon-search { color:white; font-size:1.2em;}
     NAVIGATION
 */
 
-nav { margin: 0 10px;border-bottom:10px solid #DCEEC6;}
+nav { 
+    width:101.6%!important;
+    margin: 0 100.8% 0 -0.8%!important; 
+    background-color: #FFF;
+    padding-top: 0.8%!important;
+    border-bottom:10px solid #DCEEC6;
+    border-top:1% solid #DCEEC6;
+}
 ul.menu {list-style: none;border-bottom:6px solid #7FC31B;margin:0;}
 li.menu-item {display: inline-block;padding:6px 8px 2px 8px;}
 a.menu-item-link {color:#000;text-decoration:none;}
@@ -173,6 +178,9 @@ h1.header {margin-left:10px;}
 .geplaatst { color:#666;font-style:italic;}
 .meta {margin-bottom:3px;}
 
+.naam { width:80%; float:left;}
+.thumb { float:right; }
+
 /*
 NIEUWS
 */
@@ -198,11 +206,11 @@ TWITTER
 
 
 /*ITEM*/
-.item {border-right: 1px dotted #7FB539;margin-right:6px;position:relative;}
+.item {border-right: 1px dotted #7FB539;margin-right:6px;position:relative;margin-bottom:30px;}
 .item-header { height: auto;position: relative;}
 .item-header:after {clear:both;content:"\0000a0";height:0;display:block;}
 .tweet-button { position:absolute;right: 15px;z-index:2}
-ul.links {list-style: none;}
+ul.links {list-style: none; text-align: left;}
 #video, #relaties, #trefwoorden, #afbeelding { margin-top: 10px; border-bottom: 1px dashed #7FB539}
 
 
@@ -230,6 +238,8 @@ div.kandidaat div.foto { display: none;}
 
 .tekst p { margin:10px 0}
 .tekst ul {list-style:disc outside;margin-left:0.5em;}
+
+.downloadpdf { font-size:80%;}
 
 }
 

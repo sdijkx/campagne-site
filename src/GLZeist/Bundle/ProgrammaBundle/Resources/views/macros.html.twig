@@ -91,12 +91,22 @@
 {%macro promotie_widget() %}
     {%import _self as _ %}
      <div class="promotie">
-        <h3 class="promotie">Zeist</h3>
         <ul class="promotie">
             {%for hoofdstuk in hoofdstukken() %}
                 <li class="promotie">{{_.link(path('hoofdstuk',{slug:hoofdstuk.slug}),hoofdstuk.titel)}}</li>
             {%endfor%}
         </ul>
+        {{_.programmapdf()}}
     </div>
 
+{%endmacro%}
+
+{%macro programmapdf(title) %}
+    {%import _self as _ %}
+    {%if not title %} 
+        {% set title='Download PDF' %}
+    {%endif%}
+    <div class="downloadpdf">
+    {{_.link(asset('bestanden/programma.pdf'),'Download het programma')}}
+    </div>
 {%endmacro%}

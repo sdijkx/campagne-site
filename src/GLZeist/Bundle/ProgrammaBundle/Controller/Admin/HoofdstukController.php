@@ -181,7 +181,7 @@ class HoofdstukController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('hoofdstuk'));
+        return $this->redirect($this->generateUrl('admin_hoofdstuk'));
     }
 
     private function createDeleteForm($id)

@@ -255,6 +255,13 @@ class ItemController extends Controller
         {
             $links[]=$link;
         }
+        
+        $afbeeldingen=array();
+        foreach($entity->getAfbeeldingen() as $afbeelding)
+        {
+            $afbeeldingen[]=$afbeelding;
+        }
+        
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new ItemType(), $entity);
@@ -274,6 +281,20 @@ class ItemController extends Controller
             {
                 $link->setItem(null);
                 $em->remove($link);
+            }
+
+            foreach($entity->getAfbeeldingen() as $afbeelding)
+            {
+                foreach ($afbeelding as $key => $toDel) {
+                    if ($afbeelding->getId() === $afbeelding->getId()) {
+                        unset($afbeeldingen[$key]);
+                    }
+                }                
+            }
+            foreach($afbeeldingen as $afbeelding)
+            {
+                $afbeelding->setItem(null);
+                $em->remove($afbeelding);
             }
             
             $em->persist($entity);

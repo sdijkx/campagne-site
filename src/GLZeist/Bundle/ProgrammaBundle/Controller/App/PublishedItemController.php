@@ -106,7 +106,7 @@ class PublishedItemController extends Controller
             return array(
                 array(
                     'url' => $this->generateUrl('hoofdstuk',array('slug'=>$hoofdstuk)),
-                    'name' => $item->getThema()->getTitel()
+                    'name' => $item->getHoofdstuk()->getTitel()
                 ),
                 array(
                     'name' => $item->getTitel()

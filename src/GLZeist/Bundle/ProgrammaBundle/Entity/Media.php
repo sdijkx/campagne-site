@@ -31,8 +31,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({
  *  "banner" = "GLZeist\Bundle\ProgrammaBundle\Entity\Media\Banner",
- *  "logo" = "GLZeist\Bundle\ProgrammaBundle\Entity\Media\Logo",
- *  "image" = "GLZeist\Bundle\ProgrammaBundle\Entity\Media\Image" })
+ *  "logo" = "GLZeist\Bundle\ProgrammaBundle\Entity\Media\Logo"
+ *  })
  */
 class Media
 {
@@ -73,7 +73,20 @@ class Media
      *
      * @ORM\ManyToOne(targetEntity="Item",inversedBy="media")
      */
-    private $item;    
+    private $item;   
+    
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="PublishedItem",inversedBy="media")
+     */
+    private $publishedItem;   
+    
+    
+    /**
+     * @ORM\Column(name="titel", type="string", length=255)
+     */
+    private $titel;
 
 
 
@@ -86,7 +99,16 @@ class Media
     {
         return $this->id;
     }
+    
+    public function getTitel() {
+        return $this->titel;
+    }
 
+    public function setTitel($titel) {
+        $this->titel = $titel;
+    }
+
+    
     /**
      * Set url
      *
@@ -148,6 +170,14 @@ class Media
     public function setItem($item) {
         $this->item = $item;
     }
+    
+    public function getPublishedItem() {
+        return $this->publishedItem;
+    }
+
+    public function setPublishedItem($publishedItem) {
+        $this->publishedItem = $publishedItem;
+    }    
 
         
     public function __toString()

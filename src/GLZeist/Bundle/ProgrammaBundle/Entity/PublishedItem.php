@@ -106,6 +106,13 @@ class PublishedItem
      */
     private $thumbfile;
         
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Afbeelding",mappedBy="publishedItem",cascade={"all"})
+     * @ORM\JoinColumn(nullable=true,onDelete="SET NULL")
+     */
+    private $afbeeldingen;
+
     
     /**
      * @Gedmo\Slug(fields={"titel"})
@@ -172,6 +179,7 @@ class PublishedItem
         $this->trefwoorden=new \Doctrine\Common\Collections\ArrayCollection();
         $this->relaties=new \Doctrine\Common\Collections\ArrayCollection();
         $this->links=new \Doctrine\Common\Collections\ArrayCollection();
+        $this->afbeeldingen=new \Doctrine\Common\Collections\ArrayCollection();
         $this->gepubliceerdOp=new \DateTime();
     }
     
@@ -343,7 +351,15 @@ class PublishedItem
     public function setThumbfile($thumbfile) {
         $this->thumbfile = $thumbfile;
     }
-            
+    
+    public function getAfbeeldingen() {
+        return $this->afbeeldingen;
+    }
+
+    public function setAfbeeldingen($afbeeldingen) {
+        $this->afbeeldingen = $afbeeldingen;
+    }
+             
     public function getSlug() {
         return $this->slug;
     }

@@ -120,6 +120,25 @@ class PublishService {
                 $publishedItem->getLinks()->add($copy);
             }
 
+            //remove the afbeeldingen
+            foreach($publishedItem->getAfbeeldingen() as $afbeelding)
+            {
+                $publishedItem->getAfbeeldingen()->removeElement($afbeelding);
+                $this->em->remove($afbeelding);
+                $this->em->flush();
+            }
+            //copy the afbeeldingen from the item
+            foreach($item->getAfbeeldingen() as $afbeelding)
+            {
+                //copy link
+                $copy=new Entity\Afbeelding();
+                $copy->setTitel($afbeelding->getTitel());
+                $copy->setImagefile($afbeelding->getImageFile());
+                $copy->setThumbfile($afbeelding->getThumbfile());
+                $copy->setPublishedItem($publishedItem);
+                $publishedItem->getAfbeeldingen()->add($copy);
+            }
+            
             $publishedItem->getTrefwoorden()->clear();
             foreach($item->getTrefwoorden() as $trefwoord)
             {

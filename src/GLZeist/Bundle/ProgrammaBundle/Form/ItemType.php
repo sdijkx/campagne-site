@@ -54,6 +54,12 @@ class ItemType extends AbstractType
                 'allow_add'=>true,
                 'allow_delete'=>true,
                 'by_reference'=>false))
+            ->add('afbeeldingen','collection',array('type'=> new AfbeeldingType(),
+                'prototype'=>true,
+                'allow_add'=>true,
+                'allow_delete'=>true,
+                'by_reference'=>false))
+                                    
         ;
     }
 

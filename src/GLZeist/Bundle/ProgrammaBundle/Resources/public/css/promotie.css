@@ -1,10 +1,16 @@
 /* PROMOTIE */
 @media screen
 {
-    div.promotie {background-color:#FFF;padding:10px;border: 1px dotted #444;width:200px;margin:10px;}
+    div.promotie {background-color:#FFF;padding:1% 1% 2% 3%;border: 1px dotted #444;width:20%;margin:1%;}
     h3.promotie {font-size:2em}
     ul.promotie {list-style:none;margin-left:0}
     li.promotie {line-height:1.5em;font-size:1em;margin-bottom:5px;list-style: inherit;margin-left:0;}    
+    
+    .col-1-3.center > div.promotie {
+        width:50%;
+        text-align: left;
+    }
+    
 }
 @media screen and (max-width:959px)
 {
