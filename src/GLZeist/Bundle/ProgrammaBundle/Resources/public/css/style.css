@@ -225,7 +225,6 @@ div.kandidaat div.foto { display: none;}
     font-size:1.1em;
     padding:2% 3%;
     background-color:#FFF;
-    color:#FFF;
     margin:3% 1%;
 }
 #hoofdstuk-header:after {clear:both;content:"\0000a0";height:0;display:block;}
