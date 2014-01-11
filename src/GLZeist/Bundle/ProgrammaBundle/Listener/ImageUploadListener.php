@@ -80,7 +80,7 @@ class ImageUploadListener
         {
             $filename=$image->getFilename();
             if (null !== $filename) {
-                unlink($this->rootDir.DIRECTORY_SEPARATOR.$filename);
+                @unlink($this->rootDir.DIRECTORY_SEPARATOR.$filename);
             }
             
         }
@@ -93,7 +93,7 @@ class ImageUploadListener
         foreach($object->getProperties() as $property)
         {
             foreach ($this->reader->getPropertyAnnotations($property) as $annotation)
-            { //Start of annotations reading
+            {
 
                 if ($annotation instanceof \GLZeist\Bundle\ProgrammaBundle\Annotation\Image)
                 {

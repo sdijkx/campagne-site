@@ -33,6 +33,13 @@ class HoofdstukType extends AbstractType
             ->add('metaDescription','textarea',array('required'=>false))                
             ->add('samenvatting')             
             ->add('tekst')             
+            ->add('file')                
+            ->add('afbeeldingen','collection',array('type'=> new AfbeeldingType(),
+                'prototype'=>true,
+                'allow_add'=>true,
+                'allow_delete'=>true,
+                'by_reference'=>false))
+                
         ;
     }
 

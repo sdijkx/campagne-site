@@ -11,7 +11,14 @@
 
 <div id="hoofdstuk-header">
     <h1 id="hoofdstuk-titel">{{hoofdstuk.titel}}</h1>
-    {{hoofdstuk.samenvatting|raw}}
+    <div class="hoofdstuk-inleiding">
+        {{hoofdstuk.samenvatting|raw}}
+    </div>
+    {%if hoofdstuk.imageFile %} 
+        <div class="hoofdstuk-afbeelding">
+            <img src="{{path('file',{filename:hoofdstuk.imagefile})}}" />
+        </div>
+    {%endif%}
 </div>
 
 <article class="tekst">

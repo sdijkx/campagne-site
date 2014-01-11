@@ -80,7 +80,7 @@ class PublishedItemController extends Controller
     
     
     /**
-     * @Route("/{hoofdstuk}/{slug}",name="item")
+     * @Route("/{hoofdstuk}/{slug}/",name="item")
      * @Method("GET")
      * @Template()
      */
@@ -126,4 +126,29 @@ class PublishedItemController extends Controller
             );            
         }
     }
+    
+    /**
+     * @Route("/{hoofdstuk}/{slug}/afbeelding/{afbeeldingId}",name="item_image")
+     * @Method("GET")
+     * @Template()
+     */
+    public function afbeeldingAction($hoofdstuk,$slug,$afbeeldingId) {
+
+        $item = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findOneBySlug($slug);
+        if (!$item) 
+        {
+            throw $this->createNotFoundException();        
+        }
+        
+        $afbeeldingenService=$this->get('gl_zeist_programma.afbeeldingen_service');
+        try {
+            $afbeeldingenService->afbeeldingNaarStdout($item,$afbeeldingId);
+        }
+        catch(\Exception $e) {
+            throw $this->createNotFoundException($e);        
+        }
+        exit;
+        
+    }
+      
 }

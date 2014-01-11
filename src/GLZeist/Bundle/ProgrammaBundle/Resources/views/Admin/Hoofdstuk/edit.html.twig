@@ -18,7 +18,34 @@
 </ul>
 
 <form action="{{ path('hoofdstuk_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
+    
+    {{ form_row(edit_form.volgnummer) }}
+    {{ form_row(edit_form.titel) }}
+    {{ form_row(edit_form.metaDescription) }}
+    {{ form_row(edit_form.samenvatting) }}
+    {{ form_row(edit_form.tekst) }}
+
+    <div class="form_row">
+        <label>Afbeedling</label>
+        <div class="upload_image">
+            <img src="{{path('file',{filename:entity.imagefile})}}" />
+            <img src="{{path('file',{filename:entity.thumbfile})}}" />
+            {{ form_widget(edit_form.file) }}
+            {{ form_errors(edit_form.file) }}
+            <input type=submit value="Opslaan" />
+        </div>
+    </div>
+
+    {% form_theme edit_form.afbeeldingen 'GLZeistProgrammaBundle:Admin/Item:afbeeldingen_collection_widget.html.twig' %}
+
+    <div class="form_row">
+        {{ form_label(edit_form.afbeeldingen) }}
+        {{ form_widget(edit_form.afbeeldingen) }}
+    </div>
+
+    {{ form_rest(edit_form) }}
+
+
     <div class="form_actions">
         <button type="submit">Opslaan</button>
     </div>

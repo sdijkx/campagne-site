@@ -24,7 +24,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use GLZeist\Bundle\ProgrammaBundle\Annotation as App;
-use GLZeist\Bundle\ProgrammaBundle\Entity\Media;
 
 /**
  * Hoofdstuk
@@ -77,6 +76,13 @@ class Afbeelding
      * @ORM\ManyToOne(targetEntity="PublishedItem",inversedBy="afbeeldingen")
      */
     private $publishedItem;   
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="Hoofdstuk",inversedBy="afbeeldingen")
+     */
+    private $hoofdstuk;   
     
 
     /**
@@ -141,4 +147,14 @@ class Afbeelding
     public function setFile($file) {
         $this->file = $file;
     }
+
+    public function getHoofdstuk() {
+        return $this->hoofdstuk;
+    }
+
+    public function setHoofdstuk($hoofdstuk) {
+        $this->hoofdstuk = $hoofdstuk;
+    }
+
+
 }

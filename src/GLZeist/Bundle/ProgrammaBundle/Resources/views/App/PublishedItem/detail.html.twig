@@ -102,10 +102,4 @@
             </div>
         </div>
     {%endif%}
-    {%for afbeelding in item.afbeeldingen %}
-        <div class="image">
-            <img src="{{path('file',{filename:afbeelding.imagefile})}}" />
-        </div>
-    {%endfor%}
-
 {%endblock%}

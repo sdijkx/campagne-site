@@ -45,7 +45,7 @@ class HoofdstukController extends Controller {
     }    
     
     /**
-     * @Route("/hoofdstuk/{slug}", name="hoofdstuk")
+     * @Route("/hoofdstuk/{slug}/", name="hoofdstuk")
      * @Method("GET")
      * @Template()
      */
@@ -72,5 +72,29 @@ class HoofdstukController extends Controller {
             )
         );
     }    
+    
+
+    /**
+     * @Route("/hoofdstuk/{slug}/afbeelding/{afbeeldingId}",name="hoofdstuk_afbeelding", defaults={"slug"="slug"})
+     * @Method("GET")
+     * @Template()
+     */
+    public function afbeeldingAction($slug, $afbeeldingId) {
+
+        $hoofdstuk = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->findOneBySlug($slug);
+        if (!$hoofdstuk) 
+        {
+            throw $this->createNotFoundException();        
+        }
+        
+        $afbeeldingenService=$this->get('gl_zeist_programma.afbeeldingen_service');
+        try {
+            $afbeeldingenService->afbeeldingNaarStdout($hoofdstuk,$afbeeldingId);
+        }
+        catch(\Exception $e) {
+            throw $this->createNotFoundException($e);        
+        }
+        exit;
+    }        
 
 }

@@ -31,7 +31,7 @@ use GLZeist\Bundle\ProgrammaBundle\Annotation as App;
  * @ORM\Entity(repositoryClass="GLZeist\Bundle\ProgrammaBundle\Repository\ItemRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Item
+class Item implements EntityMetAfbeeldingen
 {
     /**
      * @var integer

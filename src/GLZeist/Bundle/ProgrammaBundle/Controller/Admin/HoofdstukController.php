@@ -212,7 +212,31 @@ class HoofdstukController extends Controller
         return array(
             'hoofdstuk'      => $entity,
             'items' => $em->getRepository('GLZeistProgrammaBundle:Item')->findByHoofdstuk($entity)
-        );
-        
+        );        
     }
+    
+
+    /**
+     * @Route("/{id}/afbeelding/{afbeeldingId}",name="hoofdstuk_admin_afbeelding", defaults={"slug"="slug"})
+     * @Route("/{id}/{slug}/afbeelding/{afbeeldingId}",name="hoofdstuk_admin_afbeelding_slug")
+     * @Method("GET")
+     * @Template()
+     */
+    public function afbeeldingAction($id,$slug, $afbeeldingId) {
+
+        $hoofdstuk = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Hoofdstuk')->findOneById($id);
+        if (!$hoofdstuk) 
+        {
+            throw $this->createNotFoundException();        
+        }
+        
+        $afbeeldingenService=$this->get('gl_zeist_programma.afbeeldingen_service');
+        try {
+            $afbeeldingenService->afbeeldingNaarStdout($hoofdstuk,$afbeeldingId);
+        }
+        catch(\Exception $e) {
+            throw $this->createNotFoundException($e);        
+        }
+        exit;
+    }    
 }

@@ -26,13 +26,15 @@ class PublishService {
     private $logger;
     private $mailer;
     private $templating;
+    private $afbeeldingenService;
     
-    public function __construct(\Doctrine\ORM\EntityManager $em, \Symfony\Component\HttpKernel\Log\LoggerInterface $logger, \Swift_Mailer $mailer,$templating)
+    public function __construct(\Doctrine\ORM\EntityManager $em, \Symfony\Component\HttpKernel\Log\LoggerInterface $logger, \Swift_Mailer $mailer,$templating,$afbeeldingenService)
     {
         $this->em=$em;
         $this->mailer=$mailer;
         $this->logger=$logger;
         $this->templating=$templating;
+        $this->afbeeldingenService=$afbeeldingenService;
         
     }
     
@@ -127,14 +129,13 @@ class PublishService {
                 $this->em->remove($afbeelding);
                 $this->em->flush();
             }
+            
             //copy the afbeeldingen from the item
+            $afbeeldingId=0;
             foreach($item->getAfbeeldingen() as $afbeelding)
             {
-                //copy link
-                $copy=new Entity\Afbeelding();
-                $copy->setTitel($afbeelding->getTitel());
-                $copy->setImagefile($afbeelding->getImageFile());
-                $copy->setThumbfile($afbeelding->getThumbfile());
+                //copy afbeelding met nieuwe bestanden en bestandsnamen.
+                $copy=$this->afbeeldingenService->maakAfbeeldingKopieMetNieuweBestanden($afbeelding,'published-items/'.$item->getSlug().'-'.$afbeeldingId++);
                 $copy->setPublishedItem($publishedItem);
                 $publishedItem->getAfbeeldingen()->add($copy);
             }

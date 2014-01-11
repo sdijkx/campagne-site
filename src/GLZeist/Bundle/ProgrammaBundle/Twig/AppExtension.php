@@ -78,5 +78,4 @@ class AppExtension extends \Twig_Extension
         return $this->securityContext->isGranted('ROLE_ADMIN');
     }
     
-
 }

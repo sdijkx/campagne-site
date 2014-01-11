@@ -24,13 +24,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use GLZeist\Bundle\ProgrammaBundle\GLZeistProgrammaBundle\Annotation as App;
 
+
 /**
  * Published
  *
  * @ORM\Entity(repositoryClass="GLZeist\Bundle\ProgrammaBundle\Repository\PublishedItemRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class PublishedItem
+class PublishedItem implements EntityMetAfbeeldingen
 {
     /**
      * @var integer

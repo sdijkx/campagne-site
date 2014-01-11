@@ -14,6 +14,7 @@
         <parameter key="gl_zeist_programma.rss.class">GLZeist\Bundle\ProgrammaBundle\RSS</parameter>                
         <parameter key="gl_zeist_programma.site.class">GLZeist\Bundle\ProgrammaBundle\Site</parameter>                
         <parameter key="gl_zeist_programma.menu.class">GLZeist\Bundle\ProgrammaBundle\Menu</parameter>                        
+        <parameter key="gl_zeist_programma.afbeeldingen_service.class">GLZeist\Bundle\ProgrammaBundle\AfbeeldingenService</parameter>                        
         <parameter key="upload_dir">%kernel.root_dir%/uploads</parameter>
         <parameter key="site_dir">%kernel.root_dir%/site</parameter>
         <parameter key="rss_feed">http://zeist.groenlinks.nl/rss</parameter>
@@ -39,6 +40,11 @@
         <service id="gl_zeist_programma.fulltext_search_service" class="%gl_zeist_programma.fulltext_search_service.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
+
+        <service id="gl_zeist_programma.afbeeldingen_service" class="%gl_zeist_programma.afbeeldingen_service.class%">
+            <argument>%upload_dir%</argument>
+        </service>
+
         
         <service id="gl_zeist_programma.upload_listener" class="%gl_zeist_programma.image_upload_listener.class%">
             <argument type="service" id="annotation_reader" />
@@ -82,6 +88,7 @@
             <argument type="service" id="logger" />
             <argument type="service" id="mailer" />
             <argument type="service" id="templating" />
+            <argument type="service" id="gl_zeist_programma.afbeeldingen_service" />
         </service>
         
         

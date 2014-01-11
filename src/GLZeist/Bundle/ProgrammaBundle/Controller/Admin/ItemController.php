@@ -486,6 +486,30 @@ class ItemController extends Controller
         return $this->redirect($this->generateUrl('item_edit',array('id'=>$id)));
     }
 
+    /**
+     * @Route("/{id}/afbeelding/{afbeeldingId}",name="item_admin_afbeelding", defaults={"slug"="slug"})
+     * @Route("/{id}/{slug}/afbeelding/{afbeeldingId}",name="item_admin_afbeelding_slug")
+     * @Method("GET")
+     * @Template()
+     */
+    public function afbeeldingAction($id,$slug, $afbeeldingId) {
+
+        $item = $this->getDoctrine()->getRepository('GLZeistProgrammaBundle:Item')->findOneById($id);
+        if (!$item) 
+        {
+            throw $this->createNotFoundException();        
+        }
+        
+        $afbeeldingenService=$this->get('gl_zeist_programma.afbeeldingen_service');
+        try {
+            $afbeeldingenService->afbeeldingNaarStdout($item,$afbeeldingId);
+        }
+        catch(\Exception $e) {
+            throw $this->createNotFoundException($e);        
+        }
+        exit;
+    }
+    
 
     private function createDeleteForm($id)
     {
