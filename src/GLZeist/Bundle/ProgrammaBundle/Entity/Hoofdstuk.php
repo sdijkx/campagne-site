@@ -100,7 +100,7 @@ class Hoofdstuk implements EntityMetAfbeeldingen
     
     /**
      * @Assert\File(maxSize="6000000",mimeTypes={"image/gif","image/png","image/jpg","image/jpeg"})
-     * @App\Image(width=300,height=280,filenameProperty="imagefile")
+     * @App\Image(width=600,height=400,filenameProperty="imagefile")
      * @App\Image(width=120,height=92,filenameProperty="thumbfile")
      */
     private $file;
@@ -110,6 +110,8 @@ class Hoofdstuk implements EntityMetAfbeeldingen
      *
      * @ORM\OneToMany(targetEntity="Afbeelding",mappedBy="hoofdstuk",cascade={"all"})
      * @ORM\JoinColumn(nullable=true,onDelete="SET NULL")
+     * @App\ImageCollection(width=600,height=400,fileProperty="file",filenameProperty="imagefile")
+     * @App\ImageCollection(width=120,height=92,fileProperty="file",filenameProperty="thumbfile") 
      */
     private $afbeeldingen;    
     

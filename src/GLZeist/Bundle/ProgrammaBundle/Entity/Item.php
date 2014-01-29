@@ -120,6 +120,8 @@ class Item implements EntityMetAfbeeldingen
      *
      * @ORM\OneToMany(targetEntity="Afbeelding",mappedBy="item",cascade={"all"})
      * @ORM\JoinColumn(nullable=true,onDelete="SET NULL")
+     * @App\ImageCollection(width=300,height=280,fileProperty="file",filenameProperty="imagefile")
+     * @App\ImageCollection(width=120,height=92,fileProperty="file",filenameProperty="thumbfile") 
      */
     private $afbeeldingen;
     

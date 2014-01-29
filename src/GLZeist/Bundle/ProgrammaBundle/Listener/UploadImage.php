@@ -19,27 +19,40 @@
 
 namespace GLZeist\Bundle\ProgrammaBundle\Listener;
 use GLZeist\Bundle\ProgrammaBundle\Annotation\Image;
+use GLZeist\Bundle\ProgrammaBundle\Annotation\ImageCollection;
 
 class UploadImage
 {
-    private $object;
     private $instance;
     private $property;
     private $filenameProperty;
     private $width;
     private $height;
     
-    public function __construct(\ReflectionObject $object, $instance, \ReflectionProperty $property, Image $image)
-    {
+    public static function createWithImage(\ReflectionObject $object, $instance, \ReflectionProperty $property,Image $image) {
         $property->setAccessible(true);
         $filenameProperty=$object->getProperty($image->filenameProperty);
         $filenameProperty->setAccessible(true);        
-        $this->object=$object;
+        return new UploadImage($instance, $property, $filenameProperty, $image->width, $image->height);
+    }
+    public static function createWithImageCollection(\ReflectionObject $object,$instance,ImageCollection $imageCollection) {
+        $property=$object->getProperty($imageCollection->fileProperty);
+        $property->setAccessible(true);
+        $filenameProperty=$object->getProperty($imageCollection->filenameProperty);
+        $filenameProperty->setAccessible(true);        
+        return new UploadImage($instance, $property, $filenameProperty, $imageCollection->width, $imageCollection->height);
+    }
+
+    
+    private function __construct($instance, \ReflectionProperty $property,\ReflectionProperty $filenameProperty,$width,$height)
+    {
+        $property->setAccessible(true);
+        $filenameProperty->setAccessible(true);        
         $this->instance=$instance;
         $this->property=$property;
         $this->filenameProperty=$filenameProperty;
-        $this->width=$image->width;
-        $this->height=$image->height;
+        $this->width=$width;
+        $this->height=$height;
     }
     
     public function setFilename($filename)
@@ -51,6 +64,12 @@ class UploadImage
     {
         return $this->filenameProperty->getValue($this->instance);
     }
+    
+    public function getFilenamePropertyName()
+    {
+        return $this->filenameProperty->getName();
+    }
+    
     
     public function getFile()
     {
@@ -67,4 +86,7 @@ class UploadImage
     }
 
 
+    public function getInstance() {
+        return $this->instance;
+    }
 }

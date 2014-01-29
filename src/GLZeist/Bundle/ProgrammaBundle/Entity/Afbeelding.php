@@ -87,10 +87,9 @@ class Afbeelding
 
     /**
      * @Assert\File(maxSize="6000000",mimeTypes={"image/gif","image/png","image/jpg","image/jpeg"})
-     * @App\Image(width=300,height=280,filenameProperty="imagefile")
-     * @App\Image(width=120,height=92,filenameProperty="thumbfile")
      */
     private $file;
+    
     
     public function getId() {
         return $this->id;

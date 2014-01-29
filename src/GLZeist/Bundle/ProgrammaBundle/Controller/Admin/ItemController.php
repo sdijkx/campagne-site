@@ -285,11 +285,11 @@ class ItemController extends Controller
 
             foreach($entity->getAfbeeldingen() as $afbeelding)
             {
-                foreach ($afbeelding as $key => $toDel) {
-                    if ($afbeelding->getId() === $afbeelding->getId()) {
+                foreach ($afbeeldingen as $key => $toDel) {
+                    if ($toDel->getId() === $afbeelding->getId()) {
                         unset($afbeeldingen[$key]);
                     }
-                }                
+                }
             }
             foreach($afbeeldingen as $afbeelding)
             {

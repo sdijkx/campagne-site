@@ -142,9 +142,30 @@ class HoofdstukController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createForm(new HoofdstukType(), $entity);
+        
+        $afbeeldingen=array();
+        foreach($entity->getAfbeeldingen() as $afbeelding) {
+            $afbeeldingen[]=$afbeelding;
+        }
+        
+        
         $editForm->bind($request);
 
-        if ($editForm->isValid()) {
+        if ($editForm->isValid()) 
+        {
+            
+            foreach($entity->getAfbeeldingen() as $afbeelding) {
+                foreach($afbeeldingen as $key => $toDel) {
+                    if($afbeelding->getId()===$toDel->getId()) {
+                        unset($afbeeldingen[$key]);
+                    }
+                }            
+            }
+            foreach($afbeeldingen as $afbeelding) {
+                $afbeelding->setHoofdstuk(null);
+                $em->remove($afbeelding);                
+            }
+            
             $em->persist($entity);
             $em->flush();
 
