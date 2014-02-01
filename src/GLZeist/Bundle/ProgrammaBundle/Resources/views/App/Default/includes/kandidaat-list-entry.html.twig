@@ -1,6 +1,10 @@
 <article class="list-item">
     <h2 class="naam">
-        <a title="{{kandidaat.naam}}" href="{{path('kandidaat',{slug:kandidaat.slug})}}">{{kandidaat.naam}}</a>
+        {%if kandidaat.personalia %}
+            <a title="{{kandidaat.naam}}" href="{{path('kandidaat',{slug:kandidaat.slug})}}">{{kandidaat.naam}}</a>
+        {%else%}
+            <span>{{kandidaat.naam}}</span>
+        {%endif%}
         {%if kandidaat.kern %}
             <span>({{kandidaat.kern}})</span>
         {%endif%}

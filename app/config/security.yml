@@ -47,13 +47,9 @@ security:
 
     access_control:
         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        #- { path: ^/admin/item/publish, roles: ROLE_MODERATOR, ip: 84.80.1.171 }
         - { path: ^/admin/item/publish, roles: ROLE_MODERATOR }
-        #- { path: ^/admin/item, roles: ROLE_USER, ip: 84.80.1.171 }
         - { path: ^/admin/item, roles: ROLE_USER }
-        #- { path: ^/admin/user, roles: ROLE_ADMIN, ip: 84.80.1.171 }
         - { path: ^/admin/user, roles: ROLE_ADMIN }
-        # { path: ^/admin, roles: ROLE_MODERATOR, ip: 84.80.1.171 }
         - { path: ^/admin, roles: ROLE_MODERATOR }
         - { path: ^/admin, roles: NO_ACCESS }
         

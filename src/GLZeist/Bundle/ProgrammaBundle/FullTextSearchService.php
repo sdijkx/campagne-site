@@ -53,12 +53,14 @@ class FullTextSearchService
         $rsm->addFieldResult('h', 'hoofdstuk_id', 'id');
         $rsm->addFieldResult('h', 'hoofdstuk_titel', 'titel');
         $rsm->addFieldResult('h', 'hoofdstuk_slug', 'slug');
-        $rsm->addFieldResult('h', 'hoofdstuk_samenvatting', 'tekst');
+        $rsm->addFieldResult('h', 'hoofdstuk_tekst', 'tekst');
+        $rsm->addFieldResult('h', 'hoofdstuk_samenvatting', 'samenvatting');
         
                 
         $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Kandidaat', 'k','kandidaat');            
         $rsm->addFieldResult('k', 'kandidaat_id', 'id');
         $rsm->addFieldResult('k', 'naam', 'naam');
+        $rsm->addFieldResult('k', 'personalia', 'personalia');
         $rsm->addFieldResult('k', 'kandidaat_slug', 'slug');
         $rsm->addFieldResult('k', 'kandidaat_thumbfile', 'thumbfile');
 
@@ -97,9 +99,11 @@ class FullTextSearchService
                 h.id as hoofdstuk_id,
                 h.titel as hoofdstuk_titel,
                 h.tekst as hoofdstuk_tekst,
+                h.samenvatting as hoofdstuk_samenvatting,
                 h.slug as hoofdstuk_slug,        
                 k.id as kandidaat_id,
                 k.naam,
+                k.personalia,
                 k.slug as kandidaat_slug,
                 k.thumbfile as kandidaat_thumbfile,
                 MATCH(s.keywords) AGAINST('{$search}' IN BOOLEAN MODE) + MATCH(s.search_text) AGAINST('{$search}') AS relevance 

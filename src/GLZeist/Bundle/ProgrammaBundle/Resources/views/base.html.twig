@@ -105,7 +105,11 @@
                     <ul class="footer-link-list">
                         {%for kandidaat in kandidaten() %}
                             <li class="footer-link-item">
-                                {{glzeist.link(path('kandidaat',{slug:kandidaat.slug}),kandidaat.naam)}}
+                                {%if kandidaat.personalia %}
+                                    {{glzeist.link(path('kandidaat',{slug:kandidaat.slug}),kandidaat.naam)}}
+                                {%else%}
+                                    <span>{{kandidaat.naam}}</span>
+                                {%endif%}
                             </li>
                         {%endfor%}
                     </ul>
