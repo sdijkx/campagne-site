@@ -29,7 +29,9 @@ class Site
     private $ondertitel;
     private $filename;
     private $twitter;
+    public $gaTracking;
     private $menu;
+    
 
     public function __construct($filename, Menu $menu)
     {
@@ -155,6 +157,15 @@ class Site
     public function getMenu() {
         return $this->menu;
     }
+    
+    public function getGaTracking() {
+        return $this->gaTracking;
+    }
+
+    public function setGaTracking($gaTracking) {
+        $this->gaTracking = $gaTracking;
+    }
+
 
 
 

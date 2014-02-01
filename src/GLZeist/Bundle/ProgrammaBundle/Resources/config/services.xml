@@ -32,6 +32,7 @@
         <service id="gl_zeist_programma.site" class="%gl_zeist_programma.site.class%">
             <argument>%site_dir%/settings.yml</argument>
             <argument type="service" id="gl_zeist_programma.menu" />
+            <property name="gaTracking">%ga_tracking%</property>
         </service>
         
         <service id="gl_zeist_programma.rss" class="%gl_zeist_programma.rss.class%">

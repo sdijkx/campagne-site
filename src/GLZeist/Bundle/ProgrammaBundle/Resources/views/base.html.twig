@@ -144,5 +144,8 @@
                 });
             });
         </script>
+        {%if site.gaTracking%} 
+            {{glzeist.ga_tracking(site.gaTracking)}}
+        {%endif%}
     </body>
 </html>
