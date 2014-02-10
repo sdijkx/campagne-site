@@ -49,6 +49,11 @@ class KandidaatController extends Controller
         {
             throw $this->createNotFoundException();
         }
+        
+        $this->get('gl_zeist_programma.site')->getMenu()->maakActief(
+                $this->generateUrl('kandidaat_index')
+        );
+        
         return array(
             'kandidaat' => $kandidaat,
             'breadcrumb'=>array(

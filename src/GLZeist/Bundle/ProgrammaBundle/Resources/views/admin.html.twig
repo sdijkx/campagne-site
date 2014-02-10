@@ -38,7 +38,7 @@
         </footer>
         <script>
             require(['jquery'], function() {
-                $('div.form_textarea').on('click','.edit,.close',function(){
+                $('body').delegate('div.form_textarea .edit,div.form_textarea .close','click',function(){
                     parent=$(this).parent();
                     $('div.value',parent).toggle();
                     $('div.input',parent).toggle();

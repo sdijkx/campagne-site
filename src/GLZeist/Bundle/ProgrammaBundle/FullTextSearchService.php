@@ -43,6 +43,23 @@ class FullTextSearchService
         
         $rsm->addScalarResult('relevance', 'relevance','float');
 
+        $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\WijkParel', 'wp','wijkparel');            
+        $rsm->addJoinedEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Wijk', 'wp_w','wp','wijk');
+        $rsm->addFieldResult('wp', 'wijkparel_id', 'id');
+        $rsm->addFieldResult('wp', 'wijkparel_titel', 'titel');
+        $rsm->addFieldResult('wp', 'wijkparel_slug', 'slug');
+        $rsm->addFieldResult('wp', 'wijkparel_tekst', 'tekst');        
+        $rsm->addFieldResult('wp_w', 'wijkparel_wijk_id', 'id');
+        $rsm->addFieldResult('wp_w', 'wijkparel_wijk_slug', 'slug');        
+        $rsm->addFieldResult('wp_w', 'wijkparel_wijk_wijk', 'wijk');        
+        
+
+        $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Wijk', 'w','wijk');            
+        $rsm->addFieldResult('w', 'wijk_id', 'id');
+        $rsm->addFieldResult('w', 'wijk_wijk', 'wijk');
+        $rsm->addFieldResult('w', 'wijk_slug', 'slug');
+        $rsm->addFieldResult('w', 'wijk_tekst', 'tekst');        
+
         $rsm->addEntityResult('GLZeist\Bundle\ProgrammaBundle\Entity\Thema', 't','thema');            
         $rsm->addFieldResult('t', 'thema_id', 'id');
         $rsm->addFieldResult('t', 'thema_titel', 'titel');
@@ -106,6 +123,17 @@ class FullTextSearchService
                 k.personalia,
                 k.slug as kandidaat_slug,
                 k.thumbfile as kandidaat_thumbfile,
+                w.id as wijk_id,
+                w.wijk as wijk_wijk,
+                w.slug as wijk_slug,
+                w.tekst as wijk_tekst,
+                wp.id as wijkparel_id,
+                wp.titel as wijkparel_titel,
+                wp.slug as wijkparel_slug,
+                wp.tekst as wijkparel_tekst,
+                wp_w.id as wijkparel_wijk_id,
+                wp_w.slug as wijkparel_wijk_slug,
+                wp_w.wijk as wijkparel_wijk_wijk,
                 MATCH(s.keywords) AGAINST('{$search}' IN BOOLEAN MODE) + MATCH(s.search_text) AGAINST('{$search}') AS relevance 
              FROM 
                 item_search AS s 
@@ -114,6 +142,9 @@ class FullTextSearchService
                 LEFT JOIN Thema AS t ON s.object_id=t.id AND s.object_type='thema'
                 LEFT JOIN Hoofdstuk AS h ON s.object_id=h.id AND s.object_type='hoofdstuk'
                 LEFT JOIN Kandidaat AS k ON s.object_id=k.id AND s.object_type='kandidaat'
+                LEFT JOIN Wijk AS w ON s.object_id=w.id AND s.object_type='wijk'
+                LEFT JOIN WijkParel AS wp ON s.object_id=wp.id AND s.object_type='wijkparel'
+                LEFT JOIN Wijk AS wp_w ON wp.wijk_id=wp_w.id
                 WHERE 
                     MATCH(s.search_text) AGAINST('{$search}' IN BOOLEAN MODE) OR
                     MATCH(s.keywords) AGAINST('{$search}' IN BOOLEAN MODE) 

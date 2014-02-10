@@ -1,0 +1,78 @@
+{% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
+{%block content%}
+<h1>Wijk bewerken</h1>
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_wijk_preview',{id:entity.id}) }}">
+            Voorbeeld
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('admin_wijk') }}">
+            Terug naar het overzicht
+        </a>
+    </li>
+    <li>
+        {{macros.delete_form('admin_wijk_delete',delete_form,entity)}}
+    </li>
+</ul>
+<div style="clear:both">&nbsp;</div>
+<hr/>
+<h1>Wijk Parels</h1>
+<table>
+    <thead>
+        <th>Titel</th>
+    </thead>
+    <tbody>
+        {%for parel in entity.wijkParels%}
+            <tr>
+                <td><a class="button" href="{{path('admin_wijkparel_edit',{id:parel.id})}}"><i class="icon-pencil">&nbsp;</i>{{parel.titel}}</a></td>
+            </tr>
+        {%endfor%}
+    </tbody>
+    <tfoot>
+        <th>
+            <a class="button add" href="{{ path('admin_wijkparel_new',{wijkId:entity.id}) }}">
+                <span>Wijk Parel Toevoegen</span>
+            </a>
+        </th>
+    </tfoot>
+</table>
+<hr/>
+
+<form action="{{ path('admin_wijk_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+
+    {{ form_row(form.wijk) }}
+    {{ form_row(form.metaDescription) }}
+    {{ form_row(form.samenvatting) }}
+    {{ form_row(form.tekst) }}
+
+    {% form_theme form.links 'GLZeistProgrammaBundle:Admin/Item:links_collection_widget.html.twig' %}
+    <div class="form_row">
+        {{ form_label(form.links) }}
+        {{ form_widget(form.links) }}
+    </div>
+
+    {% form_theme form.afbeeldingen 'GLZeistProgrammaBundle:Admin/Item:afbeeldingen_collection_widget.html.twig' %}
+    <div class="form_row">
+        {{ form_label(form.afbeeldingen) }}
+        {{ form_widget(form.afbeeldingen) }}
+    </div>
+
+    {{ form_row(form.trefwoorden) }}
+
+    {{form_rest(form)}}
+
+    <div class="form_actions">
+        <button type="submit">Opslaan</button>
+    </div>
+</form>
+
+<script>
+    require(["ckeditor/ckeditor"], function() {
+        CKEDITOR.replace('glzeist_bundle_programmabundle_wijktype_samenvatting');
+        CKEDITOR.replace('glzeist_bundle_programmabundle_wijktype_tekst');
+    });
+</script>
+
+{%endblock%}

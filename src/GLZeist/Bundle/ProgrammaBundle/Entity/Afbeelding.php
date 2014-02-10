@@ -48,6 +48,29 @@ class Afbeelding
      */
     private $titel;
     
+    
+    /**
+     * @ORM\Column(name="width", type="integer",nullable=true)
+     */
+     private $width;
+
+    /**
+     * @ORM\Column(name="height", type="integer",nullable=true)
+     */
+    private $height;
+    
+    /**
+     * @ORM\Column(name="thumbWidth", type="integer",nullable=true)
+     */
+    private $thumbWidth;
+    
+
+    /**
+     * @ORM\Column(name="thumbHeight", type="integer",nullable=true)
+     */
+    private $thumbHeight;
+    
+    
     /**
      * @var string
      *
@@ -83,6 +106,23 @@ class Afbeelding
      * @ORM\ManyToOne(targetEntity="Hoofdstuk",inversedBy="afbeeldingen")
      */
     private $hoofdstuk;   
+    
+
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="Wijk",inversedBy="afbeeldingen")
+     */
+    private $wijk;   
+    
+    /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="WijkParel",inversedBy="afbeeldingen")
+     */
+    private $wijkParel;   
+    
+    
     
 
     /**
@@ -154,6 +194,58 @@ class Afbeelding
     public function setHoofdstuk($hoofdstuk) {
         $this->hoofdstuk = $hoofdstuk;
     }
+    
+    public function getWidth() {
+        return $this->width;
+    }
+
+    public function setWidth($width) {
+        $this->width = $width;
+    }
+
+    public function getHeight() {
+        return $this->height;
+    }
+
+    public function setHeight($height) {
+        $this->height = $height;
+    }
+
+    public function getThumbWidth() {
+        return $this->thumbWidth;
+    }
+
+    public function setThumbWidth($thumbWidth) {
+        $this->thumbWidth = $thumbWidth;
+    }
+
+    public function getThumbHeight() {
+        return $this->thumbHeight;
+    }
+
+    public function setThumbHeight($thumbHeight) {
+        $this->thumbHeight = $thumbHeight;
+    }
+
+    public function getWijk() {
+        return $this->wijk;
+    }
+
+    public function setWijk($wijk) {
+        $this->wijk = $wijk;
+    }
+    
+    public function getWijkParel() {
+        return $this->wijkParel;
+    }
+
+    public function setWijkParel($wijkParel) {
+        $this->wijkParel = $wijkParel;
+    }
+
+
+
+
 
 
 }

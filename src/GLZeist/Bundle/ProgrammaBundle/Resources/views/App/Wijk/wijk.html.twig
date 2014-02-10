@@ -1,0 +1,58 @@
+{% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block title%}{{wijk.wijk}}{%endblock%}
+{%block seo%}
+{%endblock%}
+
+{%block content%}
+
+<article class="wijk">
+    <header class="wijk-header">
+        <h1>{{wijk.wijk}}</h1><span class="trefwoorden">{{ wijk.trefwoorden|join(', ') }}</span>
+    </header>
+    <div>
+        {{wijk.tekst|raw}}
+    </div>
+    <div class="grid">
+        <div class="col col-1-2">
+            {%if wijk.wijkParels and wijk.wijkParels|length > 0 %}
+                <h2>
+                    Uitblinkers
+                </h2>
+                <ul class="links">
+                {%for parel in wijk.wijkParels %}
+                    <li>{{glzeist.link('#'~parel.slug,parel.titel)}}</li>
+                {%endfor%}
+                </ul>
+            {%endif%}
+        </div>
+        <div class="col col-1-2">
+            {%if wijk.links|length>0 %}
+                <h2>
+                    Links
+                </h2>
+                <div>
+                    <ul class="links">
+                    {%for link in wijk.links %}
+                        <li>{{glzeist.link(link.url,link.titel)}}</li>
+                    {%endfor%}
+                    </ul>
+                </div>
+            {%endif%}
+        </div>
+    </div>
+    <br/>
+</article>
+<div class="col">
+    {%for parel in wijk.wijkParels %}
+        <article id="{{parel.slug}}" class="wijk-parel"> 
+            <header>
+                <h1>{{parel.titel}}</h1>
+            </header>
+            <div>
+                {{parel.tekst|raw}}
+            </div>
+        </article>
+    {%endfor%}
+</div>
+
+{%endblock%}

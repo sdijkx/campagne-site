@@ -1,0 +1,33 @@
+{% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
+{%block content%}
+
+<h1>Wijken</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th class="edit"></th>
+            <th>Wijk</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td >
+                <a class="button" title="Bewerk" href="{{ path('admin_wijk_edit', { 'id': entity.id }) }}"><span class="icon-pencil">&nbsp;</span></a>
+            </td>
+            <td class="left">{{ entity.wijk }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul class="actions">
+    <li>
+        <a href="{{ path('admin_wijk_new') }}">
+            Toevoegen
+        </a>
+    </li>
+</ul>
+
+{%endblock%}

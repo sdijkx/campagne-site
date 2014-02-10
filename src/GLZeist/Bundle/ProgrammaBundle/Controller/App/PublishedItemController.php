@@ -91,6 +91,11 @@ class PublishedItemController extends Controller
         {
             throw $this->createNotFoundException();        
         }
+        if($item->getHoofdstuk()) {
+            $this->get('gl_zeist_programma.site')->getMenu()->maakActief(
+                    $this->generateUrl('hoofdstuk',array('slug'=>$item->getHoofdstuk()->getSlug()))
+            );
+        }
         $breadcrumb=$this->createBreadcrumb($item);
         return array(
             'item'=>$item,

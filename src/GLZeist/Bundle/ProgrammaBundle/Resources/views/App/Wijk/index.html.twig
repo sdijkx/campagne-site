@@ -1,0 +1,22 @@
+{% extends "GLZeistProgrammaBundle::base.html.twig" %} 
+{%block title%}Wijken{%endblock%}
+{%block seo%}
+    <meta name="description" content="Wijken in het verkiezingsprogramma van Groenlinks Afdeling Zeist">
+{%endblock%}
+
+{%block content%}
+<section>
+    {%for wijk in wijken%}
+        <article class="list-item">
+            <h2 class="titel">
+                <a title="{{wijk.wijk}}" href="{{path('wijk_detail',{slug:wijk.slug})}}">{{wijk.wijk}}</a>
+            </h2>
+        </article>
+    {%endfor%}
+</section>
+
+{%endblock%}
+
+{%block rightcontent%}
+
+{%endblock%}

@@ -34,7 +34,7 @@ class Menu {
         $this->items=array();
     }
             
-    private function generateItems()
+    public function generateItems()
     {
         $router=$this->container->get('router');
         $this->items=array();
@@ -44,6 +44,7 @@ class Menu {
             $this->add($router->generate('hoofdstuk',array('slug'=>$hoofdstuk->getSlug())),$hoofdstuk->getTitel());    
         }
         $this->add($router->generate('kandidaat_index'),'Kandidaten');
+        $this->add($router->generate('wijk_index'),'Wijken');
         return $this->items;
     }
         
@@ -52,15 +53,28 @@ class Menu {
         $this->items[]=array('url' => $url,'titel' => $titel,'actief' => false);
     }
     
-    private function maakActief($url)
+    public function maakActief($url)
     {
+        if(count($this->items)==0)
+        {
+            $this->generateItems();            
+        }        
+        $actief=array('key'=>null,'len'=>0);
         foreach($this->items as $key => $item)
         {
-            if($item['url']==$url)
+            if($this->compareUrl($url,$item['url']) && strlen($item['url'])>$actief['len'] )
             {
-                $this->items[$key]['actief']=true;
+                $actief['key']=$key;
+                $actief['len']=strlen($item['url']);
             }
         }
+        if(!is_null($actief['key'])) {
+            $this->items[$actief['key']]['actief']=true;
+        }
+    }
+    
+    private function compareUrl($url,$menuUrl) {
+        return strcasecmp(substr($url,0,strlen($menuUrl)),$menuUrl)==0;         
     }
     
     private function getHoofdstukken()
@@ -72,10 +86,9 @@ class Menu {
     {
         if(count($this->items)==0)
         {
-            $this->generateItems();
+            $request=$this->container->get('request');    
+            $this->maakActief($request->getBaseUrl().$request->getPathInfo());
         }
-        $request=$this->container->get('request');    
-        $this->maakActief($request->getBaseUrl().$request->getPathInfo());
         return $this->items;
     }
 }

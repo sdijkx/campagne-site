@@ -19,6 +19,9 @@
 
 namespace GLZeist\Bundle\ProgrammaBundle\Entity;
 
+/**
+ * Interface voor entities die afbeeldingen hebben, wordt gebruikt in AfbeeldingenService om afbeelding naar stdout te schrijven
+ */
 interface EntityMetAfbeeldingen {
 
     public function getImageFile();

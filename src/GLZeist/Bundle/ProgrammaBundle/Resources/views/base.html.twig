@@ -91,6 +91,15 @@
         <footer id="page-footer">
             <div class="grid">
                 <div class="col col-1-3">
+                    <h1 class="footer-link-list-title">wijken</h1>
+                    <ul class="footer-link-list">
+                        {%for wijk in wijken() %}
+                            <li class="footer-link-item">
+                                {{glzeist.link(path('wijk_detail',{slug:wijk.slug}),wijk.wijk)}}
+                            </li>
+                        {%endfor%}
+                    </ul>
+
                     <h1 class="footer-link-list-title">thema's</h1>
                     <ul class="footer-link-list">
                         {%for thema in themas() %}

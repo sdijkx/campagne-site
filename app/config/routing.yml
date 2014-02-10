@@ -14,6 +14,10 @@ gl_zeist_hoofdstuk:
 gl_zeist_kandidaat:
     resource: "@GLZeistProgrammaBundle/Controller/App/KandidaatController.php"
     type:     annotation    
+
+gl_zeist_wijk:
+    resource: "@GLZeistProgrammaBundle/Controller/App/WijkController.php"
+    type:     annotation    
         
 gl_zeist:
     resource: "@GLZeistProgrammaBundle/Controller/App/DefaultController.php"

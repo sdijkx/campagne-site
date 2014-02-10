@@ -1,0 +1,44 @@
+{% extends "GLZeistProgrammaBundle::admin.html.twig" %} 
+{%block content%}
+<h1>Nieuwe wijk</h1>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('admin_wijk') }}">
+            Terug naar het overzicht
+        </a>
+    </li>
+</ul>
+
+<form action="{{ path('admin_wijk_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_row(form.wijk) }}
+    {{ form_row(form.metaDescription) }}
+    {{ form_row(form.samenvatting) }}
+    {{ form_row(form.tekst) }}
+
+    {% form_theme form.links 'GLZeistProgrammaBundle:Admin/Item:links_collection_widget.html.twig' %}
+    <div class="form_row">
+        {{ form_label(form.links) }}
+        {{ form_widget(form.links) }}
+    </div>
+
+    {% form_theme form.afbeeldingen 'GLZeistProgrammaBundle:Admin/Item:afbeeldingen_collection_widget.html.twig' %}
+    <div class="form_row">
+        {{ form_label(form.afbeeldingen) }}
+        {{ form_widget(form.afbeeldingen) }}
+    </div>
+
+    {{form_rest(form)}}
+
+    <div class="form_actions">
+        <button type="submit">Toevoegen</button>
+    </div>
+</form>
+<script>
+    require(["ckeditor/ckeditor"], function() {
+        CKEDITOR.replace('glzeist_bundle_programmabundle_wijktype_tekst');
+        CKEDITOR.replace('glzeist_bundle_programmabundle_wijktype_samenvatting');
+    });
+</script>
+
+{%endblock%}

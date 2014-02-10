@@ -61,6 +61,18 @@ class Link
      */
     private $publishedItem;
     
+        
+    /**
+     * @ORM\ManyToOne(targetEntity="Wijk",inversedBy="links")
+     */
+    private $wijk;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="WijkParel",inversedBy="links")
+     */
+    private $wijkParel;
+    
+    
     
     public function __construct()
     {
@@ -99,6 +111,7 @@ class Link
         $this->item = $item;
     }
     
+        
     public function getPublishedItem() {
         return $this->publishedItem;
     }
@@ -106,5 +119,24 @@ class Link
     public function setPublishedItem($publishedItem) {
         $this->publishedItem = $publishedItem;
     }
+    
+    public function getWijk() {
+        return $this->wijk;
+    }
+
+    public function setWijk($wijk) {
+        $this->wijk = $wijk;
+    }
+
+    public function getWijkParel() {
+        return $this->wijkParel;
+    }
+
+    public function setWijkParel($wijkParel) {
+        $this->wijkParel = $wijkParel;
+    }
+
+
+
 
 }

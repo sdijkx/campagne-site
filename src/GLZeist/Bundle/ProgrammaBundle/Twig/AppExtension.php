@@ -39,6 +39,7 @@ class AppExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
+            'wijken' => new \Twig_Function_Method($this,'getWijken'),
             'themas' => new \Twig_Function_Method($this,'getThemas'),
             'hoofdstukken' => new \Twig_Function_Method($this,'getHoofdstukken'),
             'kandidaten' => new \Twig_Function_Method($this,'getKandidaten'),
@@ -50,6 +51,11 @@ class AppExtension extends \Twig_Extension
     
     public function getGlobals() {
         return array('site' => $this->site);
+    }
+
+    public function getWijken()
+    {
+        return $this->em->getRepository('GLZeistProgrammaBundle:Wijk')->findAll();
     }
     
     public function getThemas()

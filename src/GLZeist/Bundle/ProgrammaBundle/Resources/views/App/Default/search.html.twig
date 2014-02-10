@@ -22,6 +22,15 @@
                     {%set hoofdstuk=result['hoofdstuk'] %}
                     {%include 'GLZeistProgrammaBundle:App/Default:includes/hoofdstuk-list-entry.html.twig'%}
                 {%endif%}
+                {%if result['wijk'] is defined and result['wijk'] is not empty %}
+                    {%set wijk=result['wijk'] %}
+                    {%include 'GLZeistProgrammaBundle:App/Default:includes/wijk-list-entry.html.twig'%}
+                {%endif%}
+                {%if result['wijkparel'] is defined and result['wijkparel'] is not empty %}
+                    {%set wijkparel=result['wijkparel'] %}
+                    {%include 'GLZeistProgrammaBundle:App/Default:includes/wijkparel-list-entry.html.twig'%}
+                {%endif%}
+
             {%endfor%}
         </section>
     {%endif%}
