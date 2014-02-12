@@ -5,4 +5,13 @@
     <div class="tekst">
         {{wijk.samenvatting|raw}}
     </div>
+    {%if wijk.trefwoorden|length > 0 %}
+        <div class="trefwoorden">
+            <strong>Trefwoorden:</strong>
+            {%for trefwoord in wijk.trefwoorden %}
+                <a href="{{path('trefwoord',{slug:trefwoord.slug})}}" title="{{trefwoord.trefwoord}}">{{trefwoord.trefwoord}}</a>
+            {%endfor%}
+        </div>
+    {%endif%}
+
 </article>

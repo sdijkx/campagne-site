@@ -74,10 +74,12 @@ class ImageUploadListener
             $filename=$file->getRealPath();
             
             $type=$scaler->getType($filename);
+            
+            $scaleStrategy = $image->getScaleStrategy();
 
             $dest=$this->getRootDir().DIRECTORY_SEPARATOR.$image->getFilename();
             
-            $scaler->scale($filename, $dest, $type, $image->getWidth(), $image->getHeight());
+            $scaler->scale($filename, $dest, $type, $image->getWidth(), $image->getHeight(),$scaleStrategy);
             $this->logger->debug('Scale image ',array($filename, $dest));
         }
     }

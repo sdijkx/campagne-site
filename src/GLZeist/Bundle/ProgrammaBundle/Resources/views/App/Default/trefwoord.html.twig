@@ -4,24 +4,19 @@
 
 <section id="items" class="col">
     <h1 class="header">{{site.titel}}</h1>
+    {%for key, result in results%}
+        {%if result['item'] is defined and result['item'] is not empty %}
+            {%set item=result['item'] %}
+            {%include 'GLZeistProgrammaBundle:App/PublishedItem:item-list-entry.html.twig'%}
+        {%endif%}
+        {%if result['wijk'] is defined and result['wijk'] is not empty %}
+            {%set wijk=result['wijk'] %}
+            {%include 'GLZeistProgrammaBundle:App/Default:includes/wijk-list-entry.html.twig'%}
+        {%endif%}
+        {%if result['wijkparel'] is defined and result['wijkparel'] is not empty %}
+            {%set wijkparel=result['wijkparel'] %}
+            {%include 'GLZeistProgrammaBundle:App/Default:includes/wijkparel-list-entry.html.twig'%}
+        {%endif%}
+    {%endfor%}
 </section>
-
-
-
-{%endblock%}
-
-{%block rightcontent%}
-
-{%endblock%}
-
-{%block script%}
-<script>
-    require(['jquery'],function(){
-        var url="{{path('item_list_trefwoord',{slug:trefwoord.slug,limit:10})}}";
-        $.get(url,function(data){
-            $('#items').removeClass('laden');
-            $('#items').append(data);
-        });
-    });
-</script>
 {%endblock%}

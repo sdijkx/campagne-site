@@ -45,7 +45,7 @@ class ImageScaler
         }
         
     }
-    public function scale($filename,$dest,$type,$width,$height)
+    public function scale($filename,$dest,$type,$width,$height, ScaleStrategy $scaleStrategy)
     {
         $src;
         if($type=='gif')
@@ -69,30 +69,35 @@ class ImageScaler
             throw new \Exception('Error reading image');
         }
         
-        $img=@imagecreatetruecolor($width, $height);
-        
-        $white = imagecolorallocate($img, 255, 255, 255);
-        imagefill($img, 0, 0, $white);
 
         
         $srcWidth=imagesx($src);
         $srcHeight=imagesy($src);
         
-        if($srcWidth*$height>$srcHeight*$width)
-        {
-            $scaledWidth=$width;
-            $scaledHeight=$srcHeight* $width/$srcWidth;            
-            $sx=0;
-            $sy=($height-$scaledHeight)/2;
-        }
-        else
-        {
-            $scaledWidth=$srcWidth* $height/$srcHeight;
-            $scaledHeight=$height;            
-            $sx=($width-$scaledWidth)/2;
-            $sy=0;
-        }
-        imagecopyresampled($img,$src,$sx,$sy,0,0,$scaledWidth, $scaledHeight,$srcWidth,$srcHeight);
+        $scale=$scaleStrategy->scale($width, $height, $srcWidth, $srcHeight);
+        
+//        
+//        if($srcWidth*$height>$srcHeight*$width)
+//        {
+//            $scaledWidth=$width;
+//            $scaledHeight=$srcHeight* $width/$srcWidth;            
+//            $sx=0;
+//            $sy=($height-$scaledHeight)/2;
+//        }
+//        else
+//        {
+//            $scaledWidth=$srcWidth* $height/$srcHeight;
+//            $scaledHeight=$height;            
+//            $sx=($width-$scaledWidth)/2;
+//            $sy=0;
+//        }
+
+        $img=@imagecreatetruecolor($scale['width'], $scale['height']);
+        
+        $white = imagecolorallocate($img, 255, 255, 255);
+        imagefill($img, 0, 0, $white);
+        
+        imagecopyresampled($img,$src,$scale['sx'],$scale['sy'],0,0,$scale['scaledWidth'], $scale['scaledHeight'],$srcWidth,$srcHeight);
         imagejpeg($img,$dest,100);
 
     }

@@ -78,12 +78,11 @@ class DefaultController extends Controller
         {
             throw $this->createNotFoundException();        
         }
-        $limit=$this->getRequest()->get('limit',10);
-        $items=$this->getDoctrine()->getRepository('GLZeistProgrammaBundle:PublishedItem')->findAllForTrefwoord($trefwoord,array('gepubliceerdOp'=>'DESC'),$limit+1);
+        $trefwoordService=$this->get('gl_zeist_programma.trefwoord_service');
+        $results=$trefwoordService->search($trefwoord->getId());
         return array(
             'trefwoord'=>$trefwoord,
-            'items'=>$items, 
-            'limit'=>$limit,
+            'results'=>$results, 
             'breadcrumb'=>array(
                 array(
                     'name' => $trefwoord->getTrefwoord()

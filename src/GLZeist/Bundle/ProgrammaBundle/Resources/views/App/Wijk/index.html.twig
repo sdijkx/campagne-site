@@ -11,6 +11,7 @@
             <h2 class="titel">
                 <a title="{{wijk.wijk}}" href="{{path('wijk_detail',{slug:wijk.slug})}}">{{wijk.wijk}}</a>
             </h2>
+            <div>{{wijk.samenvatting|raw}}</div>
         </article>
     {%endfor%}
 </section>

@@ -28,4 +28,5 @@ class Image {
     public $filenameProperty;
     public $width;
     public $height;
+    public $strategy='size';
 }

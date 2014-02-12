@@ -16,18 +16,28 @@
     along with GroenLinks Zeist Campagnesite.  If not, see <http://www.gnu.org/licenses/>.
     
 */
-namespace GLZeist\Bundle\ProgrammaBundle\Annotation;
 
-/**
- * @Annotation
- * @Target({"PROPERTY"})
- */
+namespace GLZeist\Bundle\ProgrammaBundle\Listener;
 
-class ImageCollection {
-    
-    public $filenameProperty;
-    public $fileProperty;
-    public $width;
-    public $height;
-    public $strategy='size';
+class RetainSizeStrategy implements ScaleStrategy {
+
+    public function scale($width,$height,$srcWidth,$srcHeight) {
+        
+        if($srcWidth*$height>$srcHeight*$width)
+        {
+            $scaledWidth=$width;
+            $scaledHeight=$srcHeight* $width/$srcWidth;            
+            $sx=0;
+            $sy=($height-$scaledHeight)/2;
+        }
+        else
+        {
+            $scaledWidth=$srcWidth* $height/$srcHeight;
+            $scaledHeight=$height;            
+            $sx=($width-$scaledWidth)/2;
+            $sy=0;
+        }        
+        
+        return array('sx' => $sx, 'sy' => $sy, 'scaledWidth' => $scaledWidth, 'scaledHeight' => $scaledHeight,'width' => $width,'height'=>$height);
+    }
 }

@@ -28,23 +28,33 @@ class UploadImage
     private $filenameProperty;
     private $width;
     private $height;
+    private $scaleStrategy;
     
     public static function createWithImage(\ReflectionObject $object, $instance, \ReflectionProperty $property,Image $image) {
         $property->setAccessible(true);
         $filenameProperty=$object->getProperty($image->filenameProperty);
         $filenameProperty->setAccessible(true);        
-        return new UploadImage($instance, $property, $filenameProperty, $image->width, $image->height);
+        $scaleStrategy=self::createStrategy($image->strategy);
+        return new UploadImage($instance, $property, $filenameProperty, $image->width, $image->height,$scaleStrategy);
     }
     public static function createWithImageCollection(\ReflectionObject $object,$instance,ImageCollection $imageCollection) {
         $property=$object->getProperty($imageCollection->fileProperty);
         $property->setAccessible(true);
         $filenameProperty=$object->getProperty($imageCollection->filenameProperty);
         $filenameProperty->setAccessible(true);        
-        return new UploadImage($instance, $property, $filenameProperty, $imageCollection->width, $imageCollection->height);
+        $scaleStrategy=self::createStrategy($imageCollection->strategy);
+        return new UploadImage($instance, $property, $filenameProperty, $imageCollection->width, $imageCollection->height,$scaleStrategy);
+    }
+    
+    private static function createStrategy($strategy) {
+        if($strategy=='ratio') {
+            return new RetainRatioStrategy();
+        }
+        return new RetainSizeStrategy();
     }
 
     
-    private function __construct($instance, \ReflectionProperty $property,\ReflectionProperty $filenameProperty,$width,$height)
+    private function __construct($instance, \ReflectionProperty $property,\ReflectionProperty $filenameProperty,$width,$height,$scaleStrategy)
     {
         $property->setAccessible(true);
         $filenameProperty->setAccessible(true);        
@@ -53,6 +63,7 @@ class UploadImage
         $this->filenameProperty=$filenameProperty;
         $this->width=$width;
         $this->height=$height;
+        $this->scaleStrategy=$scaleStrategy;
     }
     
     public function setFilename($filename)
@@ -89,4 +100,10 @@ class UploadImage
     public function getInstance() {
         return $this->instance;
     }
+    
+    public function getScaleStrategy() {
+        return $this->scaleStrategy;
+    }
+
+
 }

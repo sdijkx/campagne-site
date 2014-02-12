@@ -110,7 +110,7 @@ class PublishedItemController extends Controller
         {
             return array(
                 array(
-                    'url' => $this->generateUrl('hoofdstuk',array('slug'=>$hoofdstuk)),
+                    'url' => $this->generateUrl('hoofdstuk',array('slug'=>$hoofdstuk->getSlug())),
                     'name' => $item->getHoofdstuk()->getTitel()
                 ),
                 array(

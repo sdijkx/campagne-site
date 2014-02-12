@@ -16,18 +16,12 @@
     along with GroenLinks Zeist Campagnesite.  If not, see <http://www.gnu.org/licenses/>.
     
 */
-namespace GLZeist\Bundle\ProgrammaBundle\Annotation;
 
-/**
- * @Annotation
- * @Target({"PROPERTY"})
- */
+namespace GLZeist\Bundle\ProgrammaBundle\Listener;
 
-class ImageCollection {
-    
-    public $filenameProperty;
-    public $fileProperty;
-    public $width;
-    public $height;
-    public $strategy='size';
+interface ScaleStrategy {
+    /**
+     * return array ( sx => x offset in dest , sy => y offset in dest, scaledWidth => width in dest, scaledHeight => height in dest, width => dest width, height => dest height)
+     */
+    public function scale($width,$height,$srcWidth,$srcHeight);
 }

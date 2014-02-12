@@ -11,6 +11,7 @@
         <parameter key="gl_zeist_programma.request_listener.class">GLZeist\Bundle\ProgrammaBundle\Listener\RequestListener</parameter>        
         <parameter key="gl_zeist_programma.publish_service.class">GLZeist\Bundle\ProgrammaBundle\PublishService</parameter>        
         <parameter key="gl_zeist_programma.fulltext_search_service.class">GLZeist\Bundle\ProgrammaBundle\FullTextSearchService</parameter>                
+        <parameter key="gl_zeist_programma.trefwoord_service.class">GLZeist\Bundle\ProgrammaBundle\TrefwoordService</parameter>                
         <parameter key="gl_zeist_programma.rss.class">GLZeist\Bundle\ProgrammaBundle\RSS</parameter>                
         <parameter key="gl_zeist_programma.site.class">GLZeist\Bundle\ProgrammaBundle\Site</parameter>                
         <parameter key="gl_zeist_programma.menu.class">GLZeist\Bundle\ProgrammaBundle\Menu</parameter>                        
@@ -43,6 +44,11 @@
         <service id="gl_zeist_programma.fulltext_search_service" class="%gl_zeist_programma.fulltext_search_service.class%">
             <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
+        
+        <service id="gl_zeist_programma.trefwoord_service" class="%gl_zeist_programma.trefwoord_service.class%">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+        
 
         <service id="gl_zeist_programma.afbeeldingen_service" class="%gl_zeist_programma.afbeeldingen_service.class%">
             <argument>%upload_dir%</argument>

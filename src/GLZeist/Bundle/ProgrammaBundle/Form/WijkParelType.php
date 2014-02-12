@@ -40,7 +40,14 @@ class WijkParelType extends AbstractType
                 'prototype'=>true,
                 'allow_add'=>true,
                 'allow_delete'=>true,
-                'by_reference'=>false));
+                'by_reference'=>false))
+            ->add('trefwoorden','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Trefwoord',
+                'query_builder'=> function($repos) {
+                            return $repos->createQueryBuilder('t')->orderBy('t.trefwoord','ASC'); 
+                            
+                            }))
+
+            ;
 
         
                 

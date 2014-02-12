@@ -1,8 +1,16 @@
 <article class="list-item">
     <h2 class="titel">
-        <a title="{{wijkparel.titel}}" href="{{path('wijk_detail',{slug:wijkparel.wijk.slug})~'#'~wijkparel.slug}}">{{wijkparel.titel}}</a>
+        <a title="{{wijkparel.titel}}" href="{{path('wijk_detail',{slug:wijkparel.wijk.slug})~'#'~wijkparel.slug}}">{{wijkparel.titel}}</a>&nbsp;({{wijkparel.wijk.wijk}})
     </h2>
     <div class="tekst">
-        {{wijkparel.tekst|raw}}
+        {{wijkparel.samenvatting|raw}}
     </div>
+    {%if wijkparel.trefwoorden|length > 0 %}
+        <div class="trefwoorden">
+            <strong>Trefwoorden:</strong>
+            {%for trefwoord in wijkparel.trefwoorden %}
+                <a href="{{path('trefwoord',{slug:trefwoord.slug})}}" title="{{trefwoord.trefwoord}}">{{trefwoord.trefwoord}}</a>
+            {%endfor%}
+        </div>
+    {%endif%}
 </article>

@@ -89,7 +89,7 @@ class Wijk implements EntityMetAfbeeldingen
     /**
      * @ORM\OneToMany(targetEntity="Afbeelding",mappedBy="wijk",cascade={"all"})
      * @ORM\JoinColumn(nullable=true,onDelete="SET NULL")
-     * @App\ImageCollection(width=500,height=513,fileProperty="file",filenameProperty="imagefile")
+     * @App\ImageCollection(width=400,height=300,fileProperty="file",filenameProperty="imagefile",strategy="ratio")
      * @App\ImageCollection(width=120,height=92,fileProperty="file",filenameProperty="thumbfile") 
      */
     private $afbeeldingen;
