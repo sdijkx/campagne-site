@@ -105,7 +105,7 @@ class TrefwoordService
                 LEFT JOIN Thema AS i_th ON i_th.id=i.thema_id
 
                 LEFT JOIN wijk_trefwoord AS w_t ON w_t.trefwoord_id=t.id
-                LEFT JOIN wijk AS w ON w_t.wijk_id=w.id
+                LEFT JOIN Wijk AS w ON w_t.wijk_id=w.id
                 
                 LEFT JOIN wijkparel_trefwoord AS wp_t ON wp_t.trefwoord_id=t.id
                 LEFT JOIN WijkParel AS wp ON wp.id=wp_t.wijkparel_id
