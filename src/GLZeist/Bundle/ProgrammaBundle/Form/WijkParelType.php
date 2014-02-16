@@ -31,6 +31,7 @@ class WijkParelType extends AbstractType
         $builder->add('titel')
                 ->add('samenvatting')                 
                 ->add('tekst') 
+                ->add('promo') 
            ->add('links','collection',array('type'=> new LinkType(),
                 'prototype'=>true,
                 'allow_add'=>true,

@@ -59,6 +59,13 @@ class Kandidaat
     
     /**
      *
+     * @ORM\Column(type="text",nullable=true)
+     */    
+    private $promo;
+    
+    
+    /**
+     *
      * @ORM\Column(type="boolean",nullable=true)
      */    
     private $akkoord;
@@ -129,7 +136,15 @@ class Kandidaat
         return $this->personalia;
     }
     
+    public function getPromo() {
+        return $this->promo;
+    }
 
+    public function setPromo($promo) {
+        $this->promo = $promo;
+    }
+
+    
     public function setPersonalia($personalia) {
         $this->personalia = $personalia;
     }

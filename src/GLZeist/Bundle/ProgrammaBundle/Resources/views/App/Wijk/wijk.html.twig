@@ -73,3 +73,13 @@
 </div>
 
 {%endblock%}
+
+{%block rightcolumn%}
+    {%if wijk.promo %} 
+        {{glzeist.promotie_widget}}
+        <div class="promo">{{wijk.promo|raw}}</div>
+        {{glzeist.twitter_widget(site.twitter)}}    
+    {%else%}
+        {{parent()}}
+    {%endif%}
+{%endblock%}

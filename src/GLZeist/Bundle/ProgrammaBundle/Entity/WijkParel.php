@@ -70,6 +70,12 @@ class WijkParel implements EntityMetAfbeeldingen {
      */
     private $tekst;
     
+    /**
+     * @ORM\Column(name="promo", type="text",nullable=true)
+     */
+    private $promo;
+    
+    
     
     /**
      * @ORM\ManyToMany(targetEntity="Trefwoord")
@@ -128,7 +134,16 @@ class WijkParel implements EntityMetAfbeeldingen {
     public function setTekst($tekst) {
         $this->tekst = $tekst;
     }
+    
+    public function getPromo() {
+        return $this->promo;
+    }
 
+    public function setPromo($promo) {
+        $this->promo = $promo;
+    }
+
+    
 
     public function getImageFile() {
         return null;

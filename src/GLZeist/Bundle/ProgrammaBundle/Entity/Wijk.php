@@ -66,6 +66,12 @@ class Wijk implements EntityMetAfbeeldingen
      * @ORM\Column(name="tekst", type="text",nullable=true)
      */
     private $tekst;
+    
+    /**
+     * @ORM\Column(name="promo", type="text",nullable=true)
+     */
+    private $promo;
+    
 
     /**
      * @var string
@@ -149,6 +155,15 @@ class Wijk implements EntityMetAfbeeldingen
         $this->tekst = $tekst;
     }
     
+    public function getPromo() {
+        return $this->promo;
+    }
+
+    public function setPromo($promo) {
+        $this->promo = $promo;
+    }
+
+        
     public function getVideo() {
         return $this->video;
     }

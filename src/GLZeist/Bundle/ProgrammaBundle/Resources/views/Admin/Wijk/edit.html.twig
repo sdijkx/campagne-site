@@ -46,6 +46,7 @@
     {{ form_row(form.metaDescription) }}
     {{ form_row(form.samenvatting) }}
     {{ form_row(form.tekst) }}
+    {{ form_row(form.promo) }}
 
     {% form_theme form.links 'GLZeistProgrammaBundle:Admin/Item:links_collection_widget.html.twig' %}
     <div class="form_row">
@@ -72,6 +73,7 @@
     require(["ckeditor/ckeditor"], function() {
         CKEDITOR.replace('glzeist_bundle_programmabundle_wijktype_samenvatting');
         CKEDITOR.replace('glzeist_bundle_programmabundle_wijktype_tekst');
+        CKEDITOR.replace('glzeist_bundle_programmabundle_wijktype_promo');
     });
 </script>
 

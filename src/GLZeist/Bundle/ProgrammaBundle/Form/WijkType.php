@@ -32,6 +32,7 @@ class WijkType extends AbstractType
         ->add('metaDescription')
         ->add('samenvatting')
         ->add('tekst')
+        ->add('promo') 
             ->add('trefwoorden','entity',array('expanded'=>true,'multiple'=>true,'class' => 'GLZeistProgrammaBundle:Trefwoord',
                 'query_builder'=> function($repos) {
                             return $repos->createQueryBuilder('t')->orderBy('t.trefwoord','ASC'); 

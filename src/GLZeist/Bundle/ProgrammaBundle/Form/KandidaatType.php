@@ -56,6 +56,7 @@ class KandidaatType extends AbstractType
                 'required' => false 
             ))
             ->add('personalia', 'textarea',array('required'=>false,'attr'=>array('class'=>'large')))
+            ->add('promo', 'textarea',array('required'=>false))
             ->add('file','file',array('required'=>false,'label'=>'Foto'));
         ;
     }
