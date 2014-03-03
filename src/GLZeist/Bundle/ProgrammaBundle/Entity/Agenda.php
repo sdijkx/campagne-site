@@ -27,8 +27,9 @@ use GLZeist\Bundle\ProgrammaBundle\Annotation as App;
 
 /**
  *
- * @ORM\Table()
- * @ORM\Entity
+ *  TODO
+ *  ORM\Table()
+ *  ORM\Entity
  */
 
 class Agenda {

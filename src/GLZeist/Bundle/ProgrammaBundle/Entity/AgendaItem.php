@@ -1,4 +1,4 @@
-uiu<?php
+<?php
 
 /*
  * To change this template, choose Tools | Templates
@@ -13,7 +13,4 @@ uiu<?php
 class AgendaItem {
     //put your code here
 }
-
-?>
-
 
