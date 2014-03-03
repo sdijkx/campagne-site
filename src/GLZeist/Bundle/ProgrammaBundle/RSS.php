@@ -32,8 +32,10 @@ class RSS
         
         $rss=new \DOMDocument();
         $rss->load($this->feed);
+        
+        
         $channel=$rss->getElementsByTagName('channel')->item(0);
-
+        
         if($filter!=null) {
             $query=new \DOMXPath($rss);
             $itemList=$query->evaluate($filter);
@@ -57,7 +59,6 @@ class RSS
         {
             $item=$itemList->item($i);
             
-            
             $children=$item->childNodes;
             
             $result=array();
@@ -69,6 +70,7 @@ class RSS
                     $result[$child->nodeName]=$this->_map($child->nodeName,$child->textContent);
                 }
             }
+            
             if(count($result)>0)
             {
                 $results[]=$result;

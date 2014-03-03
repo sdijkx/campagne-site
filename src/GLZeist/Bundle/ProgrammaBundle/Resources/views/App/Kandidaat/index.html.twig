@@ -2,9 +2,18 @@
 {%block title%}Personen{%endblock%}
 {%block content%}
     <section>
+        <div style="text-align:center;margin:5px;">
+            <iframe id="player" type="text/html" width="612" height="372"
+                src="http://www.youtube.com/embed/zsh3UgVuqN4?enablejsapi=1&origin=http://www.groenlinkszeist.nl"
+                frameborder="0">
+            </iframe>    
+        </div>
+    </section>
+    <section>
         <h1 class="header">Kandidatenlijst</h1>
         {%for kandidaat in kandidaten%}
             {%include 'GLZeistProgrammaBundle:App/Default:includes/kandidaat-list-entry.html.twig'%}
         {%endfor%}
     </section>
 {%endblock%}
+
