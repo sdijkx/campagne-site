@@ -54,6 +54,9 @@ after "symfony:doctrine:schema:update" do
         end
 end
 
+after "symfony:doctrine:schema:update", "symfony:assetic:dump"
+after "symfony:doctrine:schema:update", "symfony:assets:install"
+
  
 set :mysql_admin_user, "glzeist"
 set :mysql_db, "glzeist"
