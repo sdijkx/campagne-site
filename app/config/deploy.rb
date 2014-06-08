@@ -8,6 +8,8 @@ set :repository,  "https://github.com/sdijkx/campagne-site.git"
 set :scm,         :git
 
 set :model_manager, "doctrine"
+set :copy_vendors, true
+
 
 role :web,        domain                         # Your HTTP server, Apache/etc
 role :app,        domain, :primary => true       # This may be the same as your `Web` server
@@ -28,9 +30,21 @@ set :branch, `git tag`.split("\n").last
 set :user, "deploy"
 set :use_sudo, false
 ssh_options[:port] = "9753"
-#ssh_options[:forward_agent] = true
-#ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "KEY FILE NAME")]
+
  
+before 'symfony:composer:update', 'symfony:copy_vendors'
+
+namespace :symfony do
+  desc "Copy vendors from previous release"
+  task :copy_vendors, :except => { :no_release => true } do
+    if Capistrano::CLI.ui.agree("Do you want to copy last release vendor dir then do composer install ?: (y/N)")
+      capifony_pretty_print "--> Copying vendors from previous release"
+
+      run "cp -a #{previous_release}/vendor #{latest_release}/"
+      capifony_puts_ok
+    end
+  end
+end
   
 # Run migrations before warming the cache
 #before "symfony:cache:warmup", "symfony:doctrine:migrations:migrate"
@@ -38,7 +52,6 @@ ssh_options[:port] = "9753"
 #after "symfony:composer:install" do 
 #    run "git apply --whitespace=nowarn --directory=#{release_path}/vendor/doctrine/orm #{release_path}/doctrine_object_hydrator.patch"
 #end
-
 
 after "symfony:composer:install", "symfony:doctrine:schema:update"
 
